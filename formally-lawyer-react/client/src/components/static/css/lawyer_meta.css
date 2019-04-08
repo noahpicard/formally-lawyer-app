@@ -1,0 +1,28 @@
+.meta_part{
+    margin-left: 5%;
+
+}
+button{
+    border: none;
+    background-color: Transparent;
+
+}
+.cyan{
+    color: #1EBABA;
+}
+
+#container{
+    width: 25%;
+    background-color: #1EBABA;
+    border-radius: 13px;
+
+
+}
+.divider{
+    width: 85%;
+}
+
+h3{
+    position: relative;
+    margin-left: 5%;
+}
