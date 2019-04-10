@@ -6,12 +6,27 @@ import Typography from '@material-ui/core/Typography';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+  },
+  nested: {
+    paddingLeft: theme.spacing.unit * 4,
   },
   search: {
     position: 'relative',
@@ -57,12 +72,21 @@ const styles = theme => ({
 class ClientList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {open: [false, false, false]}
   }
+
+
+  handleClick = (i) => {
+    let temp = this.state.open
+    temp[i] = !temp[i]
+    this.setState({ open: temp });
+    console.log(this.state.open);
+  };
 
 
   render () {
     const { classes } = this.props;
+    console.log(this.state.open);
     return (
       <div>
         <Paper className={classes.root} elevation={1}>
@@ -78,9 +102,54 @@ class ClientList extends React.Component {
               }}
             />
           </div>
-          <Typography component="p">
-            Client List
-          </Typography>
+          <List
+            component="nav"
+            subheader={<ListSubheader component="div">Results</ListSubheader>}
+            className={classes.root}
+          >
+            <ListItem button onClick={() => { this.handleClick(0) }}>
+              <ListItemText inset primary="Gokul Ajith" />
+              {this.state.open[0] ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={this.state.open[0]} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button className={classes.nested}>
+                  <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" />
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <ListItemText inset primary="Application for Employment Authorization  - I-765" />
+                </ListItem>
+              </List>
+            </Collapse>
+            <ListItem button onClick={() => { this.handleClick(1) }}>
+              <ListItemText inset primary="Michael Bar" />
+              {this.state.open[1] ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={this.state.open[1]} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button className={classes.nested}>
+                  <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" />
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <ListItemText inset primary="Application for Employment Authorization  - I-765" />
+                </ListItem>
+              </List>
+            </Collapse>
+            <ListItem button onClick={() => { this.handleClick(2) }}>
+              <ListItemText inset primary="Benjamin Deckey" />
+              {this.state.open[2] ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={this.state.open[2]} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button className={classes.nested}>
+                  <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" />
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <ListItemText inset primary="Application for Employment Authorization  - I-765" />
+                </ListItem>
+              </List>
+            </Collapse>
+          </List>
         </Paper>
       </div>
     );

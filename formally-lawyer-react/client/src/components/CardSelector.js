@@ -49,8 +49,8 @@ class CardSelector extends React.Component {
             <Tab label="Generate Key" className={classes.tab}/>
           </Tabs>
         </AppBar>
-        {value === 1 && <ClientList/>}
-        {value === 0 && <KeyGenerator/>}
+        {value === 0 && <ClientList/>}
+        {value === 1 && <KeyGenerator/>}
       </div>
     );
   }
