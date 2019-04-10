@@ -1,67 +1,81 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-class App extends Component {
-  state = {
-    response: '',
-    post: '',
-    responseToPost: '',
-  };
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-  .catch(err => console.log(err));
-  }
-  callApi = async () => {
-  const response = await fetch('/api/hello');
-  const body = await response.json();
-  if (response.status !== 200) throw Error(body.message);
-  return body;
-};
-handleSubmit = async e => {
-  e.preventDefault();
-  const response = await fetch('/api/world', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+import Header from './components/header.js'
+import AccountHome from './components/AccountHome.js'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  typography: {
+    // https://material-ui.com/style/typography/#migration-to-typography-v2
+    useNextVariants: true,
+    fontFamily: [
+      'soleil',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    h1: {
+      fontFamily: 'mrs-eaves-xl-serif',
+      color: '#01BABB',
     },
-    body: JSON.stringify({ post: this.state.post }),
-  });
-  const body = await response.text();
-  this.setState({ responseToPost: body });
-};
+    h2: {
+      fontFamily: 'mrs-eaves-xl-serif',
+      color: '#01BABB',
+    },
+    h3: {
+      fontFamily: 'mrs-eaves-xl-serif',
+      color: '#01BABB',
+    },
+    h4: {
+      fontFamily: 'mrs-eaves-xl-serif',
+      color: '#01BABB',
+    },
+    h5: {
+      fontFamily: 'mrs-eaves-xl-serif',
+      color: '#01BABB',
+    },
+    body1: {
+      fontFamily: 'soleil',
+    },
+    body2: {
+      fontFamily: 'soleil',
+    },
+
+  },
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#01BABB',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: '#f0f0f0',
+      main: '#f0f0f0',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#7d7d7d',
+    },
+    // error: will use the default color
+  },
+});
+
+class App extends Component {
+
 render() {
-  return (
-    <div className="App">
-    <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <p>
-    Edit <code>src/App.js</code> and save to reload.
-    </p>
-    <a
-  className="App-link"
-  href="https://reactjs.org"
-  target="_blank"
-  rel="noopener noreferrer"
-    >
-    Learn React
-  </a>
-  </header>
-  <p>{this.state.response}</p>
-  <form onSubmit={this.handleSubmit}>
-<p>
-  <strong>Post to Server:</strong>
-  </p>
-  <input
-  type="text"
-  value={this.state.post}
-  onChange={e => this.setState({ post: e.target.value })}
-  />
-  <button type="submit">Submit</button>
-    </form>
-    <p>{this.state.responseToPost}</p>
-  </div>
-);
+  return (<div>
+              <MuiThemeProvider theme={theme}>
+                <Header/>
+                <AccountHome/>
+              </MuiThemeProvider>
+          </div>);
 }
 }
 export default App;
