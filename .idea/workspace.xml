@@ -2,7 +2,125 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b41b3ece-b23e-466a-ad61-e5723830ebb2" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/components/body.jsx" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/components/header.jsx" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/components/lawyer_meta.jsx" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/components/static/css/header.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/components/static/css/lawyer_meta.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/components/static/images/Logo.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/yarn.lock" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/BDeckey.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/formally-lawyer-app.iml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/.gitignore" afterPath="$PROJECT_DIR$/formally-lawyer-react/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/00d5ab3aad165bc8a25427e291c12777.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/0220195ee972c4e01c71a45fcb12152e.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/025ecee363e7b2dffc8462a13fadc589.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/03303987ce9037d975114c3372006f17.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/04cda79a62fe6c7db484bfca3c33dee6.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/06956ac67befbb244021fec2512141b3.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/07145e37f791e2e9eaa6e35f32b6e860.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/08e0337fc097146c0fa7182309c08bac.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/0b70c5380d5f4f2ce3e546b11ce2abb6.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/0d1398a4cf36c31452eaeb6cbb0bfd4d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/0e51e0a21248bff50af295a3d8fdda58.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/15cd679573bb3d305fe7c551de9143b2.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/16bbf6a7b954c81b1b4baa99e113c201.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/180a08f918b2ad34671944c9de909563.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/1d463171f4363edbc8cbf6b279c87fc5.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/210cd5182d7856b8ce992d7328b17dbe.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/260e54cfe46bdcba896cbc9e3f64568f.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/2648c624bd2cad79bb2c4203f38d131b.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/27be473153de74f23439007c54e64b0e.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/28008751040e055e217ba4298f3a0080.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/2b50638a26208d6cd95bd423b829eced.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/2ec4d28fb385f7170e2d9895954e0744.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/335b5951d364a7817c4fb525e59ba926.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/34178b5e8eafada66aae4486d8a7d6ee.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/35b10df1db1e20fc984233dc4c6eaf74.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/3ad6038700e2ab9725ee51fc5e99962d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/426452777bc3662faa7b638c1cf34058.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/42893757d2f697dd02ac3e4283fb66b7.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/43a1ba32d83fae622d88e4a6894c72f1.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/4a4269597fc1d45f1c934b26917e714c.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/4a6aa66728c5948692ecee57cb6a91cc.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/4cfd2dea1232f46e6e243e235d88dc00.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/51469120ee1e741259d625bad55787f4.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/518221dfe3cdc419b18d0e93efaf4fcb.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/52d0b148fb67db8b7400eb938d79cb5d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/57d71ae29eff9dc536c33dfb476bbb18.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/58be038a9ab415fc91337b041cdd4d1f.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/5e661fbf02cddc2385fd128b80203a83.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/630d832d8fb09b076c89aa43c2ff8d69.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/647bfda30d7038c518e61d1aecff7cb3.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/688e58478b8960f81c4b3eb2f3f6c946.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/68c61f193976f5bf0d5bdc321cc5c889.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/6ac59cdd92a4c5a098ce7faf3bef678a.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/6caf18dec9eb1a269d4b7c8e16d82d4d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/6d635ad99a57dbfdde6c2d4f7f13a664.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/6e34c7e6c37b357513d51ee03a8d7759.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/6eed9e1eb6a781663af68e78ee7c5fc4.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/700fdc899f1cac4513aeced5e44b1ad0.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/70d00c78e8f47d93c47c6ea8264fdc8c.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/70daab0ecbadcc64dbd43c01f7f4151e.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/73527519113120b6feeea6c5cc7fea8b.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/737d3df639ca5db558055caf19186a33.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/76c9ef80e182e957112947238c35e773.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/825fb84d5c505d8f9e2807b69e0f76a0.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/843235ce47bfb8c7784da37c0dee7736.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/8603e52c4c4460a0688c0f0ce2ad5ac4.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/87b9c76044526cbc45c76d95c38b2917.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/89072d94d379e34c796cbe7c8c6e7dcf.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/8b056d974031ffd2895d004bb6a3d8d2.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/8e99682501f71df22e2211da13feaa0b.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/8f621ef7c22bfc8b1dbb3fc3451ef71d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9288c3b71616c243eab09715fa8d137d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/946a9d0cf26ddbe49266947716244504.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9571762d61258d721e2da7dc714e45d2.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9a6b6f8cc1ab226f5d24f5c41a3e9e1d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9b8f6725921959c8930ad8837a472a6f.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9d9922cdf551c62491fd12b638eee9b5.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9e9a9f1b85309d0f7713eb4090fa046e.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/9edd5c5d35c6c73dc2c8ee874e3d6bad.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/a3b844536d3c04d3fd267d7a9844643d.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/a45da3646564bcf25563bc9caddbbce5.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/a7e54c9260bf2a9ee8659c5a35f07aaa.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/a7faed3974fc10f99c0f974a658c19ca.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/a87d8a3381bbd679e980d633a4ed7b2b.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/a9fc74e1db1b32f9118d6d12390943e5.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/b227dac20e19d276bd4323ad086ab3e0.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/b2e4bffd803a07372d2a2ec1c1d5dc98.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/b35705e12dc452f1c96d91a5e8fd1ee9.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/ba5fc75b75cb97b86227d6f59f0150bb.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/bb322aa5af7c3998de6344d10b8d4c62.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/c18a77cda4fdc5d0d5b28fee14f45ee0.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/c6b3c87ca9f72d5a6847d6cbce0f8fe7.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/c7501a1ee4819292e58d51936b89e7c7.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/c76c0e693719c77d29ccb6313c4048a6.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/caa3a76e93cc07c24eda3063f97f1d33.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/cb1a7be7cbed7fc90f83e72b4adab310.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/d18243e063501e21366deef32c687451.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/d1b47f27d635570a5645167c4fa615e1.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/d4baf9c1fc06038ddb77b8cd3e6e28fc.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/d58e42be44f2b98136e86a70a21504da.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/d766614ae93ab485a1d3d5342056d166.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/daf987f1cb754087ecbeaafc73f4e265.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/db8f705d655ac8156958e18650071a0c.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/e7b14ba78ec47b405be00ede8fa22057.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/ec8acca3b645f28f6db3d8d0a8e4513e.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/efe27f871883c9cc1686638abbfb47ff.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/f2f93e56ee448b149cff1803b1dcc535.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/f4319d87c7328778f93190fd03d0c6d8.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/f47289d465eb9db044508fb7c530bc15.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/f757d2e9d3231ecc16d39d6efa1a3851.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/node_modules/.cache/babel-loader/fd11bc95e44bc28df26e83a38076a9b7.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/src/index.js" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/src/index.js" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/package-lock.json" afterPath="$PROJECT_DIR$/formally-lawyer-react/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/yarn.lock" afterPath="$PROJECT_DIR$/formally-lawyer-react/yarn.lock" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,38 +137,12 @@
     </option>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/formally-lawyer-react/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/formally-lawyer-react/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/src/App.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Head</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -719,7 +811,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
@@ -737,7 +829,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -755,8 +846,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -885,39 +977,39 @@
       <updated>1554310187305</updated>
       <workItem from="1554310189456" duration="1387000" />
       <workItem from="1554671575965" duration="821000" />
+      <workItem from="1554861076943" duration="60000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2208000" />
+    <option name="totallyTimeSpent" value="2268000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -939,6 +1031,30 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/formally-lawyer-react/package.json">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/formally-lawyer-react/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/formally-lawyer-react/package.json">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
@@ -949,10 +1065,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="65" lean-forward="false" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
-          <folding>
-            <marker date="1554310599066" expanded="true" signature="258:265" ph="{...}" />
-            <marker date="1554310599066" expanded="true" signature="348:359" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -960,7 +1072,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -990,19 +1101,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1016,8 +1118,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/formally-lawyer-react/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        <state relative-caret-position="180">
+          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
           <folding />
         </state>
       </provider>
