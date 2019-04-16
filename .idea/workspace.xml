@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b41b3ece-b23e-466a-ad61-e5723830ebb2" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/formally-lawyer-app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/formally-lawyer-react/client/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/formally-lawyer-react/formally-lawyer.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/formally-lawyer-react/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/formally-lawyer-react/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/formally-lawyer-react/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/formally-lawyer-react/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/formally-lawyer-react/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="53" column="14" lean-forward="true" selection-start-line="53" selection-start-column="14" selection-end-line="53" selection-end-column="14" />
+            <state relative-caret-position="493">
+              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
             </state>
           </provider>
         </entry>
@@ -731,7 +725,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555441708105" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555443023696" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../assignment4_dev" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -811,12 +805,12 @@
       <workItem from="1554861183414" duration="33000" />
       <workItem from="1555356579230" duration="206000" />
       <workItem from="1555357138141" duration="84000" />
-      <workItem from="1555438954380" duration="2564000" />
+      <workItem from="1555438954380" duration="4022000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5182000" />
+    <option name="totallyTimeSpent" value="6640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -930,8 +924,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/formally-lawyer-react/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="53" column="14" lean-forward="true" selection-start-line="53" selection-start-column="14" selection-end-line="53" selection-end-column="14" />
+        <state relative-caret-position="493">
+          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
         </state>
       </provider>
     </entry>
