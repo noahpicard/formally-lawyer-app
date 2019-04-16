@@ -8,9 +8,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // db to store messages and rooms
 const db = require('any-db');
 const conn = db.createConnection('sqlite3://formally-lawyer.db');
-conn.query("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, email varchar(60), first_name varchar(60)," +
-  "last_name varchar(60), password varchar(60), Created date DATE)");
+conn.query("CREATE TABLE IF NOT EXISTS Users (email varchar(60) PRIMARY key, first_name varchar(60) not null," +
+  "last_name varchar(60) not null, password varchar(60) not null, Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
 
+
+conn.query("CREATE TABLE IF NOT EXISTS Clients (email varchar(60) PRIMARY key," +
+    "    firstName TEXT NOT NULL," +
+    "    middleName TEXT DEFAULT NULL," +
+    "    lastName TEXT NOT NULL," +
+    "    groupID INTEGER DEFAULT NULL," +
+    "    userClientID INTEGER DEFAULT NULL UNIQUE," +
+    "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"+
+    ");");
 
 conn.end();
 
@@ -20,13 +29,42 @@ app.get('/api/hello', (req, res) => {
 
 
 app.post('/api/signin', (req, res) => {
+
   console.log(req.body);
+
+
   res.send(req.body);
 });
 
+/*email: "mich@brown.edu"
+firstName: "Michael"
+lastName: "Bardakji"
+password: "123"
+phone: ""
+*/
+
 app.post('/api/signup', (req, res) => {
+  const conn = db.createConnection('sqlite3://formally-lawyer.db');
+
+
+    const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
+
+  conn.query(insert, [req.body.email, req.body.firstName, req.body.lastName, req.body.password],function (error, data) {
+
+    if(error){
+      const to_return = {error:error}
+      res.send(to_return)
+    }else{
+        delete req.body["password"];
+        console.log(req.body)
+        res.send(req.body);
+
+    }
+      
+  });
+  conn.end()
   console.log(req.body);
-  res.send(req.body);
+
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
