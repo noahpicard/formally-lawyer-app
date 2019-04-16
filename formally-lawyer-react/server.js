@@ -29,19 +29,29 @@ app.get('/api/hello', (req, res) => {
 
 
 app.post('/api/signin', (req, res) => {
+  console.log(req.body)
+  const check = "select * from Users where email = ? and password = ?"
+    const conn = db.createConnection('sqlite3://formally-lawyer.db');
+    conn.query(check,[req.body.email, req.body.password], function (error,data) {
+        if (error){
+          console.log("SIGN IN ERR should never call")
+          console.log(error)
+        } else{
+            if(data.rowCount == 0){
+              res.send({error:"invalid login"})
+            }else{
+                delete data.rows[0].password
+                res.send(data.rows[0])
+            }
 
-  console.log(req.body);
+
+        }
+    })
 
 
-  res.send(req.body);
 });
 
-/*email: "mich@brown.edu"
-firstName: "Michael"
-lastName: "Bardakji"
-password: "123"
-phone: ""
-*/
+
 
 app.post('/api/signup', (req, res) => {
   const conn = db.createConnection('sqlite3://formally-lawyer.db');
@@ -56,7 +66,7 @@ app.post('/api/signup', (req, res) => {
       res.send(to_return)
     }else{
         delete req.body["password"];
-        console.log(req.body)
+        //console.log(req.body)
         res.send(req.body);
 
     }
