@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/header.js'
 import AccountHome from './components/AccountHome.js'
+import Landing from './components/Landing.js'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { connect } from 'react-redux';
+import { storeUser } from './actions/storeUser';
+
 
 const theme = createMuiTheme({
   typography: {
@@ -69,13 +75,42 @@ const theme = createMuiTheme({
 
 class App extends Component {
 
+  sAction = (event) => {
+    this.props.storeUser({first_name:"ben"});
+  }
+
 render() {
   return (<div>
               <MuiThemeProvider theme={theme}>
-                <Header/>
-                <AccountHome/>
+                <BrowserRouter>
+                  <div>
+                    <Header />
+                    <Switch>
+                      <Route path="/" exact component={Landing} />
+                      <Route path="/Home" exact component={AccountHome} />
+                    </Switch>
+                    {/* <Footer /> */}
+                  </div>
+                </BrowserRouter>
               </MuiThemeProvider>
           </div>);
 }
 }
-export default App;
+
+const mapDispatchToProps = dispatch => ({
+  storeUser: string => dispatch(storeUser(string))
+})
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+//
+// {/*<button onClick={this.sAction}>Test redux action</button>*/}
+// {/*<pre>*/}
+// {/*{*/}
+// {/*JSON.stringify(this.props)*/}
+// {/*}*/}
+// {/*</pre>*/}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
