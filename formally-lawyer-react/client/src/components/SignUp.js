@@ -58,7 +58,6 @@ class SignUp extends React.Component {
           Sign up
         </Typography>
         <form onSubmit={this.signUp}>
-
           <FormControl margin="normal" required fullWidth >
             <InputLabel htmlFor="firstName">First Name</InputLabel>
             <Input id="firstName" name="firstName" autoComplete="firstName" onChange={this.handleChange('firstName')} autoFocus />
