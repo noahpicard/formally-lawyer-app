@@ -25,3 +25,4 @@ yarn-error.log*
 
 client/node_modules
 /.idea
+.idea/workspace.xml
