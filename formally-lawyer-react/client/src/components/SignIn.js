@@ -13,18 +13,35 @@ class SignIn extends React.Component {
     email: '', password: '', error: false, errorMsg: '', redirect: false,
   };
 
+  // componentDidMount() {
+  //   this.callApi()
+  //     .then(res => this.setState({ response: res.express }))
+  //     .catch(err => console.log(err));
+  // }
+  // callApi = async () => {
+  //   const response = await fetch('/api/hello');
+  //   const body = await response.json();
+  //   if (response.status !== 200) throw Error(body.message);
+  //   return body;
+  // };
+
+  signIn = async e => {
+    e.preventDefault();
+    const response = await fetch('/api/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: this.state.email, password: this.state.password }),
+    });
+    const body = await response.json();
+    console.log(body);
+  };
+
+
   handleChange = name => (event) => {
     this.setState({ [name]: event.target.value });
   };
-
-  // function called when signin form is non empty
-  // and the sign in button is clicked/pressed
-  onSubmit = (e) => {
-    // prevents making an HTTP req with email & password in url
-    e.preventDefault();
-    const { email, password } = this.state;
-    // this.signIn(email, password);
-  }
 
 
   render() {
@@ -34,7 +51,7 @@ class SignIn extends React.Component {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form  onSubmit={this.onSubmit}>
+        <form  onSubmit={this.signIn}>
           <FormControl margin="normal" required fullWidth >
             <InputLabel htmlFor="email">Email Address</InputLabel>
             <Input id="email" name="email" autoComplete="email" onChange={this.handleChange('email')} autoFocus />
