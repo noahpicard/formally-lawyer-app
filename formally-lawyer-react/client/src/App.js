@@ -108,11 +108,11 @@ const mapStateToProps = state => ({
 })
 
 //
-// {/*<button onClick={this.sAction}>Test redux action</button>*/}
-// {/*<pre>*/}
-// {/*{*/}
-// {/*JSON.stringify(this.props)*/}
-// {/*}*/}
-// {/*</pre>*/}
+{/*<button onClick={this.sAction}>Test redux action</button>*/}
+{/*<pre>*/}
+{/*{*/}
+{/*JSON.stringify(this.props)*/}
+{/*}*/}
+{/*</pre>*/}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

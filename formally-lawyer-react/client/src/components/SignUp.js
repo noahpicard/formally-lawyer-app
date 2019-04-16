@@ -8,6 +8,12 @@ import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
 import Input from '@material-ui/core/es/Input/Input'
 import withStyles from '@material-ui/core/es/styles/withStyles'
 
+
+import { connect } from 'react-redux';
+import { redirect } from '../actions/redirect';
+
+
+
 const styles = theme => ({
   error: {
     color: "red",
@@ -17,11 +23,14 @@ const styles = theme => ({
 
 
 class SignUp extends React.Component {
-  state = {
+  state = { toHome: false,
     firstName: '', lastName: '', email: '', password: '', confPassword: '', phone: '', error: false, errorMsg: '', redirect: false,
   };
 
   handleChange = name => (event) => {
+    if (this.state.errorMsg !== '') {
+      this.setState({ errorMsg: ''})
+    }
     this.setState({ [name]: event.target.value });
   };
 
@@ -46,13 +55,24 @@ class SignUp extends React.Component {
                              phone: this.state.phone,}),
     });
     const body = await response.json();
-    console.log(body);
+    if ("error" in body) {
+      this.setState({ errorMsg: "An account already exists with this email."})
+      return false;
+    }
+    else if ("firstName" in body) {
+      this.props.redirect();
+    }
+    return false;
   };
 
 
   render() {
     const { classes } = this.props;
+
+
+
     return (
+
       <div>
         <Typography component="h1" variant="h5">
           Sign up
@@ -106,4 +126,12 @@ SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignUp);
+const mapDispatchToProps = dispatch => ({
+  redirect: () => dispatch(redirect())
+})
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignUp));

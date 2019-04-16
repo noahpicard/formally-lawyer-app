@@ -3,22 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../Logo.png';
 import Modal from '@material-ui/core/Modal';
-import Paper from '@material-ui/core/es/Paper/Paper'
-import Avatar from '@material-ui/core/es/Avatar/Avatar'
-import FormControl from '@material-ui/core/es/FormControl/FormControl'
-import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
-import Input from '@material-ui/core/es/Input/Input'
-import FormControlLabel from '@material-ui/core/es/FormControlLabel/FormControlLabel'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Checkbox from '@material-ui/core/es/Checkbox/Checkbox';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import { connect } from 'react-redux'
+
 
 const styles = theme => ({
   root: {
@@ -98,6 +89,7 @@ class ButtonAppBar extends React.Component {
     const { signUpSignIn } = this.state;
 
 
+
     const signUp = (<div>
                       <SignUp />
                       Have an Account?
@@ -144,4 +136,10 @@ ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ButtonAppBar);
+const mapDispatchToProps = dispatch => ({})
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ButtonAppBar));
