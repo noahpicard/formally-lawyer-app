@@ -26,3 +26,5 @@ yarn-error.log*
 client/node_modules
 /.idea
 .idea/workspace.xml
+
+formally-lawyer.db
