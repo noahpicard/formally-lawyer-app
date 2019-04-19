@@ -72,29 +72,40 @@ const styles = theme => ({
     
 });
 
-function getForms(){
-    
-        //Return list with forms from database in structure {name, status}, auto displayed in table
-        let form1 = {name: "Form1(b) - Immigration Form", status: "Pending"};
-        let form2 = {name: "Form 1(c) - Assylum Petition", status: "Completed"};
-        let form3 = {name: "Form 1(d) - H1-Visa Form", status: "Denied"};
-        return [form1, form2, form3];
-    }
+    function getForms(){
 
-function getColor(status){
-    if(status == "Pending"){
-        return "gold";
-    }else if(status == "Completed"){
-        return "green";
-    }else{
-        return "red";
+            //Return list with forms from database in structure {name, status}, auto displayed in table
+            let form1 = {name: "Form1(b) - Immigration Form", status: "Pending"};
+            let form2 = {name: "Form 1(c) - Assylum Petition", status: "Completed"};
+            let form3 = {name: "Form 1(d) - H1-Visa Form", status: "Denied"};
+            return [form1, form2, form3];
+        }
+
+    function getColor(status){
+        if(status == "Pending"){
+            return "gold";
+        }else if(status == "Completed"){
+            return "green";
+        }else{
+            return "red";
+        }
     }
-}
 
 class ClientPage extends React.Component {
-  state = {
-    name: "Gokul Ajith", dob: "10/17/1998", iStatus: "F-1 Visa", address: "1832 S. Brown St, Providence, RI 02912", alienNum: "A065043019", nationality: "Indian", family: "Tara Ajith - (758)-894-1938",
-  };
+
+   constructor(props) {
+        super(props);
+        
+        let paths = window.location.href.split("/");
+        console.log(paths);
+        let username = paths[paths.length-1].replace("-", " ");
+       
+        this.state = {
+            name: username, dob: "10/17/1998", iStatus: "F-1 Visa", address: "1832 S. Brown St, Providence, RI 02912", alienNum: "A065043019", nationality: "Indian", family: "Tara Ajith - (758)-894-1938",
+            };
+       
+        console.log(props);
+    }
 
   render() {
     const { classes } = this.props;
@@ -129,8 +140,6 @@ class ClientPage extends React.Component {
         <Typography className={classes.dividerTitle} component="h2" variant="h5">
           Forms
         </Typography>
-        
-
         
         <Table className={classes.formsTable}>
             <TableHead>

@@ -18,6 +18,10 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import Avatar from '@material-ui/core/Avatar';
+import ClientPage from './ClientPage';
+import { NavLink } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -56,6 +60,9 @@ const styles = theme => ({
     color: 'inherit',
     width: '100%',
   },
+    assignmentIcon:{
+        color: "grey" 
+    },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
@@ -83,6 +90,9 @@ class ClientList extends React.Component {
     console.log(this.state.open);
   };
 
+//    routeToClient = (name) => {
+//         <Route path='/ClientPage' render={(props) => <ClientPage {...props} isAuthed={true} />} />
+//     };
 
   render () {
     const { classes } = this.props;
@@ -107,8 +117,9 @@ class ClientList extends React.Component {
             subheader={<ListSubheader component="div">Results</ListSubheader>}
             className={classes.root}
           >
-            <ListItem button onClick={() => { this.handleClick(0) }}>
-              <ListItemText inset primary="Gokul Ajith" />
+            <ListItem button >
+             <NavLink to="/ClientPage/Gokul-Ajith"> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
+              <ListItemText inset primary="Gokul Ajith" onClick={() => { this.handleClick(0) }} />
               {this.state.open[0] ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={this.state.open[0]} timeout="auto" unmountOnExit>
@@ -121,8 +132,9 @@ class ClientList extends React.Component {
                 </ListItem>
               </List>
             </Collapse>
-            <ListItem button onClick={() => { this.handleClick(1) }}>
-              <ListItemText inset primary="Michael Bar" />
+            <ListItem button >
+               <NavLink to="/ClientPage/Michael-Bar"> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
+              <ListItemText inset primary="Michael Bar" onClick={() => { this.handleClick(1) }} />
               {this.state.open[1] ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={this.state.open[1]} timeout="auto" unmountOnExit>
@@ -135,8 +147,9 @@ class ClientList extends React.Component {
                 </ListItem>
               </List>
             </Collapse>
-            <ListItem button onClick={() => { this.handleClick(2) }}>
-              <ListItemText inset primary="Benjamin Deckey" />
+            <ListItem button >
+                <NavLink to="/ClientPage/Benjamin-Deckey"> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
+              <ListItemText inset primary="Benjamin Deckey" onClick={() => { this.handleClick(2) }} />
               {this.state.open[2] ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={this.state.open[2]} timeout="auto" unmountOnExit>

@@ -89,7 +89,7 @@ render() {
                     <Switch>
                       <Route path="/" exact component={Landing} />
                       <Route path="/Home" exact component={AccountHome} />
-                      <Route path="/ClientPage" exact component={ClientPage} />
+                      <Route path="/ClientPage/*" exact component={ClientPage} />
                     </Switch>
                     {/* <Footer /> */}
                   </div>

@@ -10,6 +10,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/es/Typography/Typography'
+import { NavLink } from 'react-router-dom';
 
 
 const styles = theme => ({
@@ -127,7 +128,7 @@ class ButtonAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" className={classes.bar}>
           <Toolbar>
-            <img src={logo} className={classes.img}/>
+            <NavLink to="/home"> <img src={logo} className={classes.img}/></NavLink>
             {/*{(user.length > 0) ? (<div className={classes.buttons}>*/}
               {/*<Typography>Hello {user.firstName} </Typography>*/}
             {/*</div>) : signInOptions }*/}
