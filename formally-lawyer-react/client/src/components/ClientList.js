@@ -114,7 +114,6 @@ class ClientList extends React.Component {
           </div>
           <List
             component="nav"
-            subheader={<ListSubheader component="div">Results</ListSubheader>}
             className={classes.root}
           >
             <ListItem button >
