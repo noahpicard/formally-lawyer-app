@@ -11,6 +11,7 @@ import withStyles from '@material-ui/core/es/styles/withStyles'
 
 import { connect } from 'react-redux';
 import { redirect } from '../actions/redirect';
+import { storeUser } from '../actions/storeUser'
 
 
 
@@ -60,6 +61,8 @@ class SignUp extends React.Component {
       return false;
     }
     else if ("firstName" in body) {
+      console.log(body);
+      this.props.storeUser(body);
       this.props.redirect();
     }
     return false;
@@ -127,8 +130,10 @@ SignUp.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  redirect: () => dispatch(redirect())
+  redirect: () => dispatch(redirect()),
+  storeUser: string => dispatch(storeUser(string))
 })
+
 
 const mapStateToProps = state => ({
   ...state

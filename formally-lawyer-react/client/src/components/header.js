@@ -9,6 +9,7 @@ import Modal from '@material-ui/core/Modal';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import { connect } from 'react-redux'
+import Typography from '@material-ui/core/es/Typography/Typography'
 
 
 const styles = theme => ({
@@ -87,7 +88,7 @@ class ButtonAppBar extends React.Component {
   render() {
     const { classes } = this.props;
     const { signUpSignIn } = this.state;
-
+    const { user } = this.props.userReducer;
 
 
     const signUp = (<div>
@@ -105,26 +106,32 @@ class ButtonAppBar extends React.Component {
                   );
 
 
+    const signInOptions = (<div className={classes.buttons}>
+      <Button color="secondary" onClick={this.handleOpen} className={classes.button}>Sign In or Sign Up</Button>
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={this.state.open}
+        onClose={this.handleClose}
+      >
+        <div style={getModalStyle()} className={classes.paper}>
+
+          {signUpSignIn ? signIn : signUp}
+
+        </div>
+      </Modal>
+    </div>);
+
+
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.bar}>
           <Toolbar>
             <img src={logo} className={classes.img}/>
-            <div className={classes.buttons}>
-              <Button color="secondary" onClick={this.handleOpen} className={classes.button}>Sign In or Sign Up</Button>
-              <Modal
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                open={this.state.open}
-                onClose={this.handleClose}
-              >
-                <div style={getModalStyle()} className={classes.paper}>
-
-                  {signUpSignIn ? signIn : signUp}
-
-                </div>
-              </Modal>
-            </div>
+            {/*{(user.length > 0) ? (<div className={classes.buttons}>*/}
+              {/*<Typography>Hello {user.firstName} </Typography>*/}
+            {/*</div>) : signInOptions }*/}
+            {signInOptions}
           </Toolbar>
         </AppBar>
       </div>
