@@ -18,7 +18,7 @@ function create_tables(){
             }
         });
     }
-    create_table("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, email varchar(60), first_name varchar(60) not null,\
+    create_table("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, email varchar(60) UNIQUE, first_name varchar(60) not null,\
         last_name varchar(60) not null, password varchar(60) not null, Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
 
     create_table("CREATE TABLE IF NOT EXISTS Networks (\
@@ -27,7 +27,7 @@ function create_tables(){
 
     create_table("CREATE TABLE IF NOT EXISTS Clients (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
-    email	varchar(60),\
+    email	varchar(60) UNIQUE,\
     first_name	varchar(60) NOT NULL,\
     last_name	INTEGER NOT NULL,\
     password	varchar(60) NOT NULL,\
