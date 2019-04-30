@@ -22,8 +22,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/formally-lawyer-react/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+            <state relative-caret-position="664">
+              <caret line="125" column="30" selection-start-line="125" selection-start-column="30" selection-end-line="125" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/src/components/SignUp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-510">
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,6 +79,27 @@
               <item name="formally-lawyer-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="formally-lawyer-app" type="462c0819:PsiDirectoryNode" />
               <item name="formally-lawyer-react" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="formally-lawyer-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="formally-lawyer-app" type="462c0819:PsiDirectoryNode" />
+              <item name="formally-lawyer-react" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="formally-lawyer-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="formally-lawyer-app" type="462c0819:PsiDirectoryNode" />
+              <item name="formally-lawyer-react" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="formally-lawyer-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="formally-lawyer-app" type="462c0819:PsiDirectoryNode" />
+              <item name="formally-lawyer-react" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -140,18 +172,18 @@
       <option name="presentableId" value="Default" />
       <updated>1556655478117</updated>
       <workItem from="1556655479276" duration="75000" />
-      <workItem from="1556655749442" duration="93000" />
+      <workItem from="1556655749442" duration="975000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168000" />
+    <option name="totallyTimeSpent" value="1050000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18657719" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18657719" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -200,10 +232,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/formally-lawyer-react/client/src/components/SignUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-510">
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/formally-lawyer-react/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+        <state relative-caret-position="664">
+          <caret line="125" column="30" selection-start-line="125" selection-start-column="30" selection-end-line="125" selection-end-column="30" />
         </state>
       </provider>
     </entry>
