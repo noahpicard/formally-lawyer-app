@@ -90,7 +90,7 @@ app.post('/api/signin', (req, res) => {
 });
 
 
-function ValidateEmail(mail)
+function ValidateEmail(email)
 {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
     {
@@ -109,7 +109,7 @@ app.post('/api/signup', (req, res) => {
 
         const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
 
-        conn.query(insert, [req.body.email, req.body.firstName, req.body.lastName, req.body.password],function (error, data) {
+        conn.query(insert, [req.body.email, req.body.first_name, req.body.last_name, req.body.password],function (error, data) {
 
             if(error){
                 const to_return = {error:error}

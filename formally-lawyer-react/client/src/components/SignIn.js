@@ -37,13 +37,16 @@ class SignIn extends React.Component {
     const body = await response.json();
     console.log(body);
     if ("error" in body) {
-      this.setState({ errorMsg: "An account already exists with this email."})
+      console.log(body);
+      this.setState({ errorMsg: body.error})
       return false;
     }
     else if ("first_name" in body) {
-
       this.props.storeUser(body);
       this.props.redirect();
+    }
+    else {
+      console.log(body);
     }
     return false;
   };
