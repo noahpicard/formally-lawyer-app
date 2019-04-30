@@ -7,25 +7,56 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // db to store messages and rooms
 const db = require('any-db');
-const conn = db.createConnection('sqlite3://formally-lawyer.db');
-conn.query("CREATE TABLE IF NOT EXISTS Users (email varchar(60) PRIMARY key, first_name varchar(60) not null," +
-  "last_name varchar(60) not null, password varchar(60) not null, Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+create_tables();
+function create_tables(){
+    const conn = db.createConnection('sqlite3://formally-lawyer.db');
 
+    function create_table(sql) {
+        conn.query(sql, function(err){
+            if(err){
+                console.log(err);
+            }
+        });
+    }
+    create_table("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, email varchar(60), first_name varchar(60) not null,\
+        last_name varchar(60) not null, password varchar(60) not null, Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+    create_table("CREATE TABLE IF NOT EXISTS Networks (\
+    id	INTEGER PRIMARY KEY AUTOINCREMENT,\
+    name	TEXT NOT NULL)")
+    create_table("CREATE TABLE IF NOT EXISTS Clients (\
+    id	INTEGER PRIMARY KEY AUTOINCREMENT,\
+    email	varchar(60),\
+    first_name	varchar(60) NOT NULL,\
+    last_name	INTEGER NOT NULL,\
+    password	varchar(60) NOT NULL,\
+    created	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\
+    immigration_status TEXT, \
+    address TEXT, \
+    arn INTEGER, \
+    nationality TEXT, \
+    meta_json TEXT default '{}'\
+    )")
+    create_table("CREATE TABLE User_Network (\
+    user_id	INTEGER,\
+    network_id	INTEGER,\
+    FOREIGN KEY (user_id) REFERENCES Users(id),\
+    FOREIGN KEY (network_id) REFERENCES Networks(id))")
+    create_table("CREATE TABLE Form_types (\
+    id	INTEGER PRIMARY KEY AUTOINCREMENT,\
+    form_json	TEXT NOT NULL)")
+    create_table("CREATE TABLE Forms (\
+    id	INTEGER PRIMARY KEY AUTOINCREMENT,\
+    client_id	INTEGER NOT NULL,\
+    info_json	TEXT NOT NULL,\
+    FOREIGN KEY (client_id) REFERENCES Clients(id))")
+    conn.end();
+}
 
-conn.query("CREATE TABLE IF NOT EXISTS Clients (email varchar(60) PRIMARY key," +
-    "    firstName TEXT NOT NULL," +
-    "    middleName TEXT DEFAULT NULL," +
-    "    lastName TEXT NOT NULL," +
-    "    groupID INTEGER DEFAULT NULL," +
-    "    userClientID INTEGER DEFAULT NULL UNIQUE," +
-    "Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP"+
-    ");");
-
-conn.end();
 
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
+
 
 
 app.post('/api/signin', (req, res) => {
