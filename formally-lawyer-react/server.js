@@ -90,28 +90,43 @@ app.post('/api/signin', (req, res) => {
 });
 
 
+function ValidateEmail(mail)
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+        return (true)
+    }
+    return (false)
+}
 
 app.post('/api/signup', (req, res) => {
-  const conn = db.createConnection('sqlite3://formally-lawyer.db');
-
-
-    const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
-
-  conn.query(insert, [req.body.email, req.body.firstName, req.body.lastName, req.body.password],function (error, data) {
-
-    if(error){
-      const to_return = {error:error}
-      res.send(to_return)
+    if(!ValidateEmail(req.body.email)){
+        const to_return = {error:"You have entered an invalid email address!"}
+        res.send(to_return)
     }else{
-        delete req.body["password"];
-        //console.log(req.body)
-        res.send(req.body);
+        const conn = db.createConnection('sqlite3://formally-lawyer.db');
 
+
+        const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
+
+        conn.query(insert, [req.body.email, req.body.firstName, req.body.lastName, req.body.password],function (error, data) {
+
+            if(error){
+                const to_return = {error:error}
+                res.send(to_return)
+            }else{
+                delete req.body["password"];
+                //console.log(req.body)
+                res.send(req.body);
+
+            }
+
+        });
+        conn.end()
+        console.log(req.body);
     }
-      
-  });
-  conn.end()
-  console.log(req.body);
+
+
 
 });
 
