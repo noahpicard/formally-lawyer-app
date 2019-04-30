@@ -1,29 +1,29 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
 import InputLabel from '@material-ui/core/es/InputLabel/InputLabel'
 import Input from '@material-ui/core/es/Input/Input'
 import FormControlLabel from '@material-ui/core/es/FormControlLabel/FormControlLabel'
 import Checkbox from '@material-ui/core/es/Checkbox/Checkbox';
+import { storeUser } from '../actions/storeUser'
+import { redirect } from '../actions/redirect'
+import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core/es/styles/index'
 
+const styles = theme => ({
+  error: {
+    color: "red",
+  },
+
+});
 
 class SignIn extends React.Component {
   state = {
     email: '', password: '', error: false, errorMsg: '', redirect: false,
   };
 
-  // componentDidMount() {
-  //   this.callApi()
-  //     .then(res => this.setState({ response: res.express }))
-  //     .catch(err => console.log(err));
-  // }
-  // callApi = async () => {
-  //   const response = await fetch('/api/hello');
-  //   const body = await response.json();
-  //   if (response.status !== 200) throw Error(body.message);
-  //   return body;
-  // };
 
   signIn = async e => {
     e.preventDefault();
@@ -36,6 +36,16 @@ class SignIn extends React.Component {
     });
     const body = await response.json();
     console.log(body);
+    if ("error" in body) {
+      this.setState({ errorMsg: "An account already exists with this email."})
+      return false;
+    }
+    else if ("first_name" in body) {
+
+      this.props.storeUser(body);
+      this.props.redirect();
+    }
+    return false;
   };
 
 
@@ -45,6 +55,7 @@ class SignIn extends React.Component {
 
 
   render() {
+    const { classes } = this.props;
 
     return (
       <div>
@@ -64,6 +75,7 @@ class SignIn extends React.Component {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          <Typography className={classes.error}> {this.state.errorMsg} </Typography>
           <Button
             type="submit"
             fullWidth
@@ -78,5 +90,18 @@ class SignIn extends React.Component {
   }
 }
 
+SignIn.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+  redirect: () => dispatch(redirect()),
+  storeUser: string => dispatch(storeUser(string))
+})
+
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignIn));

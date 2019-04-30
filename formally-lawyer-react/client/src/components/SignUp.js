@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/es/FormControl/FormControl'
@@ -60,7 +59,7 @@ class SignUp extends React.Component {
       this.setState({ errorMsg: "An account already exists with this email."})
       return false;
     }
-    else if ("firstName" in body) {
+    else if ("first_name" in body) {
       console.log(body);
       this.props.storeUser(body);
       this.props.redirect();
