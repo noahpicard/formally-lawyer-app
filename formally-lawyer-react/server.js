@@ -20,9 +20,11 @@ function create_tables(){
     }
     create_table("CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, email varchar(60), first_name varchar(60) not null,\
         last_name varchar(60) not null, password varchar(60) not null, Created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+
     create_table("CREATE TABLE IF NOT EXISTS Networks (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
     name	TEXT NOT NULL)")
+
     create_table("CREATE TABLE IF NOT EXISTS Clients (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
     email	varchar(60),\
@@ -36,19 +38,24 @@ function create_tables(){
     nationality TEXT, \
     meta_json TEXT default '{}'\
     )")
-    create_table("CREATE TABLE User_Network (\
+
+    create_table("CREATE TABLE IF NOT EXISTS User_Network (\
     user_id	INTEGER,\
     network_id	INTEGER,\
     FOREIGN KEY (user_id) REFERENCES Users(id),\
     FOREIGN KEY (network_id) REFERENCES Networks(id))")
-    create_table("CREATE TABLE Form_types (\
+
+    create_table("CREATE TABLE IF NOT EXISTS Form_types (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
     form_json	TEXT NOT NULL)")
-    create_table("CREATE TABLE Forms (\
+
+    create_table("CREATE TABLE IF NOT EXISTS Forms (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
     client_id	INTEGER NOT NULL,\
+    form_type_id INTEGER NOT NULL,\
     info_json	TEXT NOT NULL,\
-    FOREIGN KEY (client_id) REFERENCES Clients(id))")
+    FOREIGN KEY (client_id) REFERENCES Clients(id),\
+    FOREIGN KEY (form_type_id) REFERENCES Form_types(id))")
     conn.end();
 }
 
