@@ -29,5 +29,6 @@ client/node_modules
 .idea/workspace.xml
 .idea/workspace.xml
 ../.idea/workspace.xml
+.idea/
 
 formally-lawyer.db
