@@ -6,6 +6,7 @@ import Header from './components/header.js'
 import AccountHome from './components/AccountHome.js'
 import ClientPage from './components/ClientPage.js'
 import Landing from './components/Landing.js'
+import DocReview from './components/DocReview.js'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
@@ -90,6 +91,7 @@ render() {
                       <Route path="/" exact component={Landing} />
                       <Route path="/Home" exact component={AccountHome} />
                       <Route path="/ClientPage/*" exact component={ClientPage} />
+                        <Route path="/Document/*" exact component={DocReview} />
                     </Switch>
                     {/* <Footer /> */}
                   </div>

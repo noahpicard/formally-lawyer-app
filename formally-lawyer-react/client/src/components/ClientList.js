@@ -115,7 +115,7 @@ class ClientList extends React.Component {
             <Collapse in={this.state.open[0]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button className={classes.nested}>
-                  <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" />
+                 <NavLink to="/Document/test"> <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" /></NavLink>
                 </ListItem>
                 <ListItem button className={classes.nested}>
                   <ListItemText inset primary="Application for Employment Authorization  - I-765" />
