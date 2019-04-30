@@ -79,7 +79,30 @@ app.post('/api/signin', (req, res) => {
               res.send({error:"invalid login"})
             }else{
                 delete data.rows[0].password
-                res.send(data.rows[0])
+                const info = data.rows[0]
+                const networks = []
+                conn.query("select n.name from Networks as n, Users as u, User_Network as un where u.id = un.user_id and un.network_id = n.id and u.id = ?", [info.id], function(err, data2){
+                    if(err){
+                        console.log(err);
+                        res.send({error:err})
+                    }else{
+                        console.log("ROWS ARE")
+                        console.log(data2.rows)
+                        Object.keys(data2.rows).forEach(function(key) {
+                            /*var row = data[key];
+                            networks.push(row.name)*/
+                            console.log("key " + data2.rows[key].name)
+                            networks.push(data2.rows[key].name)
+                        })
+                        info.networds = networks
+                        console.log("INFO")
+                        console.log(info)
+                        res.send(info)
+                    }
+
+                })
+
+
             }
 
 
@@ -116,14 +139,12 @@ app.post('/api/signup', (req, res) => {
                 res.send(to_return)
             }else{
                 delete req.body["password"];
-                //console.log(req.body)
                 res.send(req.body);
 
             }
 
         });
         conn.end()
-        console.log(req.body);
     }
 
 
