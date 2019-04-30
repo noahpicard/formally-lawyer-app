@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import ClientList from './ClientList';
 import KeyGenerator from './KeyGenerator';
+import { connect } from 'react-redux'
 
 
 
@@ -41,6 +42,7 @@ class CardSelector extends React.Component {
     const { classes } = this.props;
     const { value } = this.state;
 
+
     return (
       <div className={classes.root} >
         <AppBar position="static" className={classes.bar} >
@@ -60,4 +62,10 @@ CardSelector.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CardSelector);
+const mapDispatchToProps = dispatch => ({})
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CardSelector));
