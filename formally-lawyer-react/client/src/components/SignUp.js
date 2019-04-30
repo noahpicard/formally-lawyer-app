@@ -48,21 +48,25 @@ class SignUp extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ firstName: this.state.firstName,
-                             lastName: this.state.lastName,
+      body: JSON.stringify({ first_name: this.state.firstName,
+                             last_name: this.state.lastName,
                              email: this.state.email,
                              password: this.state.password,
                              phone: this.state.phone,}),
     });
     const body = await response.json();
     if ("error" in body) {
-      this.setState({ errorMsg: "An account already exists with this email."})
+      console.log(body);
+      this.setState({ errorMsg: "Error while signing in"})
       return false;
     }
     else if ("first_name" in body) {
       console.log(body);
       this.props.storeUser(body);
       this.props.redirect();
+    }
+    else {
+      console.log(body);
     }
     return false;
   };

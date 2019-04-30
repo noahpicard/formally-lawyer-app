@@ -9,6 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import LawyerCard from './lawyerCard';
 import CardSelector from './CardSelector'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 
 const styles = theme => ({
@@ -23,24 +25,38 @@ const styles = theme => ({
     flex: 3,
   }
 });
+class AccountHome extends React.Component {
 
-function AccountHome(props) {
-  const { classes } = props;
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.leftDisplay}>
-        <LawyerCard/>
+  render() {
+    const { classes } = this.props;
+    const { user } = this.props.userReducer;
+    if (user === undefined) {
+      return <Redirect to="/" />;
+    }
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.leftDisplay}>
+          <LawyerCard user={user}/>
+        </div>
+        <div className={classes.rightDisplay}>
+          <CardSelector/>
+        </div>
       </div>
-      <div className={classes.rightDisplay}>
-        <CardSelector/>
-      </div>
-    </div>
-  );
+    );
+  }
+
 }
 
 AccountHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AccountHome);
+const mapDispatchToProps = dispatch => ({})
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AccountHome));

@@ -10,7 +10,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/es/Typography/Typography'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom'
 
 
 const styles = theme => ({
@@ -33,6 +33,12 @@ const styles = theme => ({
     width: "100%",
   },
   button: {
+    fontSize: "large",
+    marginLeft: "5%",
+    marginRight: "5%",
+  },
+  welcome: {
+    color: "white",
     fontSize: "large",
     marginLeft: "5%",
     marginRight: "5%",
@@ -66,12 +72,14 @@ function getModalStyle() {
   };
 }
 
-class ButtonAppBar extends React.Component {
+class Header extends React.Component {
   state = {
     open: false,
     signUpSignIn: true,
     email: '', password: '', error: false, errorMsg: '', redirect: false,
   };
+
+
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -90,6 +98,7 @@ class ButtonAppBar extends React.Component {
     const { classes } = this.props;
     const { signUpSignIn } = this.state;
     const { user } = this.props.userReducer;
+    const { redirect } = this.props.redirectReducer;
 
 
     const signUp = (<div>
@@ -112,7 +121,7 @@ class ButtonAppBar extends React.Component {
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        open={this.state.open}
+        open={this.state.open && !redirect}
         onClose={this.handleClose}
       >
         <div style={getModalStyle()} className={classes.paper}>
@@ -129,10 +138,11 @@ class ButtonAppBar extends React.Component {
         <AppBar position="static" className={classes.bar}>
           <Toolbar>
             <NavLink to="/home"> <img src={logo} className={classes.img}/></NavLink>
-            {/*{(user.length > 0) ? (<div className={classes.buttons}>*/}
-              {/*<Typography>Hello {user.firstName} </Typography>*/}
-            {/*</div>) : signInOptions }*/}
-            {signInOptions}
+
+            {(user !== undefined) ? (<div className={classes.buttons}>
+              <Typography className={classes.welcome}> Hello {user.first_name} {user.last_name} </Typography>
+            </div>) : signInOptions }
+
           </Toolbar>
         </AppBar>
       </div>
@@ -140,7 +150,7 @@ class ButtonAppBar extends React.Component {
   }
 }
 
-ButtonAppBar.propTypes = {
+Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -150,4 +160,4 @@ const mapStateToProps = state => ({
   ...state
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ButtonAppBar));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Header));

@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux'
 
 const styles = theme => ({
   root: {
@@ -49,21 +50,20 @@ const styles = theme => ({
 
 function LawyerCard(props) {
 
-
-  const { classes } = props;
+  const { classes, user } = props;
 
   return (
    <div className={classes.root}>
      <Typography className={classes.title} color="primary" >
-       Welcome Lawrence!
+       Welcome {user.first_name}
      </Typography>
      <Card className={classes.card}>
        <CardContent className={classes.content}>
          <Typography className={classes.topText} color="secondary">
-           Lawrence Arabia
+           {user.first_name} {user.last_name}
          </Typography>
          <Typography className={classes.bottomText} color="secondary">
-           Lawrencearabia@aol.com
+           {user.email}
          </Typography>
        </CardContent>
        <CardActions>
@@ -89,5 +89,6 @@ function LawyerCard(props) {
 LawyerCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(LawyerCard);
