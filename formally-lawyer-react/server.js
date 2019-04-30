@@ -5,9 +5,118 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// fake data
+const firstNames = ["Bob", "Robert", "Robin", "Gokul", "Mike", "Akhil", "Aaron", "Becket", "Richard", "Drew", "Andrew", "Troy",
+  "Juan", "Carlos", "Luis", "Riccardo", "Lizbeth"];
+const lastNames = ["Edwards", "Roberts", "Smith", "Treyhill", "Nottingham", "Terrance", "Eddingburg", "Thomas", "Rickett"];
+const networks = ["South West Lawyers Association", "Lawyers Against Trump", "International Lawyer Association"];
+const emailProv = ["gmail", "aol", "yahoo"];
+const imStatus = ["United States Citizen", "Lawful Permanent Resident", "Temporary Visitor", "Undocumented Immigrant"];
+const nations = ["Mexican", "Canadian", "Spanish", "South African", "Brazilian"];
+
+const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI 02912", "East Town Center Boston, MA 03293"];
+
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
+// create_fake_data();
+
+function create_fake_data() {
+  const conn = db.createConnection('sqlite3://formally-lawyer.db');
+
+  let clientNames = [];
+  let userNames = [];
+  let users = [];
+  let clients = [];
+  for (let i = 0; i < 10; i ++) {
+      let curUser = createUser(userNames);
+      users.push(curUser);
+      userNames.push(curUser.first_name+curUser.last_name);
+  }
+  for (let j = 0; j < 250; j ++) {
+    let curClient = createClient(clientNames);
+    clients.push(curClient);
+    clientNames.push(curClient.first_name+curClient.last_name);
+  }
+  const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
+  for (let i = 1; i < 10; i++) {
+    let user = users[i];
+    conn.query(insert, [user.email, user.first_name, user.last_name, user.password],function (error, data) {
+      if(error){
+        console.log(error);
+      }else{
+        let foreign = data.lastInsertId;
+        let addClient = "insert into Clients (email, first_name, last_name, password," +
+        " immigration_status, address, arn, nationality, user_id) values (?,?,?,?,?,?,?,?,?)";
+        for (let j = 0; j < 25; j++) {
+            let curClient = clients[i * 25 + j]
+          conn.query(addClient, [curClient.email, curClient.first_name,
+            curClient.last_name, curClient.password, curClient.immigration_status,
+            curClient.address, curClient.arn, curClient.nationality, foreign],function (error, data) {
+            if(error){
+              console.log(error);
+            }else{
+              console.log(data);
+            }
+          });
+        }
+      }
+    });
+  }
+}
+
+
+function getRandomIndex(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function makeId() {
+  let result           = "";
+  let characters       = '0123456789';
+  let charactersLength = characters.length;
+  for ( let i = 0; i < 8; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return "A" + result;
+}
+
+
+function createUser(used) {
+  let first_name = getRandomIndex(firstNames);
+  let last_name = getRandomIndex(lastNames);
+  while (first_name + last_name in used) {
+    first_name = getRandomIndex(firstNames);
+    last_name = getRandomIndex(lastNames);
+  }
+  let prov = getRandomIndex(emailProv);
+
+  let password = "1";
+
+  let email = first_name + "." + last_name + "@" + prov + ".com";
+
+  return {email, first_name, last_name, password};
+}
+
+function createClient(used) {
+  let first_name = getRandomIndex(firstNames);
+  let last_name = getRandomIndex(lastNames);
+  while (first_name + last_name in used) {
+    first_name = getRandomIndex(firstNames);
+    last_name = getRandomIndex(lastNames);
+  }
+  let prov = getRandomIndex(emailProv);
+
+  let password = "1";
+
+  let email = first_name + "." + last_name + "@" + prov + ".com";
+  let immigration_status = getRandomIndex(imStatus);
+  let arn = makeId();
+  let nationality = getRandomIndex(nations);
+  let address = getRandomIndex(addy);
+
+  return {first_name, last_name, password, email, immigration_status, arn, nationality, address}
+}
+
 function create_tables(){
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
 
@@ -75,6 +184,7 @@ app.post('/api/signin', (req, res) => {
         if (error){
           console.log("SIGN IN ERR should never call")
           console.log(error)
+          conn.end();
         } else{
             if(data.rowCount == 0){
               res.send({error:"invalid login"})
@@ -102,6 +212,7 @@ app.post('/api/signin', (req, res) => {
                     }
 
                 })
+              conn.end();
 
 
             }
