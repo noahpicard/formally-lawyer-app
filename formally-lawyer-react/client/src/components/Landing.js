@@ -5,9 +5,23 @@ import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 
+const styles = theme => ({
+  root: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+    bigPaper:{
+        marginTop: theme.spacing.unit * 6,
+        paddingBottom: theme.spacing.unit * 2,
+        backgroundColor: "lightgrey",
+        height: "800px",
+        width: "900px",
+        position: "relative",
+        left: "20%"  
+    },
+});
+
 class Landing extends React.Component {
-
-
 
   render() {
     const { classes } = this.props;
@@ -19,10 +33,7 @@ class Landing extends React.Component {
     }
 
     return (
-        <Paper>
-          <Typography variant="body1" paragraph>
-            Log in or sign up!
-          </Typography>
+        <Paper className="bigPaper">
 
         </Paper>
     );

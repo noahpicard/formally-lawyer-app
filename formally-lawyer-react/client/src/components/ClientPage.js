@@ -103,8 +103,6 @@ class ClientPage extends React.Component {
         this.state = {
             name: username, dob: "10/17/1998", iStatus: "F-1 Visa", address: "1832 S. Brown St, Providence, RI 02912", alienNum: "A065043019", nationality: "Indian", family: "Tara Ajith - (758)-894-1938",
             };
-       
-        console.log(props);
     }
 
   render() {
