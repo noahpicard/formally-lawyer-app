@@ -36,8 +36,9 @@ function create_tables(){
     address TEXT, \
     arn INTEGER, \
     nationality TEXT, \
-    meta_json TEXT default '{}'\
-    )")
+    user_id	INTEGER,\
+    meta_json TEXT default '{}',\
+    FOREIGN KEY (user_id) REFERENCES Users(id))")
 
     create_table("CREATE TABLE IF NOT EXISTS User_Network (\
     user_id	INTEGER,\
