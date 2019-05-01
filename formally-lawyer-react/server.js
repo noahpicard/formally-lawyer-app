@@ -19,7 +19,7 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-// create_fake_data();
+create_fake_data();
 
 function create_fake_data() {
   const conn = db.createConnection('sqlite3://formally-lawyer.db');
@@ -175,7 +175,22 @@ app.get('/api/hello', (req, res) => {
 });
 
 
+app.post('/api/get_client', (req, res) => {
+    conn.query("select * from Clients where user_id = ?", [req.body.id], function(error, data){
+        if(error){
+            console.log("INNER")
+            console.log(er)
 
+        }else{
+            const clients = data.rows
+            
+            res.send(clients)
+        }
+
+        conn.end();
+
+    })
+}
 app.post('/api/signin', (req, res) => {
   console.log(req.body)
   const check = "select * from Users where email = ? and password = ?"
@@ -196,23 +211,35 @@ app.post('/api/signin', (req, res) => {
                     if(err){
                         console.log(err);
                         res.send({error:err})
+                        conn.end();
+
                     }else{
                         console.log("ROWS ARE")
                         console.log(data2.rows)
                         Object.keys(data2.rows).forEach(function(key) {
-                            /*var row = data[key];
-                            networks.push(row.name)*/
-                            console.log("key " + data2.rows[key].name)
                             networks.push(data2.rows[key].name)
                         })
-                        info.networds = networks
-                        console.log("INFO")
-                        console.log(info)
-                        res.send(info)
+                        conn.query("select * from Clients where user_id = ?", [info.id], function(er, data3){
+                            if(er){
+                                console.log("INNER")
+                                console.log(er)
+
+                            }else{
+                                info.networks = networks
+                                info.clients = data3.rows
+
+                                console.log("INFO")
+                                console.log(info)
+                                res.send(info)
+                            }
+
+                            conn.end();
+
+                        })
+
                     }
 
                 })
-              conn.end();
 
 
             }
