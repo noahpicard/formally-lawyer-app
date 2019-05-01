@@ -70,7 +70,7 @@ const styles = theme => ({
 class ClientList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {open: [false, false, false]}
+    this.state = {open: [false, false, false, false, false, false, false, false, false, false]}
   }
 
 
@@ -81,9 +81,6 @@ class ClientList extends React.Component {
     console.log(this.state.open);
   };
 
-//    routeToClient = (name) => {
-//         <Route path='/ClientPage' render={(props) => <ClientPage {...props} isAuthed={true} />} />
-//     };
 
   render () {
     const { classes } = this.props;
