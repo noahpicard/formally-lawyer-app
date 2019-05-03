@@ -70,21 +70,52 @@ const styles = theme => ({
 class ClientList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {open: [false, false, false, false, false, false, false, false, false, false]}
+    const { clients } = props;
+    clients.sort(function(a,b) {
+      let afull = a.first_name + a.last_name;
+      let bfull = b.first_name + b.last_name;
+      if (afull > bfull) {
+        return 1;
+      } else {
+        return -1;
+      }
+    })
+    const display = clients.slice(0,10)
+    this.state = {open: [false, false, false, false, false, false, false, false, false, false], clients: clients, display: display, search: ""}
   }
 
 
   handleClick = (i) => {
+    console.log(i);
     let temp = this.state.open
     temp[i] = !temp[i]
     this.setState({ open: temp });
-    console.log(this.state.open);
+  };
+
+  handleChange = name => (event) => {
+
+    let results = []
+    for (let i = 0; i < this.state.clients.length; i++) {
+      let name = this.state.clients[i].first_name + " " + this.state.clients[i].last_name;
+      let low = name.toLowerCase();
+      let lowInput = (event.target.value).toLowerCase();
+      if (low.startsWith(lowInput)) {
+        results.push(this.state.clients[i])
+        if (results.length == 10) {
+          break;
+        }
+      }
+    }
+    this.setState({ [name]: event.target.value,
+                    display: results
+    });
   };
 
 
   render () {
     const { classes } = this.props;
-    console.log(this.state.open);
+    const { display } = this.state;
+
     return (
       <div>
         <Paper className={classes.root} elevation={1}>
@@ -94,61 +125,36 @@ class ClientList extends React.Component {
             </div>
             <InputBase
               placeholder="Search…"
+              value={this.state.search}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onChange={this.handleChange('search')}
             />
           </div>
           <List
             component="nav"
             className={classes.root}
           >
-            <ListItem button >
-             <NavLink to="/ClientPage/Gokul-Ajith"> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
-              <ListItemText inset primary="Gokul Ajith" onClick={() => { this.handleClick(0) }} />
-              {this.state.open[0] ? <ExpandLess /> : <ExpandMore />}
+            {display.map((c, i) => (<div id={i}><ListItem button >
+              <NavLink to={{
+                pathname:"/ClientPage/"+c.first_name+"-"+c.last_name,
+                aboutProps:{client:c}}}> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
+              <ListItemText inset primary={c.first_name + " " + c.last_name} onClick={() => { this.handleClick(i) }} />
+              {this.state.open[i] ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Collapse in={this.state.open[0]} timeout="auto" unmountOnExit>
+            <Collapse in={this.state.open[i]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                 <NavLink to="/Document/test"> <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" /></NavLink>
-                </ListItem>
-                <ListItem button className={classes.nested}>
-                  <ListItemText inset primary="Application for Employment Authorization  - I-765" />
-                </ListItem>
+              <ListItem button className={classes.nested}>
+              <NavLink to="/Document/test"> <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" /></NavLink>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+              <ListItemText inset primary="Application for Employment Authorization  - I-765" />
+              </ListItem>
               </List>
-            </Collapse>
-            <ListItem button >
-               <NavLink to="/ClientPage/Michael-Bar"> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
-              <ListItemText inset primary="Michael Bar" onClick={() => { this.handleClick(1) }} />
-              {this.state.open[1] ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={this.state.open[1]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" />
-                </ListItem>
-                <ListItem button className={classes.nested}>
-                  <ListItemText inset primary="Application for Employment Authorization  - I-765" />
-                </ListItem>
-              </List>
-            </Collapse>
-            <ListItem button >
-                <NavLink to="/ClientPage/Benjamin-Deckey"> <AssignmentIcon className={classes.assignmentIcon}/></NavLink>
-              <ListItemText inset primary="Benjamin Deckey" onClick={() => { this.handleClick(2) }} />
-              {this.state.open[2] ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={this.state.open[2]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" />
-                </ListItem>
-                <ListItem button className={classes.nested}>
-                  <ListItemText inset primary="Application for Employment Authorization  - I-765" />
-                </ListItem>
-              </List>
-            </Collapse>
+            </Collapse></div>))}
+
           </List>
         </Paper>
       </div>

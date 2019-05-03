@@ -41,7 +41,7 @@ class AccountHome extends React.Component {
           <LawyerCard user={user}/>
         </div>
         <div className={classes.rightDisplay}>
-          <CardSelector/>
+          <CardSelector user={user}/>
         </div>
       </div>
     );

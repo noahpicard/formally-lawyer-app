@@ -19,7 +19,7 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-create_fake_data();
+// create_fake_data();
 
 function create_fake_data() {
   const conn = db.createConnection('sqlite3://formally-lawyer.db');
@@ -190,7 +190,7 @@ app.post('/api/get_client', (req, res) => {
         conn.end();
 
     })
-}
+});
 app.post('/api/signin', (req, res) => {
   console.log(req.body)
   const check = "select * from Users where email = ? and password = ?"
