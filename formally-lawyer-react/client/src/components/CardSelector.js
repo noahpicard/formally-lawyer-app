@@ -41,6 +41,7 @@ class CardSelector extends React.Component {
   render() {
     const { classes, user } = this.props;
     const { value } = this.state;
+    console.log("here");
     console.log(user);
 
     return (
