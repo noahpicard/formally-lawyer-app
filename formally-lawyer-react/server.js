@@ -66,6 +66,7 @@ function insert_forms(){
 
 }
 
+
 function create_fake_data() {
   const conn = db.createConnection('sqlite3://formally-lawyer.db');
 
@@ -237,7 +238,10 @@ app.post('/api/get_client', (req, res) => {
 
     })
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6daa8f69f32de97705ef968bf82ebdccd0d54b92
 app.post('/api/signin', (req, res) => {
   console.log(req.body)
   const check = "select * from Users where email = ? and password = ?"

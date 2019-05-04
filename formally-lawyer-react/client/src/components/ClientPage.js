@@ -95,13 +95,13 @@ class ClientPage extends React.Component {
 
    constructor(props) {
         super(props);
-        
         let paths = window.location.href.split("/");
-        console.log(paths);
         let username = paths[paths.length-1].replace("-", " ");
-       
+
+        const { client } = props.location.aboutProps;
+        console.log(client);
         this.state = {
-            name: username, dob: "10/17/1998", iStatus: "F-1 Visa", address: "1832 S. Brown St, Providence, RI 02912", alienNum: "A065043019", nationality: "Indian", family: "Tara Ajith - (758)-894-1938",
+            name: username, dob: "-----", iStatus: client.immigration_status, address: client.address, alienNum: client.arn, nationality: client.nationality, family: "------",
             };
     }
 
