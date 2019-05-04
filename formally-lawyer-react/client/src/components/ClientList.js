@@ -71,15 +71,20 @@ class ClientList extends React.Component {
   constructor(props) {
     super(props)
     const { clients } = props;
-    clients.sort(function(a,b) {
-      let afull = a.first_name + a.last_name;
-      let bfull = b.first_name + b.last_name;
-      if (afull > bfull) {
-        return 1;
-      } else {
-        return -1;
-      }
-    })
+    
+    if(clients != undefined){
+        clients.sort(function(a,b) {
+          let afull = a.first_name + a.last_name;
+          let bfull = b.first_name + b.last_name;
+          if (afull > bfull) {
+            return 1;
+          } else {
+            return -1;
+          }
+        })
+    }
+    
+
     const display = clients.slice(0,10)
     this.state = {open: [false, false, false, false, false, false, false, false, false, false], clients: clients, display: display, search: ""}
   }
