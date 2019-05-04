@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
@@ -19,7 +20,22 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-create_fake_data();
+//create_fake_data();
+const saltRounds = 10;
+
+function encrypt(password){
+    bcrypt.hash(password, saltRounds,
+        function(err, hashedPassword) {
+            if (err) {
+                next(err);
+            }
+            else {
+                next();
+                return hashedPassword;
+
+            }
+        });
+}
 
 
 function dict_to_list(dict){
@@ -92,7 +108,6 @@ function insert_forms(){
                     conn.end()
                 }else{
                     console.log("IDS")
-                    const ids = []
                     for (let key in data.rows) {
                         conn.query("insert into Forms(client_id, form_type_id, info_json) values(?,?,?)", [key, 0,JSON.stringify(type_example)], function(error, data){
                             if(error){
@@ -304,6 +319,14 @@ app.post('/api/get_client', (req, res) => {
 
     })
 });
+
+
+/*app.post('/api/forms/*', (req, res) => {
+    console.log("recieved", req.body)
+    console.log("encrypted = " + encrypt(req.body.id));
+    res.send({form: "long ass string"})
+
+});*/
 
 app.post('/api/signin', (req, res) => {
   console.log(req.body)

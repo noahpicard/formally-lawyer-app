@@ -25,6 +25,33 @@ class SignIn extends React.Component {
   };
 
 
+
+
+    test = async e => {
+        console.log("SENDING")
+        const response = await fetch('/api/forms/1234', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id:"1"}),
+        });
+        const body = await response.json();
+        console.log(body);
+        if ("error" in body) {
+            console.log(body);
+
+        }
+
+        else {
+            console.log(body);
+        }
+
+    };
+
+
+
+
   signIn = async e => {
     e.preventDefault();
     const response = await fetch('/api/signin', {
@@ -39,6 +66,7 @@ class SignIn extends React.Component {
     if ("error" in body) {
       console.log(body);
       this.setState({ errorMsg: body.error})
+
       return false;
     }
     else if ("first_name" in body) {
@@ -48,6 +76,7 @@ class SignIn extends React.Component {
     else {
       console.log(body);
     }
+
     return false;
   };
 
@@ -59,7 +88,7 @@ class SignIn extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    //this.test();
     return (
       <div>
         <Typography component="h1" variant="h5">

@@ -9,6 +9,7 @@
   "dependencies": {
     "any-db": "^2.2.1",
     "any-db-sqlite3": "^2.1.4",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "react-scripts": "^2.1.8"
