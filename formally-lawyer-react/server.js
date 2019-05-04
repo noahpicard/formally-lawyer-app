@@ -19,7 +19,7 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-//create_fake_data();
+create_fake_data();
 insert_forms()
 
 
@@ -238,10 +238,7 @@ app.post('/api/get_client', (req, res) => {
 
     })
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 6daa8f69f32de97705ef968bf82ebdccd0d54b92
 app.post('/api/signin', (req, res) => {
   console.log(req.body)
   const check = "select * from Users where email = ? and password = ?"
