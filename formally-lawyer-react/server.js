@@ -19,7 +19,52 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-create_fake_data();
+//create_fake_data();
+insert_forms()
+
+
+function dict_to_list(dict){
+    let ead_to_send = {}
+    let i = 0
+    for (let key in dict) {
+        ead_to_send[i] = [key, dict[key]];
+        i += 1
+    }
+    return ead_to_send
+}
+
+function insert_forms(){
+    const ead = {"INTRO":"String","First Name":"String","Middle Name":"String",
+        "Last Name":"String","Other Names":["True", "False"],"NUM_OTHER_NAME":"Integer",
+        "Other Names":[["fname1","mname1","lname1"],["fname2","mname2","lname2"]],"Birth Date":"Date",
+        "GENDER":["Male", "Female","Other"],"Martial Status":["Single", "Married", "Divorced","Widowed"],"BIRTH_CITY":"String",
+        "Birth State":"String","Birth Country":"String","Reason For Applying":["Initial permission to accept employment.", "Replacement of lost, stolen, or damaged employment authorization document, or correction of my employment authorization document NOT DUE to U.S. Citizenship and Immigration Services (USCIS) error. NOTE: Replacement (correction) of an employment authorization document due to USCIS error does not require a new Form I-765 and filing fee. Refer to Replacement for Card Error in the What is the Filing Fee section of the Form I-765 Instructions for further details.", "Renewal of my permission to accept employment. (Attach a copy of your previous employment authorization document.)"],
+        "Day Phone":"String","Mobile Phone":"String","Email":"String",
+        "Mail Address Street":"String","Mail Address Type":"String",
+        "Mail Address Apartment number":"Integer","Mail Address City":"String","Mail Address State Abbreviation":"String",
+        "Mail Address Zip":"String","SAME_MAIL_ADDRESS_EAD":["True", "False"],"Alien Registration Number":"String",
+        "USCIS Account Number":"Integer","I_765 Previous Application":["True", "False"],"SSA ISSUED":["True", "False"],"US SSN":"Integer",
+        "Do you want the SSA to issue you a Social Security card? (You must also answer “Yes” to Item Number 15., Consent for Disclosure, to receive a card.)":["True", "False"],"NUMBER COUNTRY CITIZEN":"Integer","CURRENT COUNTRY NATIONALITY":"String","SALV GUAT NATIONAL":["True", "False"],
+        "I_94 NUMBER":"Integer","TRAVEL_DOC_OR_PASSPORT":["Travel Document", "Passport"],"PASSPORT_NUMBER":"Integer","TRAVEL_DOC_EXPIRE_DATE":"Date",
+        "TRAVEL_DOC_ORIGIN":"String","FIRST_MOST_RECENT_US_ENTRY_DATE":"Date","FIRST_MOST_RECENT_US_ENTRY_PLACE":"String",
+        "FIRST_MOST_RECENT_US_ENTRY_STATUS":"String","CURRENT_IMMIGRATION_STATUS":"String","ELIGIBILITY_CATEGORY":"String",
+        "ELIGIBILITY_CAT_DEPENDENT":["True", "False"],"SPOUSE_H1_B_RECEIPT_NUMBER":"String",
+        "ENGLISH_UNDERSTAND":["True", "False"],"USED_PREPARER":["True", "False"]};
+    const client_example = {"INTRO":"","FIRST_NAME":"Noah","MIDDLE_NAME":"Alexander","LAST_NAME":"Picard","NUM_OTHER_NAME":"2","Other Names":[["fname1","mname1","lname1"],["fname2","mname2","lname2"]],"BIRTH_DATE":"12/32/3423","GENDER":"Male","MARITAL_STATUS":"Widowed","BIRTH_CITY":"San Francisco","BIRTH_STATE":"California","BIRTH_COUNTRY":"USA","REASON_FOR_APP":"Initial Permission","DAY_PHONE":"2116238673","MOBILE_PHONE":"2727838673","EMAIL":"noah@formally.us","MAIL_ADDRESS_STREET":"12 Persimmon Street","MAIL_ADDRESS_TYPE":"Apartment","MAIL_ADDRESS_APT_NUMBER":"4","MAIL_ADDRESS_CITY":"Chicago","MAIL_ADDRESS_STATE_ABBV":"IL","MAIL_ADDRESS_ZIP":"60415","SAME_MAIL_ADDRESS_EAD":true,"ALIEN_REGISTRATION_NUMBER":"213-323-121","USCIS_ACCOUNT_NUMBER":"123456789","I_765_PREVIOUS_APP":true,"SSA_ISSUED":true,"US_SSN":"123-23-2131","WANT_US_SSN":false,"NUMBER_COUNTRY_CITIZEN":"1","CURRENT_COUNTRY_NATIONALITY":"USA","SALV_GUAT_NATIONAL":false,"I_94_NUMBER":"0123456789","TRAVEL_DOC_OR_PASSPORT":"Passport","PASSPORT_NUMBER":"0123456789","TRAVEL_DOC_EXPIRE_DATE":"12/32/2312","TRAVEL_DOC_ORIGIN":"America","FIRST_MOST_RECENT_US_ENTRY_DATE":"12/23/2231","FIRST_MOST_RECENT_US_ENTRY_PLACE":"Chicago, Illinois","FIRST_MOST_RECENT_US_ENTRY_STATUS":"Refugee","CURRENT_IMMIGRATION_STATUS":"F-1 student","ELIGIBILITY_CAT":"Spouse or Child of someone else","ELIGIBILITY_CAT_DEPENDENT":"Are you the spouse of an H-1B visa holder:  (c)(26)","SPOUSE_H1_B_RECEIPT_NUMBER":"EAC-19-231-51244","ENGLISH_UNDERSTAND":true,"USED_PREPARER":false}
+
+    ead_to_send = JSON.stringify(dict_to_list(ead));
+
+    const conn = db.createConnection('sqlite3://formally-lawyer.db');
+    conn.query("insert into Form_types(form_json) values(?)", [ead_to_send], function(error, data){
+        if(error){
+            console.log(error);
+        }
+    });
+
+    conn.end()
+
+
+}
 
 function create_fake_data() {
   const conn = db.createConnection('sqlite3://formally-lawyer.db');
@@ -183,14 +228,16 @@ app.post('/api/get_client', (req, res) => {
 
         }else{
             const clients = data.rows
-            
+
+
             res.send(clients)
         }
 
         conn.end();
 
     })
-}
+});
+
 app.post('/api/signin', (req, res) => {
   console.log(req.body)
   const check = "select * from Users where email = ? and password = ?"

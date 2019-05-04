@@ -1,0 +1,17 @@
+const state:{"INTRO":"String","First Name":"String","Middle Name":"String",
+    "Last Name":"String","Other Names":["True", "False"],"NUM_OTHER_NAME":"Integer",
+    "Other Names":[["fname1","mname1","lname1"],["fname2","mname2","lname2"]],"Birth Date":"Date",
+    "GENDER":["Male", "Female","Other"],"Martial Status":["Single", "Married", "Divorced","Widowed"],"BIRTH_CITY":"String",
+    "Birth State":"String","Birth Country":"String","Reason For Applying":["Initial permission to accept employment.", "Replacement of lost, stolen, or damaged employment authorization document, or correction of my employment authorization document NOT DUE to U.S. Citizenship and Immigration Services (USCIS) error. NOTE: Replacement (correction) of an employment authorization document due to USCIS error does not require a new Form I-765 and filing fee. Refer to Replacement for Card Error in the What is the Filing Fee section of the Form I-765 Instructions for further details.", "Renewal of my permission to accept employment. (Attach a copy of your previous employment authorization document.)"],
+    "Day Phone":"String","Mobile Phone":"String","Email":"String",
+    "Mail Address Street":"String","Mail Address Type":"String",
+    "Mail Address Apartment number":"Integer","Mail Address City":"String","Mail Address State Abbreviation":"String",
+    "Mail Address Zip":"String","SAME_MAIL_ADDRESS_EAD":["True", "False"],"Alien Registration Number":"String",
+    "USCIS Account Number":"Integer","I_765 Previous Application":["True", "False"],"SSA ISSUED":["True", "False"],"US SSN":"Integer",
+    "Do you want the SSA to issue you a Social Security card? (You must also answer “Yes” to Item Number 15., Consent for Disclosure, to receive a card.)":["True", "False"],"NUMBER COUNTRY CITIZEN":"Integer","CURRENT COUNTRY NATIONALITY":"String","SALV GUAT NATIONAL":["True", "False"],
+    "I_94 NUMBER":"Integer","TRAVEL_DOC_OR_PASSPORT":["Travel Document", "Passport"],"PASSPORT_NUMBER":"Integer","TRAVEL_DOC_EXPIRE_DATE":"Date",
+    "TRAVEL_DOC_ORIGIN":"String","FIRST_MOST_RECENT_US_ENTRY_DATE":"Date","FIRST_MOST_RECENT_US_ENTRY_STATE":"String","FIRST_MOST_RECENT_US_ENTRY_CITY":"String",
+    "FIRST_MOST_RECENT_US_ENTRY_STATUS":"String","CURRENT_IMMIGRATION_STATUS":"String","ELIGIBILITY_CATEGORY":"String",
+    "ELIGIBILITY_CAT_DEPENDENT":["True", "False"],"SPOUSE_H1_B_RECEIPT_NUMBER":"String",
+    "ENGLISH_UNDERSTAND":["True", "False"],"USED_PREPARER":["True", "False"]}
+
