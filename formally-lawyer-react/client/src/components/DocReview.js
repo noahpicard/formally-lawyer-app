@@ -114,7 +114,13 @@ const styles = theme => ({
     },
     submitComment:{
         width: "100%",
-    }
+    },
+    commented:{
+        color: "lightgreen"
+    },
+    commenting:{
+        color:"gold"
+    },
 });
 
 
@@ -122,7 +128,7 @@ class DocReview extends React.Component {
 
    constructor(props) {
         super(props);
-       this.state = {clientName: "", commentDict: {}, commenting: {}}
+       this.state = {clientName: "", commented: {}, commenting: {}}
     }
     
     comment(i){
@@ -134,6 +140,8 @@ class DocReview extends React.Component {
         
         if(i in this.state.commenting){
             currentComment = this.state.commenting[i];
+        }else if(i in this.state.commented){
+            currentComment = this.state.commented[i];
         }
         
         let commentBar = <div className = {classes.submitComment}><TextField id = {divId} InputProps={{
@@ -149,13 +157,30 @@ class DocReview extends React.Component {
         ReactDOM.render(commentBar, document.getElementById("commentDiv" + i));  
     }
     
+    submitComment(i){
+        const { classes } = this.props;
+        let div1 = document.getElementById("q" + i);
+        let divId = "submitContent" + i;
+        let comment = document.getElementById(divId).value;
+        this.state.commented[i] = comment;
+        delete this.state.commenting[i];
+        
+        let commentId = "c" + i;
+        let commentButton = <CommentIcon className = {classes.commented} id = {commentId} onClick={() => this.comment(i)} />;
+        div1.style.height = "50px";
+        document.getElementById("commentDiv" + i).style.top = "30%";
+        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
+        
+    }
+    
     cancelComment(i){
         const { classes } = this.props;
         let div1 = document.getElementById("q" + i);
         let divId = "submitContent" + i;
         this.state.commenting[i] = document.getElementById(divId).value;
+        delete this.state.commented[i];
         let commentId = "c" + i;
-        let commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
+        let commentButton = <CommentIcon className = {classes.commenting} id = {commentId} onClick={() => this.comment(i)} />;
         div1.style.height = "50px";
         document.getElementById("commentDiv" + i).style.top = "30%";
         ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
