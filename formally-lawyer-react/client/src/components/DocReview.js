@@ -122,35 +122,44 @@ class DocReview extends React.Component {
 
    constructor(props) {
         super(props);
-       this.state = {clientName: "", commentDict: {}, commenting: new Set()}
+       this.state = {clientName: "", commentDict: {}, commenting: {}}
     }
     
     comment(i){
         
         const { classes } = this.props;
         let div1 = document.getElementById("q" + i);
-        let commentBar = <div className = {classes.submitComment}><TextField InputProps={{
+        let divId = "submitContent" + i;
+        let currentComment = "";
+        
+        if(i in this.state.commenting){
+            currentComment = this.state.commenting[i];
+        }
+        
+        let commentBar = <div className = {classes.submitComment}><TextField id = {divId} InputProps={{
             classes: {
               input: classes.commentText,
-            },}} label="Comment" className = {classes.commentBar} multiline rowsMax="4"/><CheckIcon className = {classes.checkIcon} onClick={() => this.submitComment(i)} /><CancelIcon onClick={() => this.cancelComment(i)} className = {classes.cancelIcon}/></div>;
-        document.getElementById("commentDiv" + i).removeChild(document.getElementById("c" + i))
-        this.state.commenting.add(i);
+            },}} label="Comment" defaultValue = {currentComment} className = {classes.commentBar} multiline rowsMax="4"/><CheckIcon className = {classes.checkIcon} onClick={() => this.submitComment(i)} /><CancelIcon onClick={() => this.cancelComment(i)} className = {classes.cancelIcon}/></div>;
+        
         div1.style.height = "100px";
         document.getElementById("q" + i).style.marginRight = "0px";
         document.getElementById("commentDiv" + i).style.position = "relative";
         document.getElementById("commentDiv" + i).style.top = "5%";
         document.getElementById("commentDiv" + i).style.left = "20%";
-        ReactDOM.render(commentBar, document.getElementById("commentDiv" + i));    
+        ReactDOM.render(commentBar, document.getElementById("commentDiv" + i));  
     }
     
-//    cancelComment(i){
-//        const { classes } = this.props;
-//        let div1 = document.getElementById("q" + i);
-//        let commentId = "c" + i;
-//        document.getElementById("commentDiv" + i).innerHTML = '';
-//        let commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
-//        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
-//    }
+    cancelComment(i){
+        const { classes } = this.props;
+        let div1 = document.getElementById("q" + i);
+        let divId = "submitContent" + i;
+        this.state.commenting[i] = document.getElementById(divId).value;
+        let commentId = "c" + i;
+        let commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
+        div1.style.height = "50px";
+        document.getElementById("commentDiv" + i).style.top = "30%";
+        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
+    }
     
     parseForms(dict1, dict2, {classes}){
         
