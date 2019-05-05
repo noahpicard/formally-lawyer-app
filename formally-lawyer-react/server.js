@@ -20,7 +20,7 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-create_fake_data();
+//create_fake_data();
 const saltRounds = 10;
 
 function encrypt(password){
@@ -336,11 +336,33 @@ app.post('/api/get_client', (req, res) => {
 
 
 
-app.post('/api/forms', (req, res) => {
+app.post('/api/forms/json', (req, res) => {
     const id = req.body.id
     //console.log("encrypted = " + encrypt(req.body.id));
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
     conn.query("select info_json from Forms where client_id = ?", [id], function(error, result){
+        if(error){
+            console.log(error)
+        }else{
+            const forms = []
+            for (let key in result.rows) {
+                forms.push(result.rows[key].info_json)
+
+            }
+            res.send({forms: forms})
+
+        }
+        conn.end()
+
+    });
+
+});
+
+app.post('/api/forms/display', (req, res) => {
+    const id = req.body.id
+    //console.log("encrypted = " + encrypt(req.body.id));
+    const conn = db.createConnection('sqlite3://formally-lawyer.db');
+    conn.query("select name, status from Forms where client_id = ?", [id], function(error, result){
         if(error){
             console.log(error)
         }else{
@@ -392,12 +414,35 @@ app.post('/api/signin', (req, res) => {
                                 console.log(er)
 
                             }else{
+                                //conn.query("select id, name, reviewed from Forms where client_id = ?", [])
                                 info.networks = networks
-                                info.clients = data3.rows
+                                let curr_clients = data3.rows
+                                for (let key = 0; key < curr_clients.length; key++) {
 
-                                console.log("INFO")
-                                console.log(info)
-                                res.send(info)
+                                    conn.query("select id, name, reviewed from Forms where client_id = ?", [curr_clients[key].id],function(error,data){
+                                        if(error){
+                                            console.log("ERROR GETTING FORMS");
+                                            console.log(error);
+                                        }else{
+                                            const forms = []
+                                            for(let k in data.rows){
+                                                forms.push(data.rows[k]);
+                                            }
+                                            curr_clients[key].forms = forms
+                                            if (key === curr_clients.length-1){
+                                                info.clients = curr_clients
+                                                res.send(info)
+
+
+                                            }
+                                        }
+
+                                    });
+                                    //console.log("CLIENT ",curr_clients[key])
+                                }
+
+                                //console.log("INFO")
+                                //console.log(info)
                             }
 
                             conn.end();
