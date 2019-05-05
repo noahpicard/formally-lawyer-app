@@ -20,23 +20,34 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-//create_fake_data();
+create_fake_data();
 const saltRounds = 10;
 
 function encrypt(password){
-    bcrypt.hash(password, saltRounds,
-        function(err, hashedPassword) {
-            if (err) {
-                next(err);
-            }
-            else {
-                next();
-                return hashedPassword;
 
-            }
-        });
+    bcrypt
+        .hash(password, saltRounds)
+        .then(hashedPassword => {
+            console.log("hash", hashedPassword);
+            return hashedPassword; // notice that all of these methods are asynchronous!
+        })
 }
 
+const password = "secret";
+
+/*bcrypt
+    .hash(password, saltRounds)
+    .then(hashedPassword => {
+        console.log("hash", hashedPassword);
+        return hashedPassword; // notice that all of these methods are asynchronous!
+    })
+    .then(hash => {
+        //console.log()
+        return bcrypt.compare(password, hash); // what does this method return?
+    })
+    .then(res => {
+        console.log("match", res);
+    });*/
 
 function dict_to_list(dict){
     let form_to_send = {}
@@ -109,7 +120,7 @@ function insert_forms(){
                 }else{
                     console.log("IDS")
                     for (let key in data.rows) {
-                        conn.query("insert into Forms(client_id, form_type_id, info_json) values(?,?,?)", [key, 0,JSON.stringify(type_example)], function(error, data){
+                        conn.query("insert into Forms(client_id, form_type_id,name, info_json) values(?,?,?,?)", [key, 0,"EAD",JSON.stringify(type_example)], function(error, data){
                             if(error){
                                 console.log("EROR2")
 
@@ -162,20 +173,20 @@ function create_fake_data() {
     let user = users[i];
     conn.query(insert, [user.email, user.first_name, user.last_name, user.password],function (error, data) {
       if(error){
-        //console.log(error);
+        console.log(error);
       }else{
 
         let foreign = data.lastInsertId;
-        let addClient = "insert into Clients (email, first_name, last_name, password," +
-        " immigration_status, address, arn, nationality, user_id) values (?,?,?,?,?,?,?,?,?)";
+        let addClient = "insert into Clients (dob,email, first_name, last_name, password," +
+        " immigration_status, address, arn, nationality, user_id) values (?,?,?,?,?,?,?,?,?,?)";
         const number_of_clients = 10;
         for (let j = 0; j < number_of_clients; j++) {
             let curClient = clients[i * 25 + j]
-          conn.query(addClient, [curClient.email, curClient.first_name,
+          conn.query(addClient, ["2000/01/01",curClient.email, curClient.first_name,
             curClient.last_name, curClient.password, curClient.immigration_status,
             curClient.address, curClient.arn, curClient.nationality, foreign],function (error, data) {
             if(error){
-              //console.log(error);
+              console.log(error);
             }else{
               console.log(data);
             }
@@ -266,6 +277,7 @@ function create_tables(){
     email	varchar(60) UNIQUE,\
     first_name	varchar(60) NOT NULL,\
     last_name	INTEGER NOT NULL,\
+    dob	DATE NOT NULL,\
     password	varchar(60) NOT NULL,\
     created	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\
     immigration_status TEXT, \
@@ -288,9 +300,11 @@ function create_tables(){
 
     create_table("CREATE TABLE IF NOT EXISTS Forms (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
+    name TEXT NOT NULL,\
     client_id	INTEGER NOT NULL,\
     form_type_id INTEGER NOT NULL,\
     info_json	TEXT NOT NULL,\
+    reviewed	BOOLEAN DEFAULT FALSE,\
     FOREIGN KEY (client_id) REFERENCES Clients(id),\
     FOREIGN KEY (form_type_id) REFERENCES Form_types(id))")
     conn.end();
@@ -321,12 +335,28 @@ app.post('/api/get_client', (req, res) => {
 });
 
 
-/*app.post('/api/forms/*', (req, res) => {
-    console.log("recieved", req.body)
-    console.log("encrypted = " + encrypt(req.body.id));
-    res.send({form: "long ass string"})
 
-});*/
+app.post('/api/forms', (req, res) => {
+    const id = req.body.id
+    //console.log("encrypted = " + encrypt(req.body.id));
+    const conn = db.createConnection('sqlite3://formally-lawyer.db');
+    conn.query("select info_json from Forms where client_id = ?", [id], function(error, result){
+        if(error){
+            console.log(error)
+        }else{
+            const forms = []
+            for (let key in result.rows) {
+                forms.push(result.rows[key].info_json)
+
+            }
+            res.send({forms: forms})
+
+        }
+        conn.end()
+
+    });
+
+});
 
 app.post('/api/signin', (req, res) => {
   console.log(req.body)
