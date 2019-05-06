@@ -24,15 +24,25 @@ const saltRounds = 10;
 
 create_fake_data();
 
-
+//
 function dict_to_list(dict){
     let form_to_send = {}
     let i = 0
     for (let key in dict) {
-        if(dict[key] !== "String"){
-            form_to_send[i] = [key, "options", dict[key]];
+        let fixed_key = key;
+        const words = key.split("_");
+        if (words.length > 1){
+            //for(let word in words)
+            fixed_key = words.join(" ");
+
+        }
+        if(dict[key] !== "String" && key !== "Other Names"){
+            form_to_send[i] = [fixed_key, "options", dict[key]];
+        }else if(key === "Other Names"){
+            form_to_send[i] = [fixed_key, dict[key]];
+
         }else{
-            form_to_send[i] = [key, dict[key]];
+            form_to_send[i] = [fixed_key, dict[key]];
         }
         i += 1
     }
@@ -42,12 +52,21 @@ function dict_to_list(dict){
 function generateForm(form_type){
     function get_answer(quest_ans){
         let curr_ans = [quest_ans[0]]
-        if(quest_ans[1] === "String"){
-            curr_ans.push("blop");
-        }else if (quest_ans[1] === "options"){
-            const random_answer = quest_ans[2][Math.floor(Math.random() * quest_ans[2].length)];
-            curr_ans.push(random_answer);
+        if(quest_ans[0] === "Other Names Used"){
+            curr_ans.push("True");
+
+        }else if(quest_ans[0] === "Other Names") {
+            curr_ans.push([["some first", "some middle", "some last name"]])
+
+        }else{
+            if(quest_ans[1] === "String"){
+                curr_ans.push("blop");
+            }else if (quest_ans[1] === "options"){
+                const random_answer = quest_ans[2][Math.floor(Math.random() * quest_ans[2].length)];
+                curr_ans.push(random_answer);
+            }
         }
+
         return curr_ans
     }
     let form_to_send = {}
@@ -144,7 +163,7 @@ function insert_forms(){
             console.log("IDS")
             for (let key in data.rows) {
                 for(let form_type_id = 1; form_type_id<3; form_type_id++){
-                    const form_json = get_form(form_type_id);
+                    const form_json = generateForm(get_form(form_type_id));
                     const client_id = key;
                     const comments_json = generateComments(form_json);
                     conn.query("insert into Forms(client_id, form_type_id, info_json, comments_json) values(?,?,?,?)", [client_id, form_type_id,JSON.stringify(form_json), JSON.stringify(comments_json)], function(error, data){
