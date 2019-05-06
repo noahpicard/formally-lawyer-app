@@ -22,7 +22,7 @@ const db = require('any-db');
 create_tables();
 const saltRounds = 10;
 
-create_fake_data();
+//create_fake_data();
 
 function encrypt(password){
 
@@ -116,7 +116,7 @@ function insert_forms(){
 
     ead_to_send = JSON.stringify(dict_to_list(ead));
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
-    conn.query("insert into Form_types(form_json) values(?)", [ead_to_send], function(error, data){
+    conn.query("insert into Form_types(full_name, name, form_json) values(?,?,?)", ["Employment Authorization Document", "ead",ead_to_send], function(error, data){
         if(error){
             console.log(error);
             conn.end()
@@ -131,7 +131,7 @@ function insert_forms(){
                 }else{
                     console.log("IDS")
                     for (let key in data.rows) {
-                        conn.query("insert into Forms(client_id, form_type_id,name, info_json, comments_json) values(?,?,?,?,?)", [key, 1,"EAD",JSON.stringify(type_example), JSON.stringify(empty_comments)], function(error, data){
+                        conn.query("insert into Forms(client_id, form_type_id, info_json, comments_json) values(?,?,?,?)", [key, 1,JSON.stringify(type_example), JSON.stringify(empty_comments)], function(error, data){
                             if(error){
                                 console.log("EROR2")
 
@@ -311,11 +311,12 @@ function create_tables(){
 
     create_table("CREATE TABLE IF NOT EXISTS Form_types (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
+    name TEXT NOT NULL,\
+    full_name TEXT NOT NULL,\
     form_json	TEXT NOT NULL)")
 
     create_table("CREATE TABLE IF NOT EXISTS Forms (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
-    name TEXT NOT NULL,\
     client_id	INTEGER NOT NULL,\
     form_type_id INTEGER NOT NULL,\
     info_json	TEXT NOT NULL,\
@@ -396,7 +397,7 @@ app.post('/api/forms/display', (req, res) => {
     const id = req.body.id
     //console.log("encrypted = " + encrypt(req.body.id));
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
-    conn.query("select f.name, f.info_json as question_answer, ft.form_json as question_type, f.comments_json as comments from forms as f, Form_types as ft where ft.id = f.form_type_id and f.id = ?", [id], function(error, result){
+    conn.query("select ft.name,ft.fullname, f.info_json as question_answer, ft.form_json as question_type, f.comments_json as comments from forms as f, Form_types as ft where ft.id = f.form_type_id and f.id = ?", [id], function(error, result){
         if(error){
             console.log(error)
         }else{
@@ -474,7 +475,7 @@ app.post('/api/signin', (req, res) => {
 
                                         for (let key = 0; key < curr_clients.length; key++) {
 
-                                            conn.query("select id, name, reviewed from Forms where client_id = ?", [curr_clients[key].id], function (error, data) {
+                                            conn.query("select f.id, ft.name,ft.full_name, f.reviewed from Forms as f, Form_types as ft where f.form_type_id = ft.id and client_id = ?", [curr_clients[key].id], function (error, data) {
                                                 if (error) {
                                                     console.log("ERROR GETTING FORMS");
                                                     console.log(error);
