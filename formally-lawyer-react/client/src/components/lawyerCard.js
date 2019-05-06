@@ -66,9 +66,9 @@ function LawyerCard(props) {
            {user.email}
          </Typography>
        </CardContent>
-       <CardActions>
-         <Button size="small" color="secondary" className={classes.button}>(Edit)</Button>
-       </CardActions>
+       {/*<CardActions>*/}
+         {/*<Button size="small" color="secondary" className={classes.button}>(Edit)</Button>*/}
+       {/*</CardActions>*/}
        <Divider variant="middle" />
        <CardContent className={classes.content}>
          <Typography className={classes.topText} color="secondary">
@@ -77,9 +77,9 @@ function LawyerCard(props) {
          <Typography className={classes.bottomText} color="secondary">
            Coalition of Princes
          </Typography>
-         <CardActions>
-           <Button size="small" color="secondary" className={classes.button}>(Add new Connection)</Button>
-         </CardActions>
+         {/*<CardActions>*/}
+           {/*<Button size="small" color="secondary" className={classes.button}>(Add new Connection)</Button>*/}
+         {/*</CardActions>*/}
        </CardContent>
      </Card>
    </div>
