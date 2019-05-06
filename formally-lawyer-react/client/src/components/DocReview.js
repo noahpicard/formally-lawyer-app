@@ -129,7 +129,31 @@ class DocReview extends React.Component {
    constructor(props) {
         super(props);
        this.state = {clientName: "", commented: {}, commenting: {}}
+       
+
+       
     }
+    
+    test = async e => {
+        console.log("SENDING")
+        const response = await fetch('/api/forms/json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id:"1"}),
+        });
+        const body = await response.json();
+        if ("error" in body) {
+            console.log(body);
+
+        }
+        else {
+            console.log("body");
+            console.log(body);
+        }
+
+    };
     
     comment(i){
         
@@ -162,12 +186,18 @@ class DocReview extends React.Component {
         let div1 = document.getElementById("q" + i);
         let divId = "submitContent" + i;
         let comment = document.getElementById(divId).value;
+        div1.style.height = "50px";
+        let commentId = "c" + i;
+        let commentButton;
+        
+        if(comment == ""){
+            commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
+        }else{
         this.state.commented[i] = comment;
         delete this.state.commenting[i];
+        commentButton = <CommentIcon className = {classes.commented} id = {commentId} onClick={() => this.comment(i)} />;
+        }
         
-        let commentId = "c" + i;
-        let commentButton = <CommentIcon className = {classes.commented} id = {commentId} onClick={() => this.comment(i)} />;
-        div1.style.height = "50px";
         document.getElementById("commentDiv" + i).style.top = "30%";
         ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
         
@@ -176,12 +206,20 @@ class DocReview extends React.Component {
     cancelComment(i){
         const { classes } = this.props;
         let div1 = document.getElementById("q" + i);
-        let divId = "submitContent" + i;
-        this.state.commenting[i] = document.getElementById(divId).value;
-        delete this.state.commented[i];
-        let commentId = "c" + i;
-        let commentButton = <CommentIcon className = {classes.commenting} id = {commentId} onClick={() => this.comment(i)} />;
         div1.style.height = "50px";
+        let divId = "submitContent" + i;
+        let commentId = "c" + i;
+        let comment = document.getElementById(divId).value;
+        let commentButton;
+        
+        if(comment == ""){
+            commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
+        }else{
+            this.state.commenting[i] = comment;
+            delete this.state.commented[i];
+
+            commentButton = <CommentIcon className = {classes.commenting} id = {commentId} onClick={() => this.comment(i)} />;
+        }
         document.getElementById("commentDiv" + i).style.top = "30%";
         ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
     }
@@ -227,6 +265,8 @@ class DocReview extends React.Component {
 
   render() {
     const { classes } = this.props;
+      
+    this.test();
     let dict1 = {1: ["What is your first name?", "String"], 2: ["What is your last name?", "String"], 3: ["What is your gender?", "Options", "Male", "Female"]};
     //let dict2 = {1: "Gokul", 2: "Ajith", 3: "unknown"};
       
