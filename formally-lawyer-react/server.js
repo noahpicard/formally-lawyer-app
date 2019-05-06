@@ -16,7 +16,10 @@ const imStatus = ['United States Citizen', 'Lawful Permanent Resident', 'Tempora
 const nations = ['Mexican', 'Canadian', 'Spanish', 'South African', 'Brazilian']
 
 const addy = ['23rd W 57th St. Yuma, AZ 85364', 'Brown University Providence, RI 02912', 'East Town Center Boston, MA 03293']
-
+const streets = ['South Main 82', 'West 16th St.', 'DownTown', 'Jarls Street']
+const cities = ['Yuma', 'Providence', 'Boston', 'Pheonix', 'Tucson', 'El Paso', 'San Diego', 'New York City', 'Austin']
+const states = ['AZ', 'RI', 'MA', 'AZ', 'AZ', 'NM', 'CA', 'NY', 'TX']
+const zips = ['02912', '84736', '91830', '29382', '92830', '19283']
 // db to store messages and rooms
 const db = require('any-db')
 create_tables()
@@ -28,6 +31,13 @@ function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+function getDate() {
+  let year = 2000 - Math.floor(Math.random() * 50)
+  let day = Math.floor(Math.random() * 31)
+  let month = Math.floor(Math.random() * 12)
+  return day.toString() + "/" + month.toString() + "/" + year.toString();
 }
 
 function dict_to_list (dict) {
@@ -71,7 +81,51 @@ function generateForm (form_type) {
 
     } else {
       if (quest_ans[1] === 'String') {
-        curr_ans.push('blop')
+        let question = quest_ans[0].toLowerCase()
+        if (question.includes("name")) {
+          if (question.includes("first")) {
+            curr_ans.push(getRandomIndex(firstNames))
+          } else if (question.includes("last")) {
+            curr_ans.push(getRandomIndex(lastNames))
+          } else {
+            curr_ans.push(getRandomIndex(firstNames))
+          }
+        } else if (question.includes("street")) {
+          curr_ans.push(getRandomIndex(streets))
+        }
+        else if (question.includes("city")) {
+          curr_ans.push(getRandomIndex(cities))
+        }
+        else if (question.includes("state")) {
+          curr_ans.push(getRandomIndex(states))
+        }
+        else if (question.includes("date")) {
+          curr_ans.push(getDate())
+        }
+        else if (question.includes("address")) {
+          curr_ans.push(getRandomIndex(addy))
+        }
+        else if (question.includes("zip")) {
+          curr_ans.push(getRandomIndex(zips))
+        }
+        else if (question.includes("phone")) {
+          curr_ans.push(getPhone())
+        }
+        else if (question.includes("email")) {
+         let first = getRandomIndex(firstNames)
+         let last = getRandomIndex(lastNames)
+          let em = first+'.'+last+'@gmail.com'
+          curr_ans.push(em)
+        }
+        else if (question.includes("ssn")) {
+          curr_ans.push(makeId())
+        }
+        else if (question.includes("number")) {
+          curr_ans.push((Math.floor(Math.random() * 1029383293829)).toString())
+        }
+        else {
+          curr_ans.push('--------------')
+        }
       } else if (quest_ans[1] === 'options') {
         const random_answer = quest_ans[2][Math.floor(Math.random() * quest_ans[2].length)]
         curr_ans.push(random_answer)
@@ -89,6 +143,21 @@ function generateForm (form_type) {
 
   }
   return form_to_send
+}
+
+function getPhone() {
+  let result1 = ''
+  let result2 = ''
+  let result3 = ''
+  let characters = '0123456789'
+  let charactersLength = characters.length
+  for (let i = 0; i < 3; i++) {
+    result1 += characters.charAt(Math.floor(Math.random() * charactersLength))
+    result2 += characters.charAt(Math.floor(Math.random() * charactersLength))
+    result3 += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  result3 += characters.charAt(Math.floor(Math.random() * charactersLength))
+  return '('+result1+')'+result2+'-'+result3
 }
 
 function generateComments (form_type) {
@@ -611,7 +680,7 @@ function create_fake_data () {
           const number_of_clients = 10
           for (let j = 0; j < number_of_clients; j++) {
             let curClient = clients[i * 25 + j]
-            conn.query(addClient, ['2000/01/01', curClient.email, curClient.first_name,
+            conn.query(addClient, [getDate(), curClient.email, curClient.first_name,
               curClient.last_name, curClient.password, curClient.immigration_status,
               curClient.address, curClient.arn, curClient.nationality, foreign], function (error, data) {
               if (error) {
@@ -647,6 +716,7 @@ function makeId () {
   }
   return 'A' + result
 }
+
 
 function createUser (used) {
   let first_name = getRandomIndex(firstNames)
