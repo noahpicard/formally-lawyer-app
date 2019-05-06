@@ -1,6 +1,6 @@
-const ead = {"INTRO":"String","First Name":"String","Middle Name":"String",
+const ead_type = {"INTRO":"String","First Name":"String","Middle Name":"String",
     "Last Name":"String","Other Names":["True", "False"],"NUM_OTHER_NAME":"String",
-    "Other Names":[["fname1","mname1","lname1"],["fname2","mname2","lname2"]],"Birth Date":"String",
+    "Other Names":[],"Birth Date":"String",
     "GENDER":["Male", "Female","Other"],"Martial Status":["Single", "Married", "Divorced","Widowed"],"BIRTH_CITY":"String",
     "Birth State":"String","Birth Country":"String","Reason For Applying":["Initial permission to accept employment.", "Replacement of lost, stolen, or damaged employment authorization document, or correction of my employment authorization document NOT DUE to U.S. Citizenship and Immigration Services (USCIS) error. NOTE: Replacement (correction) of an employment authorization document due to USCIS error does not require a new Form I-765 and filing fee. Refer to Replacement for Card Error in the What is the Filing Fee section of the Form I-765 Instructions for further details.", "Renewal of my permission to accept employment. (Attach a copy of your previous employment authorization document.)"],
     "Day Phone":"String","Mobile Phone":"String","Email":"String",
@@ -15,52 +15,4 @@ const ead = {"INTRO":"String","First Name":"String","Middle Name":"String",
     "ELIGIBILITY_CAT_DEPENDENT":["True", "False"],"SPOUSE_H1_B_RECEIPT_NUMBER":"String",
     "ENGLISH_UNDERSTAND":["True", "False"],"USED_PREPARER":["True", "False"]};
 
-const type = dict_to_list(ead)
-
-
-const type_example = generateForm(type)
-for (let key in type_example) {
-    print(type_example[key]);
-
-}
-function dict_to_list(dict){
-    let form_to_send = {}
-    let i = 0
-    for (let key in dict) {
-        if(dict[key] !== "String"){
-            form_to_send[i] = [key, "options", dict[key]];
-
-
-        }else{
-            form_to_send[i] = [key, dict[key]];
-
-        }
-
-
-        i += 1
-    }
-    return form_to_send
-}
-
-
-function generateForm(form_type){
-    function get_answer(quest_ans){
-        let curr_ans = [quest_ans[0]]
-        if(quest_ans[1] === "String"){
-            curr_ans.push("blop");
-        }else if (quest_ans[1] === "options"){
-            const random_answer = quest_ans[2][Math.floor(Math.random() * quest_ans[2].length)];
-            curr_ans.push(random_answer);
-        }
-        return curr_ans
-    }
-    let form_to_send = {}
-
-    for (let key in form_type) {
-        const question_ans = form_type[key]
-        form_to_send[key] = get_answer(question_ans);
-
-    }
-    return form_to_send
-}
-
+const asylum = {"0":["INTRO","String"],"1":["FIRST_NAME","String"],"2":["MIDDLE_NAME","String"],"3":["LAST_NAME","String"],"4":["OTHER_NAMES","Options",["True","False"]], "Other Names":[],"5":["GENDER","Options",["Male","Female","Other"]],"6":["BIRTH_DATE","String"],"7":["BIRTH_CITY_COUNTRY","String"],"8":["BIRTH_NATIONALITY","String"],"9":["CURRENT_NATIONALITY","String"],"10":["US_SSN","String"],"11":["TRAVEL_DOC_OR_PASSPORT","Options",["Travel Document","Passport"]],"12":["PASSPORT_NUMBER","String"],"13":["TRAVEL_DOC_EXPIRE_DATE","String"],"14":["TRAVEL_DOC_ORIGIN","String"],"15":["ENGLISH_FLUENCY","Options",["True","False"]],"16":["IMMIGRATION_COURT_NOW","Options",["True","False"]],"17":["IMMIGRATION_COURT_EVER","Options",["True","False"]],"18":["RACE_ETHNIC_TRIBAL_GROUP","String"],"19":["RELIGIOUS_GROUP","String"],"20":["NATIVE_LANGUAGE","String"],"21":["DAY_PHONE","String"],"22":["OTHER_LANGUAGES_LIST","String"],"23":["FORM_FILLING_OTHER","Options",["True","False"]],"24":["RESIDENCE_US_STREET","String"],"25":["RESIDENCE_US_APT_NUMBER","String"],"26":["RESIDENCE_US_CITY","String"],"27":["RESIDENCE_US_STATE","String"],"28":["RESIDENCE_US_ZIP","String"],"29":["SAME_MAIL_ADDRESS_ASYLUM","Options",["True","False"]],"30":["ALIEN_REGISTRATION_NUMBER","String"],"31":["USCIS_ACCOUNT_NUMBER","String"],"32":["LAST_LEFT_COUNTRY","String"],"33":["US_ENTRY_NUMBER_OF_TIMES","String"],"34":["FIRST_MOST_RECENT_US_ENTRY_DATE","String"],"35":["FIRST_MOST_RECENT_US_ENTRY_PLACE","String"],"36":["FIRST_MOST_RECENT_US_ENTRY_STATUS","String"],"37":["MOST_RECENT_US_ENTRY_STATUS_EXPIRE","String"],"38":["MARITAL_STATUS","String"],"39":["HAS_CHILDREN","Options",["True","False"]],"40":["CHILDREN_NUMBER","String"],"41":["FIRST_CHILD_FIRST_NAME","String"],"42":["FIRST_CHILD_LAST_NAME","String"],"43":["FIRST_CHILD_MARITAL_STATUS","String"],"44":["FIRST_CHILD_US_SSN","String"],"45":["FIRST_CHILD_CURRENT_NATIONALITY","String"],"46":["FIRST_CHILD_BIRTH_DATE","String"],"47":["FIRST_CHILD_GENDER","String"],"48":["FIRST_CHILD_RACE_ETHNIC_TRIBAL_GROUP","String"],"49":["FIRST_CHILD_BIRTH_CITY_COUNTRY","String"],"50":["FIRST_CHILD_PASSPORT_ID_NUMBER","String"],"51":["SECOND_CHILD_FIRST_NAME","String"],"52":["SECOND_CHILD_MIDDLE_NAME","String"],"53":["SECOND_CHILD_LAST_NAME","String"],"54":["SECOND_CHILD_MARITAL_STATUS","Options",["Single","Married","Divorced","Widowed"]],"55":["SECOND_CHILD_CURRENT_NATIONALITY","String"],"56":["SECOND_CHILD_BIRTH_DATE","String"],"57":["SECOND_CHILD_GENDER","String"],"58":["SECOND_CHILD_RACE_ETHNIC_TRIBAL_GROUP","String"],"59":["SECOND_CHILD_BIRTH_CITY_COUNTRY","String"],"60":["SECOND_CHILD_ALIEN_REGISTRATION_NUMBER","String"],"61":["SECOND_CHILD_PASSPORT_ID_NUMBER","String"],"62":["FIRST_CHILD_IN_US","Options",["True","False"]],"63":["FIRST_CHILD_LOCATION_OUTSIDE_US","String"],"64":["SECOND_CHILD_IN_US","Options",["True","False"]],"65":["FIRST_CHILD_MOST_RECENT_US_ENTRY_VISA_STATUS","String"],"66":["FIRST_CHILD_CURRENT_VISA_STATUS","String"],"67":["FIRST_CHILD_VISA_STATUS_EXPIRATION","String"],"68":["FIRST_CHILD_COURT_NOW","Options",["True","False"]],"69":["FIRST_CHILD_APP_INCLUSION","Options",["True","False"]],"70":["SECOND_CHILD_MOST_RECENT_US_ENTRY_VISA_STATUS","String"],"71":["SECOND_CHILD_CURRENT_VISA_STATUS","String"],"72":["SECOND_CHILD_COURT_NOW","Options",["True","False"]],"73":["SECOND_CHILD_APP_INCLUSION","Options",["True","False"]],"74":["BEFORE_US_RESIDENCE_STREET","String"],"75":["BEFORE_US_RESIDENCE_CITY","String"],"76":["BEFORE_US_RESIDENCE_STATE","String"],"77":["BEFORE_US_RESIDENCE_COUNTRY","String"],"78":["BEFORE_US_RESIDENCE_FROM","String"],"79":["BEFORE_US_RESIDENCE_TO","String"],"80":["RESIDENCE_BEFORE_US_IN_COUNTRY_OF_PERSECUTION","Options",["True","False"]],"81":["PERSECUTION_BEFORE_US_RESIDENCE_STREET","String"],"82":["PERSECUTION_BEFORE_US_RESIDENCE_CITY","String"],"83":["PERSECUTION_BEFORE_US_RESIDENCE_COUNTRY","String"],"84":["PERSECUTION_BEFORE_US_RESIDENCE_FROM","String"],"85":["PERSECUTION_BEFORE_US_RESIDENCE_TO","String"],"86":["RESIDENCES_OVER_PAST_FIVE_YEARS_NUMBER","String"],"87":["FIRST_RESIDENCE_STREET","String"],"88":["FIRST_RESIDENCE_CITY","String"],"89":["FIRST_RESIDENCE_STATE","String"],"90":["FIRST_RESIDENCE_COUNTRY","String"],"91":["FIRST_RESIDENCE_FROM","String"],"92":["FIRST_RESIDENCE_TO","String"],"93":["SECOND_RESIDENCE_STREET","String"],"94":["SECOND_RESIDENCE_CITY","String"],"95":["SECOND_RESIDENCE_STATE","String"],"96":["SECOND_RESIDENCE_COUNTRY","String"],"97":["SECOND_RESIDENCE_FROM","String"],"98":["SECOND_RESIDENCE_TO","String"],"99":["PRESENT_RESIDENCE_FROM","String"],"100":["EDUCATION_NUMBER_OF_SCHOOLS","String"],"101":["FIRST_EDUCATION_SCHOOL","String"],"102":["FIRST_EDUCATION_TYPE","String"],"103":["FIRST_EDUCATION_ADDRESS","String"],"104":["FIRST_EDUCATION_FROM","String"],"105":["FIRST_EDUCATION_TO","String"],"106":["SECOND_EDUCATION_SCHOOL","String"],"107":["SECOND_EDUCATION_TYPE","String"],"108":["SECOND_EDUCATION_ADDRESS","String"],"109":["SECOND_EDUCATION_FROM","String"],"110":["SECOND_EDUCATION_TO","String"],"111":["EMPLOYMENT_OVER_PAST_FIVE_YEARS_NUMBER","String"],"112":["FIRST_EMPLOYMENT_NAME","String"],"113":["FIRST_EMPLOYMENT_OCC","String"],"114":["FIRST_EMPLOYMENT_FROM","String"],"115":["FIRST_EMPLOYMENT_TO","String"],"116":["MOTHER_FULL_NAME","String"],"117":["MOTHER_BIRTH_CITY_COUNTRY","String"],"118":["MOTHER_DECEASED","Options",["True","False"]],"119":["FATHER_FULL_NAME","String"],"120":["FATHER_BIRTH_CITY_COUNTRY","String"],"121":["FATHER_DECEASED","Options",["True","False"]],"122":["FATHER_CURRENT_CITY_COUNTRY","String"],"123":["SIBLING_NUMBER","String"],"124":["FIRST_SIBLING_FULL_NAME","String"],"125":["FIRST_SIBLING_BIRTH_CITY_COUNTRY","String"],"126":["FIRST_SIBLING_DECEASED","Options",["True","False"]],"127":["SECOND_SIBLING_FULL_NAME","String"],"128":["SECOND_SIBLING_BIRTH_CITY_COUNTRY","String"],"129":["SECOND_SIBLING_DECEASED","Options",["True","False"]],"130":["SECOND_SIBLING_CURRENT_CITY_COUNTRY","String"],"131":["I_589_REASON_FOR_APP_RACE","Options",["True","False"]],"132":["I_589_REASON_FOR_APP_RELIGION","Options",["True","False"]],"133":["I_589_REASON_FOR_APP_SOCIAL_GROUP","Options",["True","False"]],"134":["I_589_REASON_FOR_APP_TORTURE_CONVENTION","Options",["True","False"]],"135":["REASON_EXPERIENCED_MISTREATMENT_THREATS","Options",["True","False"]],"136":["REASON_EXPERIENCED_MISTREATMENT_THREATS_DETAILS","String"],"137":["REASON_FEAR_MISTREATMENT_THREATS","Options",["True","False"]],"138":["REASON_FEAR_MISTREATMENT_THREATS_DETAILS","String"],"139":["REASON_IMPRISONED_OUTSIDE_US","Options",["True","False"]],"140":["REASON_HOME_COUNTRY_ORGANIZATIONS","Options",["True","False"]],"141":["REASON_HOME_COUNTRY_ORGANIZATIONS_CURRENT","Options",["True","False"]],"142":["REASON_FEAR_TORTURE","Options",["True","False"]],"143":["PREVIOUS_REFUGEE_ASYLUM_APPS","Options",["True","False"]],"144":["PREVIOUS_TRAVEL_OUTSIDE_US","Options",["True","False"]],"145":["OTHER_COUNTRIES_STATUS","Options",["True","False"]],"146":["PARTICIPATED_IN_HARM","Options",["True","False"]],"147":["RETURNED_COUNTRY_PERSECUTION_AFTER_EXIT","Options",["True","False"]],"148":["APP_ONE_YEAR_AFTER_ARRIVAL","Options",["True","False"]],"149":["FAMILY_ARRESTED_CRIME_IN_US","Options",["True","False"]],"150":["FAMILY_ARRESTED_CRIME_IN_US_DETAILS","String"],"151":["FAMILY_APP_ASSISTANT","Options",["True","False"]],"152":["OTHER_PREPARER","Options",["True","False"]],"153":["I_589_PROVIDED_COUNSEL_LIST","Options",["True","False"]]}
