@@ -241,12 +241,26 @@ class DocReview extends React.Component {
         document.getElementById("commentDiv" + i).style.top = "30%";
         ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
     }
+
+    titleCase(str) {
+       let splitStr = str.toLowerCase().split(' ');
+       for (var i = 0; i < splitStr.length; i++) {
+           // You do not need to check if i is larger than splitStr length, as your for does that for you
+           // Assign it back to the array
+           splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+       }
+       // Directly return the joined string
+       return splitStr.join(' '); 
+    }
     
     parseForms(dict1, dict2, {classes}){
         
         let finalResult = []
-
-        for(let i = 1; i <= Object.keys(dict1).length; i++){
+        
+        console.log(dict2);
+        
+        
+        for(let i = 0; i < Object.keys(dict1).length; i++){
 
             let typeform = dict1[i]
             let response = dict2[i]
@@ -255,11 +269,15 @@ class DocReview extends React.Component {
             let commentId = "c" + i;
             let commentDiv = "commentDiv" + i;
 
-            let questionDiv = <Typography>{typeform[0]}</Typography>;
+            
 
             if(typeform[1] == "String" || typeform[1] == "Integer" || typeform[1] == "Date"){
-                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{typeform[0]}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon id = {commentId} onClick={() => this.comment(i)} /></div></div>);
-            }else if(typeform[1] == "Option"){
+                
+                let question = this.titleCase(typeform[0]);
+                //question = 
+                
+                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon id = {commentId} onClick={() => this.comment(i)} /></div></div>);
+            }else if(typeform[1] == "options"){
 
                const listItems = typeform[2].map((label) =>
                 <MenuItem value={label}>{label}</MenuItem>
@@ -307,8 +325,6 @@ class DocReview extends React.Component {
       
       if(Object.keys(this.state.info).length != 0){
       
-      //test();
-      console.log(this.state.info);
       
       let typeform = JSON.parse(this.state.info['question_type']);
       let responses = JSON.parse(this.state.info['question_answer']);
@@ -317,9 +333,7 @@ class DocReview extends React.Component {
           let temp = responses[key];
           responses[key] = temp[1];
       }
-//      
-      console.log(typeform);
-      console.log(responses);
+
       let formQuestions = this.parseForms(typeform, responses, {classes});
       renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
       }
