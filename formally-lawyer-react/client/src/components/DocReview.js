@@ -32,7 +32,7 @@ const styles = theme => ({
   },
     bigPaper:{
         marginTop: theme.spacing.unit * 6,
-        paddingTop: theme.spacing.unit * 2,
+        paddingTop: 0,
         paddingBottom: theme.spacing.unit * 10,
         backgroundColor: "lightgrey",
         height: "auto",
@@ -52,19 +52,19 @@ const styles = theme => ({
     questionName:{
         width: "300px",  
         marginRight: "5px",
-        marginTop:"0px",
+        marginTop:"10px",
         position: "relative",
         left: "5%",
-        top: "30%",
+        top: "25%",
         color:"#01BABB",
         fontSize:"16px"
     },
     questionResponse:{
         marginRight: "0px",
-        marginTop:"0px",
+        marginTop:"10px",
         position: "relative",
         left: "5%",
-        top: "20%",
+        top: "25%",
         fontSize:"16px",
         width:"200px",
         marginLeft: "5px",
@@ -72,7 +72,8 @@ const styles = theme => ({
     questionDiv:{
         display: "flex",
         flexDirection: "row",
-        height: "50px",
+        height: "auto",
+        minHeight: "50px",
         width:"65%",
         marginRight:"0px",
     },
@@ -82,6 +83,7 @@ const styles = theme => ({
         width: "auto",
         left: "20%",
         top: "25%",
+        marginTop:"15px",
     },
     commentBar:{
         position: "relative",
@@ -99,16 +101,16 @@ const styles = theme => ({
     checkIcon:{
         color: "green",
         position:"absolute",
-        top: "5px",
-        left:"250px",
+        top: "-10px",
+        left:"225px",
         height: "40px",
         width: "40px",
     },
     cancelIcon:{
         color: "red",
         position:"absolute",
-        top: "45px",
-        left:"250px",
+        top: "30px",
+        left:"225px",
         height: "40px",
         width: "40px",
     },
@@ -135,7 +137,8 @@ const styles = theme => ({
     },
     title:{
         color: "#01BABB",
-        textAlign: "center"
+        textAlign: "center",
+        paddingTop:"5px",
     }
 });
 
@@ -166,7 +169,7 @@ class DocReview extends React.Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id:"1"}),
+            body: JSON.stringify({ id:"2"}),
         });
         const body = await response.clone().json();
         this.setState({
@@ -198,7 +201,9 @@ class DocReview extends React.Component {
               input: classes.commentText,
             },}} label="Comment" defaultValue = {currentComment} className = {classes.commentBar} multiline rowsMax="4"/><CheckIcon className = {classes.checkIcon} onClick={() => this.submitComment(i)} /><CancelIcon onClick={() => this.cancelComment(i)} className = {classes.cancelIcon}/></div>;
         
-        div1.style.height = "100px";
+        let h = div1.clientHeight * 2
+        h = h.toString() + "px";
+        div1.style.height = h;
         document.getElementById("q" + i).style.marginRight = "0px";
         document.getElementById("commentDiv" + i).style.position = "relative";
         document.getElementById("commentDiv" + i).style.top = "5%";
@@ -211,7 +216,7 @@ class DocReview extends React.Component {
         let div1 = document.getElementById("q" + i);
         let divId = "submitContent" + i;
         let comment = document.getElementById(divId).value;
-        div1.style.height = "50px";
+        
         let commentId = "c" + i;
         let commentButton;
         
@@ -225,14 +230,14 @@ class DocReview extends React.Component {
         }
         
         document.getElementById("commentDiv" + i).style.top = "30%";
-        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
+        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));  
+        div1.style.height = "auto";
         
     }
     
     cancelComment(i){
         const { classes } = this.props;
         let div1 = document.getElementById("q" + i);
-        div1.style.height = "50px";
         let divId = "submitContent" + i;
         let commentId = "c" + i;
         let comment = document.getElementById(divId).value;
@@ -248,7 +253,8 @@ class DocReview extends React.Component {
             commentButton = <CommentIcon className = {classes.commenting} id = {commentId} onClick={() => this.comment(i)} />;
         }
         document.getElementById("commentDiv" + i).style.top = "30%";
-        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));    
+        ReactDOM.render(commentButton, document.getElementById("commentDiv" + i));   
+        div1.style.height = "auto";
     }
 
     titleCase(str) {
@@ -343,6 +349,10 @@ class DocReview extends React.Component {
       
       for(let key in responses){
           let temp = responses[key];
+          console.log("key");
+          console.log(key);
+          console.log("temp");
+          console.log(temp);
           responses[key] = temp[1];
       }
 
