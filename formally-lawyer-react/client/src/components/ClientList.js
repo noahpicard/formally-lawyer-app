@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { NavLink } from 'react-router-dom';
 
@@ -64,6 +65,12 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: 200,
     },
+  },
+  Reviewed: {
+    color: "green",
+  },
+  notReviewed: {
+    color: "red",
   },
 });
 
@@ -151,12 +158,10 @@ class ClientList extends React.Component {
             </ListItem>
             <Collapse in={this.state.open[i]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-              <NavLink to="/Document/test"> <ListItemText inset primary="Application for Asylum and for Withholding of Removal - I-589" /></NavLink>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-              <ListItemText inset primary="Application for Employment Authorization  - I-765" />
-              </ListItem>
+                {(c.forms).map((f) => (<ListItem button className={classes.nested}>
+                  <ListItemText inset primary={f.full_name} />
+                  {f.reviewed === 0 ? <FiberManualRecord className={classes.notReviewed}/> : <FiberManualRecord className={classes.Reviewed}/> }
+                </ListItem>))}
               </List>
             </Collapse></div>))}
 
