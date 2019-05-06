@@ -88,7 +88,7 @@ class SignIn extends React.Component {
 
   render() {
     const { classes } = this.props;
-    this.test();
+    //this.test();
     return (
       <div>
         <Typography component="h1" variant="h5">

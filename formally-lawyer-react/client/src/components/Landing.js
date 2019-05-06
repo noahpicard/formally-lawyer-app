@@ -21,9 +21,31 @@ const styles = theme => ({
     },
 });
 
-class Landing extends React.Component {
 
+class Landing extends React.Component {
+    test = async e => {
+        console.log("SENDING")
+        const response = await fetch('/api/forms/test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id:"1"}),
+        });
+        const body = await response.json();
+        console.log(body);
+        if ("error" in body) {
+            console.log(body);
+
+        }
+
+        else {
+            console.log(body);
+        }
+
+    };
   render() {
+      //this.test()
     const { classes } = this.props;
     const { redirect } = this.props.redirectReducer;
 
