@@ -120,7 +120,7 @@ function insert_forms(){
                 }else{
                     console.log("IDS")
                     for (let key in data.rows) {
-                        conn.query("insert into Forms(client_id, form_type_id,name, info_json) values(?,?,?,?)", [key, 0,"EAD",JSON.stringify(type_example)], function(error, data){
+                        conn.query("insert into Forms(client_id, form_type_id,name, info_json) values(?,?,?,?)", [key, 1,"EAD",JSON.stringify(type_example)], function(error, data){
                             if(error){
                                 console.log("EROR2")
 
@@ -359,19 +359,19 @@ app.post('/api/forms/json', (req, res) => {
 });
 
 app.post('/api/forms/display', (req, res) => {
+    console.log("CALLED")
     const id = req.body.id
     //console.log("encrypted = " + encrypt(req.body.id));
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
-    conn.query("select name, status from Forms where client_id = ?", [id], function(error, result){
+    conn.query("select f.name, f.info_json as question_answer, ft.form_json as question_type from forms as f, Form_types as ft where ft.id = f.form_type_id and f.id = ?", [id], function(error, result){
         if(error){
             console.log(error)
         }else{
-            const forms = []
-            for (let key in result.rows) {
-                forms.push(result.rows[key].info_json)
-
+            console.log("AYO")
+            if(result.rows.length !== 1){
+                console.log("ERROR: more than once form was returned")
             }
-            res.send({forms: forms})
+            res.send(result.rows[0])
 
         }
         conn.end()
