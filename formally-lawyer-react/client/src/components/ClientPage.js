@@ -15,6 +15,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Redirect } from 'react-router-dom'
 
 
 const styles = theme => ({
@@ -72,49 +73,31 @@ const styles = theme => ({
     
 });
 
-    function getForms(){
-
-            //Return list with forms from database in structure {name, status}, auto displayed in table
-            let form1 = {name: "Form1(b) - Immigration Form", status: "Pending"};
-            let form2 = {name: "Form 1(c) - Assylum Petition", status: "Completed"};
-            let form3 = {name: "Form 1(d) - H1-Visa Form", status: "Denied"};
-            return [form1, form2, form3];
-        }
 
     function getColor(status){
-        if(status == "Pending"){
-            return "gold";
-        }else if(status == "Completed"){
-            return "green";
-        }else{
+        if(status === 0){
             return "red";
+        }
+        else{
+            return "green";
         }
     }
 
 class ClientPage extends React.Component {
 
-   constructor(props) {
-        super(props);
-        let paths = window.location.href.split("/");
-        let username = paths[paths.length-1].replace("-", " ");
-
-        const { client } = props.location.aboutProps;
-        console.log(client);
-        this.state = {
-            name: username, dob: "-----", iStatus: client.immigration_status, address: client.address, alienNum: client.arn, nationality: client.nationality, family: "------",
-            };
-    }
-
   render() {
     const { classes } = this.props;
-    const rows = getForms();
+    if (this.props.location.aboutProps === undefined) {
+      return <Redirect to="/" />;
+    }
+    const { client } = this.props.location.aboutProps;
     return (
     <Paper className={classes.bigPaper} elevation={1}>
       
       <Paper className={classes.smallPaper} elevation={2}>
         
       <Typography className={classes.clientname} component="h1" variant="h5">
-          {this.state.name}
+          {client.first_name + " " + client.last_name}
         </Typography>
       
       <hr className={classes.divider} /> 
@@ -125,12 +108,11 @@ class ClientPage extends React.Component {
         
         <ul>
             
-        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>DoB: </span> {this.state.dob}</li>
-        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Immigration Status: </span> {this.state.iStatus}</li>
-        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Address: </span> {this.state.address}</li>
-        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Alien Registration Number: </span> {this.state.alienNum}</li>
-        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Nationality: </span> {this.state.nationality}</li>
-        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Family: </span> {this.state.family}</li>
+        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>DoB: </span> {client.dob}</li>
+        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Immigration Status: </span> {client.immigration_status}</li>
+        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Address: </span> {client.address}</li>
+        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Alien Registration Number: </span> {client.arn}</li>
+        <li className={classes.detailsList}><span style={{color:"#01BABB"}}>Nationality: </span> {client.nationality}</li>
         </ul>
         
         <hr className={classes.divider} /> 
@@ -147,12 +129,12 @@ class ClientPage extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.id}>
+              {(client.forms).map(f => (
+                <TableRow key={f.id}>
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {f.full_name}
                   </TableCell>
-                  <TableCell style={{color:getColor(row.status)}} align="right">{row.status}</TableCell>
+                  <TableCell style={{color:getColor(f.reviewed)}} align="right">{f.reviewed === 0 ? "Not Reviewed" : "Reviewed"}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
