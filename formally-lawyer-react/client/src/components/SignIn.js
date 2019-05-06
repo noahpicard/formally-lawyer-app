@@ -27,9 +27,9 @@ class SignIn extends React.Component {
 
 
 
-   /* test = async e => {
+   test = async e => {
         console.log("SENDING")
-        const response = await fetch('/api/forms', {
+        const response = await fetch('/api/forms/display', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ class SignIn extends React.Component {
             console.log(body);
         }
 
-    };*/
+    };
 
 
 
@@ -88,7 +88,7 @@ class SignIn extends React.Component {
 
   render() {
     const { classes } = this.props;
-    //this.test();
+    this.test();
     return (
       <div>
         <Typography component="h1" variant="h5">
