@@ -166,7 +166,7 @@ class DocReview extends React.Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id:"1"}),
+            body: JSON.stringify({ id:"2"}),
         });
         const body = await response.clone().json();
         this.setState({
