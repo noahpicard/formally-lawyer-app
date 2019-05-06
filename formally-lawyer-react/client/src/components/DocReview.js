@@ -32,8 +32,8 @@ const styles = theme => ({
   },
     bigPaper:{
         marginTop: theme.spacing.unit * 6,
-        paddingTop: theme.spacing.unit * 15,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 10,
         backgroundColor: "lightgrey",
         height: "auto",
         width: "1000px",
@@ -121,6 +121,22 @@ const styles = theme => ({
     commenting:{
         color:"gold"
     },
+    saveProgress:{
+        backgroundColor: "#01BABB",  
+        color: "white",
+        width: "400px",
+        position: "relative",
+        left: "30%",
+        marginTop: "10px",
+        marginBottom: "-25px",
+        '&:hover': {
+          backgroundColor: '#0069d9',
+        },
+    },
+    title:{
+        color: "#01BABB",
+        textAlign: "center"
+    }
 });
 
 
@@ -128,15 +144,12 @@ class DocReview extends React.Component {
 
    constructor(props) {
         super(props);
-       this.state = {clientName: "", commented: {}, commenting: {}}
-       
-
-       
+       this.state = {clientName: "", commented: {}, commenting: {}}  
     }
     
     test = async e => {
         console.log("SENDING")
-        const response = await fetch('/api/forms/json', {
+        const response = await fetch('/api/forms/display', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -266,7 +279,7 @@ class DocReview extends React.Component {
   render() {
     const { classes } = this.props;
       
-    this.test();
+//    this.test();
     let dict1 = {1: ["What is your first name?", "String"], 2: ["What is your last name?", "String"], 3: ["What is your gender?", "Options", "Male", "Female"]};
     //let dict2 = {1: "Gokul", 2: "Ajith", 3: "unknown"};
       
@@ -281,9 +294,21 @@ class DocReview extends React.Component {
     return (
                                            
     <Paper className={classes.bigPaper} elevation={1}>
+                                           
+        <h1 className={classes.title}>Document Review - Document Name</h1>
+        
+        <h2 className={classes.title}>Client - Client Name</h2>
+        
+        <Button variant="outlined" className={classes.saveProgress}>
+        Save Progress
+        </Button>
       <Paper className={classes.smallPaper} elevation={2}>
         {renderedOutput}
         </Paper>
+                                           
+        <Button variant="outlined" color="white" className={classes.saveProgress}>
+        Submit Review
+        </Button>
       </Paper>
     );
   }

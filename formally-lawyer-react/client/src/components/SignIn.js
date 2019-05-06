@@ -26,28 +26,28 @@ class SignIn extends React.Component {
 
 
 
-
-   test = async e => {
-        console.log("SENDING")
-        const response = await fetch('/api/forms/display', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id:"1"}),
-        });
-        const body = await response.json();
-        console.log(body);
-        if ("error" in body) {
-            console.log(body);
-
-        }
-
-        else {
-            console.log(body);
-        }
-
-    };
+//
+//   test = async e => {
+//        console.log("SENDING")
+//        const response = await fetch('/api/forms/display', {
+//            method: 'POST',
+//            headers: {
+//                'Content-Type': 'application/json',
+//            },
+//            body: JSON.stringify({ id:"1"}),
+//        });
+//        const body = await response.json();
+//        console.log(body);
+//        if ("error" in body) {
+//            console.log(body);
+//
+//        }
+//
+//        else {
+//            console.log(body);
+//        }
+//
+//    };
 
 
 
@@ -88,7 +88,7 @@ class SignIn extends React.Component {
 
   render() {
     const { classes } = this.props;
-    this.test();
+    //this.test();
     return (
       <div>
         <Typography component="h1" variant="h5">
