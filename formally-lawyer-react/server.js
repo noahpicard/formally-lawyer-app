@@ -24,7 +24,12 @@ const saltRounds = 10
 
 create_fake_data()
 
-//
+function capitlize_first(string)
+{
+    //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 function dict_to_list (dict) {
   let form_to_send = {}
   let i = 0
@@ -33,8 +38,14 @@ function dict_to_list (dict) {
     const words = key.split('_')
     if (words.length > 1) {
       //for(let word in words)
-      fixed_key = words.join(' ')
+        const new_words = []
+        for(let word in words){
+          new_words.push(capitlize_first(words[word]))
+        }
+      fixed_key = new_words.join(' ')
 
+    }else{
+        fixed_key = capitlize_first(fixed_key)
     }
     if (dict[key] !== 'String' && key !== 'Other Names') {
       form_to_send[i] = [fixed_key, 'options', dict[key]]
@@ -295,7 +306,7 @@ function get_form (id) {
     'I_589_PROVIDED_COUNSEL_LIST': ['True', 'False']
   }
 
-  if (id === 0) {
+  if (id === 1) {
     return dict_to_list(ead_type)
   } else {
     return dict_to_list(asylum_type)
@@ -588,7 +599,6 @@ function create_fake_data () {
   const number_users = 5
   for (let i = 1; i < number_users; i++) {
     let user = users[i]
-    console.log('aleged nan is ' + saltRounds)
     bcrypt.hash(user.password, saltRounds).then(hashedPassword => {
       conn.query(insert, [user.email, user.first_name, user.last_name, hashedPassword], function (error, data) {
         if (error) {
