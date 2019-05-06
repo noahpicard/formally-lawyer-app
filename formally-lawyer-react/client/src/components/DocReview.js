@@ -144,11 +144,16 @@ class DocReview extends React.Component {
 
    constructor(props) {
         super(props);
-       this.state = {clientName: "", commented: {}, commenting: {}}  
+       this.state = {clientName: "", commented: {}, commenting: {}, info: {}}  
     }
     
-    test = async e => {
+    componentDidMount() {
+        this.test();
+  }
+    
+   test = async e => {
         console.log("SENDING")
+        try {
         const response = await fetch('/api/forms/display', {
             method: 'POST',
             headers: {
@@ -156,14 +161,14 @@ class DocReview extends React.Component {
             },
             body: JSON.stringify({ id:"1"}),
         });
-        const body = await response.json();
-        if ("error" in body) {
-            console.log(body);
-
-        }
-        else {
-            console.log("body");
-            console.log(body);
+        const body = await response.clone().json();
+        this.setState({
+                info: body
+            });
+            
+        }catch(err){
+            console.log("error");
+            return; 
         }
 
     };
@@ -278,24 +283,52 @@ class DocReview extends React.Component {
 
   render() {
     const { classes } = this.props;
-      
-//    this.test();
-    let dict1 = {1: ["What is your first name?", "String"], 2: ["What is your last name?", "String"], 3: ["What is your gender?", "Options", "Male", "Female"]};
-    //let dict2 = {1: "Gokul", 2: "Ajith", 3: "unknown"};
-      
-    let dict2 = {1: "Gokul", 2: "None", 3: "Ajith", 4: "True", 5: "Gokul", 6: "None", 7: "Ajith", 8: "Male", 9: "Widowed", 10: "None", 11: "Ajith", 12: "Ajith",13: "Gokul", 14: "None", 15: "Ajith", 16: "Ajith",17: "Gokul"};
-      
-    let typeformEAD = {1: ["What is your First Name?", "String"], 2: ["What is your Middle Name?", "String"], 3: ["What is your Last Name?", "String"], 4: ["Do you have any Other Names?", "Option", ["True", "False"]], 5: ["What is your Other First Name?", "String"], 6: ["What is your other Last name?", "String"], 7: ["What is your Birthdate?", "String"], 8: ["What is your Gender?", "Option", ["Male", "Female", "Other"]], 9: ["What is your Marital Status?", "Option", ["Single", "Married", "Widowed", "Other"]], 10: ["What is your Birth City?", "String"], 11: ["What is your Birth State?", "String"], 12: ["What is your Birth Country?", "String"], 13: ["What is your Birth City?", "String"], 14: ["What is the Reason for your Application?", "String"], 15: ["What is your Phone Number?", "String"], 16: ["What is your Email Address?", "String"], 17: ["What is your Mail Address?", "String"]}
     
-    let formQuestions = this.parseForms(typeformEAD, dict2, {classes});
+    //this.test();
       
-    let renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
+      
+//      console.log(this.state.info[])
+    
+//    console.log(this.state.info.resolve());
+//    
+//    let dict1 = {1: ["What is your first name?", "String"], 2: ["What is your last name?", "String"], 3: ["What is your gender?", "Options", "Male", "Female"]};
+//    //let dict2 = {1: "Gokul", 2: "Ajith", 3: "unknown"};
+//      
+//    let dict2 = {1: "Gokul", 2: "None", 3: "Ajith", 4: "True", 5: "Gokul", 6: "None", 7: "Ajith", 8: "Male", 9: "Widowed", 10: "None", 11: "Ajith", 12: "Ajith",13: "Gokul", 14: "None", 15: "Ajith", 16: "Ajith",17: "Gokul"};
+//      
+//    let typeformEAD = {1: ["What is your First Name?", "String"], 2: ["What is your Middle Name?", "String"], 3: ["What is your Last Name?", "String"], 4: ["Do you have any Other Names?", "Option", ["True", "False"]], 5: ["What is your Other First Name?", "String"], 6: ["What is your other Last name?", "String"], 7: ["What is your Birthdate?", "String"], 8: ["What is your Gender?", "Option", ["Male", "Female", "Other"]], 9: ["What is your Marital Status?", "Option", ["Single", "Married", "Widowed", "Other"]], 10: ["What is your Birth City?", "String"], 11: ["What is your Birth State?", "String"], 12: ["What is your Birth Country?", "String"], 13: ["What is your Birth City?", "String"], 14: ["What is the Reason for your Application?", "String"], 15: ["What is your Phone Number?", "String"], 16: ["What is your Email Address?", "String"], 17: ["What is your Mail Address?", "String"]}
+//    
+//    let formQuestions = this.parseForms(typeformEAD, dict2, {classes});
+//      
+//    let renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
+                                                                                
+    
+        let renderedOutput;
+      
+      if(Object.keys(this.state.info).length != 0){
+      
+      //test();
+      console.log(this.state.info);
+      
+      let typeform = JSON.parse(this.state.info['question_type']);
+      let responses = JSON.parse(this.state.info['question_answer']);
+      
+      for(let key in responses){
+          let temp = responses[key];
+          responses[key] = temp[1];
+      }
+//      
+      console.log(typeform);
+      console.log(responses);
+      let formQuestions = this.parseForms(typeform, responses, {classes});
+      renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
+      }
     
     return (
                                            
     <Paper className={classes.bigPaper} elevation={1}>
                                            
-        <h1 className={classes.title}>Document Review - Document Name</h1>
+        <h1 className={classes.title}>Document Review - {this.state.info.full_name}</h1>
         
         <h2 className={classes.title}>Client - Client Name</h2>
         

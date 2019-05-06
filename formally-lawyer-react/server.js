@@ -418,6 +418,7 @@ app.post('/api/forms/display', (req, res) => {
     const id = req.body.id
     //console.log("encrypted = " + encrypt(req.body.id));
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
+
     conn.query("select ft.name,ft.full_name, f.info_json as question_answer, ft.form_json as question_type, f.comments_json as comments from forms as f, Form_types as ft where ft.id = f.form_type_id and f.id = ?", [id], function(error, result){
         if(error){
             console.log(error)
