@@ -24,6 +24,7 @@ import Select from '@material-ui/core/Select';
 import ReactDOM from 'react-dom'; 
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -147,7 +148,9 @@ class DocReview extends React.Component {
 
    constructor(props) {
         super(props);
-       this.state = {clientName: "", commented: {}, commenting: {}, info: {}}  
+        let url = window.location.href
+        let id = url.split("/")
+       this.state = {clientName: "", commented: {}, commenting: {}, info: {}, docId: id[id.length-1]}
     }
     
     componentDidMount() {
@@ -155,10 +158,7 @@ class DocReview extends React.Component {
   }
     
     submitReview(done){
-        console.log("commented");
-        console.log(this.state.commented);
-        console.log("commenting");
-        console.log(this.state.commenting);
+
     }
     
    test = async e => {
@@ -169,7 +169,7 @@ class DocReview extends React.Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id:"2"}),
+            body: JSON.stringify({ id: this.state.docId}),
         });
         const body = await response.clone().json();
         this.setState({
@@ -272,11 +272,7 @@ class DocReview extends React.Component {
     parseForms(dict1, dict2, {classes}){
         
         let finalResult = []
-        
-        console.log(dict1);
-        console.log(dict2);
-        
-        
+
         for(let i = 0; i < Object.keys(dict1).length; i++){
 
             let typeform = dict1[i]
@@ -318,25 +314,11 @@ class DocReview extends React.Component {
 
   render() {
     const { classes } = this.props;
-    
-    //this.test();
-      
-      
-//      console.log(this.state.info[])
-    
-//    console.log(this.state.info.resolve());
-//    
-//    let dict1 = {1: ["What is your first name?", "String"], 2: ["What is your last name?", "String"], 3: ["What is your gender?", "Options", "Male", "Female"]};
-//    //let dict2 = {1: "Gokul", 2: "Ajith", 3: "unknown"};
-//      
-//    let dict2 = {1: "Gokul", 2: "None", 3: "Ajith", 4: "True", 5: "Gokul", 6: "None", 7: "Ajith", 8: "Male", 9: "Widowed", 10: "None", 11: "Ajith", 12: "Ajith",13: "Gokul", 14: "None", 15: "Ajith", 16: "Ajith",17: "Gokul"};
-//      
-//    let typeformEAD = {1: ["What is your First Name?", "String"], 2: ["What is your Middle Name?", "String"], 3: ["What is your Last Name?", "String"], 4: ["Do you have any Other Names?", "Option", ["True", "False"]], 5: ["What is your Other First Name?", "String"], 6: ["What is your other Last name?", "String"], 7: ["What is your Birthdate?", "String"], 8: ["What is your Gender?", "Option", ["Male", "Female", "Other"]], 9: ["What is your Marital Status?", "Option", ["Single", "Married", "Widowed", "Other"]], 10: ["What is your Birth City?", "String"], 11: ["What is your Birth State?", "String"], 12: ["What is your Birth Country?", "String"], 13: ["What is your Birth City?", "String"], 14: ["What is the Reason for your Application?", "String"], 15: ["What is your Phone Number?", "String"], 16: ["What is your Email Address?", "String"], 17: ["What is your Mail Address?", "String"]}
-//    
-//    let formQuestions = this.parseForms(typeformEAD, dict2, {classes});
-//      
-//    let renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
-                                                                                
+
+    if (this.props.location.aboutProps === undefined) {
+      return <Redirect to="/" />;
+    }
+    const { client } = this.props.location.aboutProps;
     
         let renderedOutput;
       
@@ -349,10 +331,6 @@ class DocReview extends React.Component {
       
       for(let key in responses){
           let temp = responses[key];
-          console.log("key");
-          console.log(key);
-          console.log("temp");
-          console.log(temp);
           responses[key] = temp[1];
       }
 
@@ -366,7 +344,7 @@ class DocReview extends React.Component {
                                            
         <h1 className={classes.title}>Document Review - {this.state.info.full_name}</h1>
         
-        <h2 className={classes.title}>Client - Client Name</h2>
+        <h2 className={classes.title}>Client - {client.first_name + " " + client.last_name}</h2>
         
         <Button variant="outlined" onClick = {() => this.submitReview(0)} className={classes.saveProgress}>
         Save Progress
