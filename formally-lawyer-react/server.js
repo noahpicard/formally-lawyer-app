@@ -20,8 +20,9 @@ const addy = ["23rd W 57th St. Yuma, AZ 85364", "Brown University Providence, RI
 // db to store messages and rooms
 const db = require('any-db');
 create_tables();
-//create_fake_data();
 const saltRounds = 10;
+
+create_fake_data();
 
 function encrypt(password){
 
@@ -35,7 +36,7 @@ function encrypt(password){
 
 const password = "secret";
 
-/*bcrypt
+bcrypt
     .hash(password, saltRounds)
     .then(hashedPassword => {
         console.log("hash", hashedPassword);
@@ -43,11 +44,11 @@ const password = "secret";
     })
     .then(hash => {
         //console.log()
-        return bcrypt.compare(password, hash); // what does this method return?
+        return bcrypt.compare(password, "$2b$10$EgC3o9TmfVJgcHVPCxSDOe0jN9CNr2Av6.NH/gMnuwn6OOggGOasG"); // what does this method return?
     })
     .then(res => {
         console.log("match", res);
-    });*/
+    });
 
 function dict_to_list(dict){
     let form_to_send = {}
@@ -84,6 +85,14 @@ function generateForm(form_type){
     return form_to_send
 }
 
+function generateComments(form_type){
+    const comments = {}
+    for (let key in form_type) {
+        comments[key] = "";
+    }
+    return comments;
+    }
+
 
 function insert_forms(){
     console.log("INSERT FORMS")
@@ -114,13 +123,15 @@ function insert_forms(){
 
         }else{
             const type_example = generateForm(dict_to_list(ead))
+            const empty_comments = generateComments(dict_to_list(ead))
+
             conn.query("select id from Clients", function(error, data){
                 if(error){
                     conn.end()
                 }else{
                     console.log("IDS")
                     for (let key in data.rows) {
-                        conn.query("insert into Forms(client_id, form_type_id,name, info_json) values(?,?,?,?)", [key, 1,"EAD",JSON.stringify(type_example)], function(error, data){
+                        conn.query("insert into Forms(client_id, form_type_id,name, info_json, comments_json) values(?,?,?,?,?)", [key, 1,"EAD",JSON.stringify(type_example), JSON.stringify(empty_comments)], function(error, data){
                             if(error){
                                 console.log("EROR2")
 
@@ -171,35 +182,39 @@ function create_fake_data() {
   const number_users = 5;
   for (let i = 1; i < number_users; i++) {
     let user = users[i];
-    conn.query(insert, [user.email, user.first_name, user.last_name, user.password],function (error, data) {
-      if(error){
-        console.log(error);
-      }else{
-
-        let foreign = data.lastInsertId;
-        let addClient = "insert into Clients (dob,email, first_name, last_name, password," +
-        " immigration_status, address, arn, nationality, user_id) values (?,?,?,?,?,?,?,?,?,?)";
-        const number_of_clients = 10;
-        for (let j = 0; j < number_of_clients; j++) {
-            let curClient = clients[i * 25 + j]
-          conn.query(addClient, ["2000/01/01",curClient.email, curClient.first_name,
-            curClient.last_name, curClient.password, curClient.immigration_status,
-            curClient.address, curClient.arn, curClient.nationality, foreign],function (error, data) {
+    console.log("aleged nan is " + saltRounds)
+    bcrypt.hash(user.password, saltRounds).then(hashedPassword =>{
+        conn.query(insert, [user.email, user.first_name, user.last_name, hashedPassword],function (error, data) {
             if(error){
-              console.log(error);
+                console.log(error);
             }else{
-              console.log(data);
+
+                let foreign = data.lastInsertId;
+                let addClient = "insert into Clients (dob,email, first_name, last_name, password," +
+                    " immigration_status, address, arn, nationality, user_id) values (?,?,?,?,?,?,?,?,?,?)";
+                const number_of_clients = 10;
+                for (let j = 0; j < number_of_clients; j++) {
+                    let curClient = clients[i * 25 + j]
+                    conn.query(addClient, ["2000/01/01",curClient.email, curClient.first_name,
+                        curClient.last_name, curClient.password, curClient.immigration_status,
+                        curClient.address, curClient.arn, curClient.nationality, foreign],function (error, data) {
+                        if(error){
+                            console.log(error);
+                        }else{
+                            console.log(data);
+                        }
+                        if (number_of_clients === j+1 && number_users === i+1){
+                            insert_forms();
+                        }
+
+                    });
+
+                }
             }
-              if (number_of_clients === j+1 && number_users === i+1){
-                  insert_forms();
-              }
 
-          });
-
-        }
-      }
-
+        });
     });
+
   }
 }
 
@@ -304,6 +319,7 @@ function create_tables(){
     client_id	INTEGER NOT NULL,\
     form_type_id INTEGER NOT NULL,\
     info_json	TEXT NOT NULL,\
+    comments_json\tTEXT NOT NULL,\
     reviewed	BOOLEAN DEFAULT FALSE,\
     FOREIGN KEY (client_id) REFERENCES Clients(id),\
     FOREIGN KEY (form_type_id) REFERENCES Form_types(id))")
@@ -358,16 +374,32 @@ app.post('/api/forms/json', (req, res) => {
 
 });
 
+
+
+app.post('/api/forms/test', (req, res) => {
+    const id = req.body.id
+    console.log("actual " + req.body.id)
+    bcrypt
+        .hash(req.body.id, saltRounds)
+        .then(hashedPassword => {
+            console.log("hash", hashedPassword);
+            return hashedPassword; // notice that all of these methods are asynchronous!
+        })
+    console.log("encrypted = " + encrypt(req.body.id));
+    const conn = db.createConnection('sqlite3://formally-lawyer.db');
+
+
+});
+
+
 app.post('/api/forms/display', (req, res) => {
-    console.log("CALLED")
     const id = req.body.id
     //console.log("encrypted = " + encrypt(req.body.id));
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
-    conn.query("select f.name, f.info_json as question_answer, ft.form_json as question_type from forms as f, Form_types as ft where ft.id = f.form_type_id and f.id = ?", [id], function(error, result){
+    conn.query("select f.name, f.info_json as question_answer, ft.form_json as question_type, f.comments_json as comments from forms as f, Form_types as ft where ft.id = f.form_type_id and f.id = ?", [id], function(error, result){
         if(error){
             console.log(error)
         }else{
-            console.log("AYO")
             if(result.rows.length !== 1){
                 console.log("ERROR: more than once form was returned")
             }
@@ -381,9 +413,115 @@ app.post('/api/forms/display', (req, res) => {
 });
 
 app.post('/api/signin', (req, res) => {
-  console.log(req.body)
-  const check = "select * from Users where email = ? and password = ?"
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
+
+    console.log(req.body)
+    const password = "select * from users where email = ?";
+    conn.query(password, [req.body.email], function(error, data){
+        if (error){
+            console.log("SIGN IN ERR should never call")
+            console.log(error)
+            conn.end();
+        }else{
+            if(data.rowCount === 0){
+                res.send({error:"Invalid Login"})
+                conn.end();
+            }else if (data.rowCount !== 1){
+                console.log("ERROR: sign in returned multiple passwords (one email has multiple passwords)")
+                conn.end();
+
+            }else{
+                console.log("Found email, checking pass")
+                const hashed = data.rows[0].password
+                console.log(hashed)
+                bcrypt.compare(req.body.password, hashed).then(function (valid_bool){
+
+                    console.log(valid_bool)
+                    if(valid_bool){
+                        //login is valid
+                        console.log("SUCCESSs")
+                        delete data.rows[0].password
+                        const info = data.rows[0]
+                        const networks = []
+                        conn.query("select n.name from Networks as n, Users as u, User_Network as un where u.id = un.user_id and un.network_id = n.id and u.id = ?", [info.id], function(err, data2){
+                            if(err){
+                                console.log(err);
+                                res.send({error:err})
+                                conn.end();
+
+                            }else{
+                                console.log("ROWS ARE")
+                                console.log(data2.rows)
+                                Object.keys(data2.rows).forEach(function(key) {
+                                    networks.push(data2.rows[key].name)
+                                })
+                                conn.query("select * from Clients where user_id = ?", [info.id], function(er, data3){
+                                    if(er){
+                                        console.log("INNER")
+                                        console.log(er)
+
+                                    }else {
+                                        console.log("GETTING CLIENTS")
+                                        //conn.query("select id, name, reviewed from Forms where client_id = ?", [])
+                                        info.networks = networks
+                                        let curr_clients = data3.rows
+                                        if (curr_clients.length === 0) {
+                                            conn.end()
+                                            info.clients = []
+                                            res.send(info)
+                                        } else {
+
+
+                                        for (let key = 0; key < curr_clients.length; key++) {
+
+                                            conn.query("select id, name, reviewed from Forms where client_id = ?", [curr_clients[key].id], function (error, data) {
+                                                if (error) {
+                                                    console.log("ERROR GETTING FORMS");
+                                                    console.log(error);
+                                                } else {
+                                                    const forms = []
+                                                    for (let k in data.rows) {
+                                                        forms.push(data.rows[k]);
+                                                    }
+                                                    curr_clients[key].forms = forms
+                                                    if (key === curr_clients.length - 1) {
+                                                        info.clients = curr_clients
+                                                        console.log("SENDING back")
+                                                        console.log(info)
+                                                        res.send(info)
+
+
+                                                    }
+                                                }
+
+                                            });
+                                            //console.log("CLIENT ",curr_clients[key])
+                                        }
+                                    }
+                                        console.log("FINISHEDCLIENT")
+
+                                        //console.log("INFO")
+                                        //console.log(info)
+                                    }
+
+
+                                })
+
+                            }
+
+                        })
+
+                    }else{
+                        res.send({error:"Invalid Login"})
+                    }
+                });
+
+
+            }
+
+        }
+    });
+  /*const check = "select * from Users where email = ? and password = ?"
     conn.query(check,[req.body.email, req.body.password], function (error,data) {
         if (error){
           console.log("SIGN IN ERR should never call")
@@ -458,7 +596,16 @@ app.post('/api/signin', (req, res) => {
 
 
         }
-    })
+    })*/
+
+
+
+
+
+
+
+
+
 
 
 });
@@ -478,24 +625,36 @@ app.post('/api/signup', (req, res) => {
         const to_return = {error:"You have entered an invalid email address!"}
         res.send(to_return)
     }else{
-        const conn = db.createConnection('sqlite3://formally-lawyer.db');
+        bcrypt
+            .hash(req.body.password, saltRounds)
+            .then(hashedPassword => {
+                const conn = db.createConnection('sqlite3://formally-lawyer.db');
 
 
-        const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
+                const insert = "insert into Users(email, first_name, last_name, password) values (?,?,?,?)";
 
-        conn.query(insert, [req.body.email, req.body.first_name, req.body.last_name, req.body.password],function (error, data) {
+                conn.query(insert, [req.body.email, req.body.first_name, req.body.last_name, hashedPassword],function (error, data) {
 
-            if(error){
-                const to_return = {error:error}
-                res.send(to_return)
-            }else{
-                delete req.body["password"];
-                res.send(req.body);
+                    if(error){
+                        const to_return = {error:error}
+                        conn.end()
 
-            }
+                        res.send(to_return)
+                    }else{
+                        delete req.body["password"];
+                        req.body["clients"] = [];
+                        console.log("RETURNED");
+                        console.log(req.body);
+                        res.send(req.body);
 
-        });
-        conn.end()
+                        conn.end()
+
+
+                    }
+
+                });
+            });
+
     }
 
 
