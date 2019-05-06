@@ -151,6 +151,13 @@ class DocReview extends React.Component {
         this.test();
   }
     
+    submitReview(done){
+        console.log("commented");
+        console.log(this.state.commented);
+        console.log("commenting");
+        console.log(this.state.commenting);
+    }
+    
    test = async e => {
         console.log("SENDING")
         try {
@@ -210,6 +217,7 @@ class DocReview extends React.Component {
         
         if(comment == ""){
             commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
+            delete this.state.commented[i];
         }else{
         this.state.commented[i] = comment;
         delete this.state.commenting[i];
@@ -232,6 +240,7 @@ class DocReview extends React.Component {
         
         if(comment == ""){
             commentButton = <CommentIcon id = {commentId} onClick={() => this.comment(i)} />;
+            delete this.state.commenting[i];
         }else{
             this.state.commenting[i] = comment;
             delete this.state.commented[i];
@@ -252,11 +261,13 @@ class DocReview extends React.Component {
        // Directly return the joined string
        return splitStr.join(' '); 
     }
+
     
     parseForms(dict1, dict2, {classes}){
         
         let finalResult = []
         
+        console.log(dict1);
         console.log(dict2);
         
         
@@ -328,6 +339,7 @@ class DocReview extends React.Component {
       
       let typeform = JSON.parse(this.state.info['question_type']);
       let responses = JSON.parse(this.state.info['question_answer']);
+        
       
       for(let key in responses){
           let temp = responses[key];
@@ -346,14 +358,14 @@ class DocReview extends React.Component {
         
         <h2 className={classes.title}>Client - Client Name</h2>
         
-        <Button variant="outlined" className={classes.saveProgress}>
+        <Button variant="outlined" onClick = {() => this.submitReview(0)} className={classes.saveProgress}>
         Save Progress
         </Button>
       <Paper className={classes.smallPaper} elevation={2}>
         {renderedOutput}
         </Paper>
                                            
-        <Button variant="outlined" color="white" className={classes.saveProgress}>
+        <Button variant="outlined" onClick = {() => this.submitReview(1)} color="white" className={classes.saveProgress}>
         Submit Review
         </Button>
       </Paper>
