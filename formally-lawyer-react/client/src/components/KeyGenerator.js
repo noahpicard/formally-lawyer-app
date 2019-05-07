@@ -54,6 +54,10 @@ class KeyGenerator extends React.Component {
 
   }
 
+  emailCode(code) {
+    window.location.href = "mailto:INSERT_CLIENT_EMAIL?subject=Sign%20Up%20Code%20:%20"+ code +"&body=Sign%20up%20on%20Formally%20with%20this%20code!%0A" + code;
+  }
+
   render() {
     const { classes } = this.props;
     const { key, genDisabled, sendDisabled } = this.state;
@@ -72,7 +76,7 @@ class KeyGenerator extends React.Component {
           <Button variant="contained" color="primary" disabled={genDisabled} className={classes.button} onClick={() => { this.generateKey() }}>
             Generate Key
           </Button>
-          <Button className={classes.buttonSec} disabled={sendDisabled}>
+          <Button className={classes.buttonSec} disabled={sendDisabled} onClick={() => { this.emailCode(key) }}>
             Email Code
           </Button>
         </Paper>

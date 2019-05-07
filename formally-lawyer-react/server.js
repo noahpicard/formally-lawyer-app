@@ -25,8 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-create_fake_data()
-
+//create_fake_data()
 function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
@@ -750,6 +749,43 @@ function createClient (used) {
   return {first_name, last_name, password, email, immigration_status, arn, nationality, address}
 }
 
+function save_comment(form_id, comment){
+    const conn = db.createConnection('sqlite3://formally-lawyer.db')
+    conn.query("UPDATE Forms SET comments_json = ? WHERE id = ?", [comment, form_id], function (error){
+      if(error){
+        console.log("ERROR: something happened when inserting comment");
+        console.log(error);
+
+      }
+      conn.end()
+    });
+}
+
+
+function associate_user_network(user_id, network_id){
+    const conn = db.createConnection('sqlite3://formally-lawyer.db')
+    conn.query("insert into User_Network(user_id, network_id) VALUES(?,?);", [user_id, network_id], function (error){
+        if(error){
+            console.log("ERROR: something happened when associating user_netword");
+            console.log(error);
+        }
+        conn.end();
+    });
+
+}
+
+function insert_network(network_name){
+    const conn = db.createConnection('sqlite3://formally-lawyer.db')
+    conn.query("insert into Networks(name) VALUES(?);", [network_name], function (error){
+        if(error){
+            console.log("ERROR: something happened when inserting network name");
+            console.log(error);
+        }
+        conn.end();
+    });
+
+}
+
 function create_tables () {
   const conn = db.createConnection('sqlite3://formally-lawyer.db')
 
@@ -766,7 +802,7 @@ function create_tables () {
 
   create_table('CREATE TABLE IF NOT EXISTS Networks (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
-    name	TEXT NOT NULL)')
+    name	TEXT unique NOT NULL)')
 
   create_table('CREATE TABLE IF NOT EXISTS Clients (\
     id	INTEGER PRIMARY KEY AUTOINCREMENT,\
