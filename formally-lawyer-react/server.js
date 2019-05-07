@@ -753,7 +753,12 @@ function createClient (used) {
 
 function save_comment(form_id, comment,reviewed){
     const conn = db.createConnection('sqlite3://formally-lawyer.db')
-    conn.query("UPDATE Forms SET comments_json = ? , reviewed = ? WHERE id = ?", [comment,reviewed, form_id], function (error){
+    console.log("NSETNG")
+    console.log(form_id)
+    console.log(comment)
+    console.log(reviewed)
+
+    conn.query("UPDATE Forms SET comments_json = ? , reviewed = ? WHERE id = ?", [JSON.stringify(comment),reviewed, form_id], function (error){
       if(error){
         console.log("ERROR: something happened when inserting comment");
         console.log(error);
@@ -778,7 +783,7 @@ function associate_user_network(user_id, network_id){
 
 function insert_networks() {
     for(let network_name in networks){
-      insert_network(network_name)
+      insert_network(networks[network_name])
     }
 }
 
@@ -1029,10 +1034,14 @@ function ValidateEmail (email) {
 }
 
 app.post('/api/forms/save', (req, res) => {
-  console.log(req.body)
+    console.log("SAVE1")
+
+    console.log(req.body)
+    console.log("SAVE2")
     const formid = req.body.id
     const comments = req.body.comments
     const reviewed = req.body.reviewed
+
     save_comment(formid, comments, reviewed)
     res.send({message:"Received your request"})
 
