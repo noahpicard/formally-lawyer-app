@@ -150,6 +150,7 @@ class DocReview extends React.Component {
         super(props);
         let url = window.location.href
         let id = url.split("/")
+
        this.state = {clientName: "", commented: {}, commenting: {}, info: {}, docId: id[id.length-1]}
     }
     
