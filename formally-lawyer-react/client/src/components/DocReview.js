@@ -427,6 +427,23 @@ class DocReview extends React.Component {
         }
         return finalResult;
     }
+          
+reviewAgain(){
+        
+    let { user } = this.props.userReducer;
+    let { client } = this.props.location.aboutProps;
+    let reviewed = 0;
+      
+      for(let key in client.forms){
+          if (this.state.docId == client.forms[key]["id"]){
+              client.forms[key]["reviewed"] = 0;
+          }
+      }
+    
+        user.clients[user.clients.indexOf(client)] = client;
+        console.log(user.clients[user.clients.indexOf(client)]);
+        this.props.storeUser(user);
+}
 
   render() {
     const { classes } = this.props;
@@ -449,6 +466,8 @@ class DocReview extends React.Component {
     
         let renderedOutput;
         let formQuestions;
+        let topButton;
+        let bottomButton;
       
       if(Object.keys(this.state.info).length != 0){
       
@@ -466,12 +485,18 @@ class DocReview extends React.Component {
     
         if(reviewed == 0){
             formQuestions = this.parseFormsWithCommenting(typeform, responses, comments, {classes});
+            topButton = <Button variant="outlined" onClick = {() => this.submitReview(0)} className={classes.saveProgress}>Save Progress</Button>;
+            bottomButton = <Button variant="outlined" onClick = {() => this.submitReview(1)} color="white" className={classes.saveProgress}>Submit Review</Button>;
         }else{
             formQuestions = this.parseFormsWithoutCommenting(typeform, responses, comments, {classes});
+            topButton = <Button variant="outlined" onClick = {() => this.reviewAgain()} color="white" className={classes.saveProgress}>Review Again</Button>;
+            bottomButton = <Button variant="outlined" onClick = {() => this.reviewAgain()} color="white" className={classes.saveProgress}>Review Again</Button>;
         }
           
           renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
       }
+                                             
+    
     
     return (
                                            
@@ -480,17 +505,16 @@ class DocReview extends React.Component {
         <h1 className={classes.title}>Document Review - {this.state.info.full_name}</h1>
         
         <h2 className={classes.title}>Client - {client.first_name + " " + client.last_name}</h2>
+                                             
+        {topButton}
         
-        <Button variant="outlined" onClick = {() => this.submitReview(0)} className={classes.saveProgress}>
-        Save Progress
-        </Button>
+
       <Paper className={classes.smallPaper} elevation={2}>
         {renderedOutput}
         </Paper>
                                            
-        <Button variant="outlined" onClick = {() => this.submitReview(1)} color="white" className={classes.saveProgress}>
-        Submit Review
-        </Button>
+        
+        {bottomButton}
       </Paper>
     );
   }
