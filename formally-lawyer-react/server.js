@@ -27,6 +27,7 @@ const saltRounds = 10
 
 create_fake_data()
 
+
 function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
@@ -626,13 +627,16 @@ function insert_forms () {
               console.log(error)
 
             } else {
-              console.log('SUCCESS')
-            }
-            if(key === data.rows.length && form_type_id === 2){
-              insert_networks();
+              console.log('SUCCESS' + key + " "  + data.rows.length -1 )
             }
 
+
           })
+          if(key === data.rows.length -1 && form_type_id === 2){
+            conn.end();
+            console.log("INSERTING NETWORKS")
+            insert_networks();
+          }
         }
 
       }
@@ -1090,8 +1094,6 @@ function temp(network_name, user_id){
 }
 
 
-//temp("new as name", 1);
-//12
 app.post('/api/network/save', (req, res) => {
   console.log(req.body);
   const network_name = req.body.name;

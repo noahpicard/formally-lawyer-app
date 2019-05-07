@@ -60,6 +60,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
+    color: "white",
   },
   row: {
     display: "flex",
@@ -67,7 +68,7 @@ const styles = theme => ({
     alignItems: "center",
   },
   rowItem: {
-
+    color: "white",
   }
 });
 
@@ -78,29 +79,38 @@ class LawyerCard extends React.Component {
 
 
   addOrganization() {
-    let { user } = this.props;
-    fetch('/api/network/save', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.network,
-        userId: user.id
-      })
-    }).then(
-      function(response){
-        console.log(response);
-      });
-    console.log(user);
-    user.networks.push(this.state.network);
-    this.props.storeUser(user);
-    this.setState({network: ""})
+    let { user } = this.props.userReducer;
+    if (this.state.network === "") {
+      this.setState({network: ""})
+    } else if (user.networks.includes(this.state.network)) {
+      this.setState({network: ""})
+    } else {
+
+      fetch('/api/network/save', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.state.network,
+          userId: user.id
+        })
+      }).then(
+        function(response){
+          console.log(response);
+        });
+      console.log(user);
+      user.networks.push(this.state.network);
+      this.props.storeUser(user);
+      console.log(this.props.userReducer);
+      this.setState({network: ""})
+    }
+
   }
 
   removeOrganization(name) {
-    let { user } = this.props;
+    let { user } = this.props.userReducer;
     fetch('/api/network/remove', {
       method: 'POST',
       headers: {
@@ -113,13 +123,15 @@ class LawyerCard extends React.Component {
       })
     }).then(
       function(response){
-        console.log(response);
       });
-    console.log(user);
-    user.networks.splice(user.networks.indexOf(name))
+    this.remove(user.networks, name);
     this.props.storeUser(user);
   }
 
+   remove(array, element) {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
+  }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -129,7 +141,6 @@ class LawyerCard extends React.Component {
 
   render () {
     const {classes, user} = this.props;
-
     return (
       <div className={classes.root}>
         <Typography className={classes.title} color="primary">

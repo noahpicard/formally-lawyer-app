@@ -71,6 +71,11 @@ const styles = theme => ({
     padding: 0,
     color: "black"
   },
+  signout: {
+    textDecoration: "none",
+    color: "white",
+    marginLeft: theme.spacing.unit * 4,
+  }
 
 });
 
@@ -98,10 +103,7 @@ class Header extends React.Component {
     this.setState({ open: true });
   };
 
-  handleSignOut = () => {
-    this.props.storeUser(null);
-    console.log(this.props.userReducer)
-  }
+
 
   changeLogin = () => {
     this.setState({ signUpSignIn: !this.state.signUpSignIn })
@@ -163,7 +165,7 @@ class Header extends React.Component {
 
             {(user !== undefined) ? (<div className={classes.buttons}>
               <Typography className={classes.welcome}> Hello {user.first_name} {user.last_name} </Typography>
-              <Button color="secondary" onClick={this.handleSignOut} className={classes.button}>Sign Out</Button>
+              <a href="/" className={classes.signout}> Sign Out</a>
             </div>) : signInOptions }
 
           </Toolbar>
