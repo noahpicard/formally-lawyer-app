@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-// create_fake_data()
+create_fake_data()
 
 
 function capitlize_first(string)
@@ -627,13 +627,16 @@ function insert_forms () {
               console.log(error)
 
             } else {
-              console.log('SUCCESS')
-            }
-            if(key === data.rows.length && form_type_id === 2){
-              insert_networks();
+              console.log('SUCCESS' + key + " "  + data.rows.length -1 )
             }
 
+
           })
+          if(key === data.rows.length -1 && form_type_id === 2){
+            conn.end();
+            console.log("INSERTING NETWORKS")
+            insert_networks();
+          }
         }
 
       }
@@ -1091,12 +1094,6 @@ function temp(network_name, user_id){
 }
 
 
-<<<<<<< HEAD
-// temp("new as name", 1);
-=======
-//temp("new as name", 1);
->>>>>>> 66beceebeb6ecbe0dbbb4d1b461b8b202a25cd13
-//12
 app.post('/api/network/save', (req, res) => {
   console.log(req.body);
   const network_name = req.body.name;
