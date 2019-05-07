@@ -25,6 +25,9 @@ import ReactDOM from 'react-dom';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { Redirect } from 'react-router-dom'
+import { storeUser } from '../actions/storeUser'
+import { redirect } from '../actions/redirect'
+import { connect } from 'react-redux'
 
 const styles = theme => ({
   root: {
@@ -118,6 +121,9 @@ const styles = theme => ({
     submitComment:{
         width: "100%",
     },
+    uncommented:{
+        color: "black"
+    },
     commented:{
         color: "lightgreen"
     },
@@ -159,6 +165,8 @@ class DocReview extends React.Component {
   }
     
     submitReview(done){
+        const { user } = this.props.userReducer;
+        console.log(user)
         fetch('/api/forms/save', {
             method: 'POST',
             headers: {
@@ -167,6 +175,7 @@ class DocReview extends React.Component {
                 },
             body: JSON.stringify({
             id: this.state.docId,
+            userId: user.id,
             comments: this.state.commented,
             reviewed: done,
           })
@@ -195,7 +204,7 @@ class DocReview extends React.Component {
 
     };
     
-    comment(i){
+    comment(i, comments){
         
         const { classes } = this.props;
         let div1 = document.getElementById("q" + i);
@@ -281,7 +290,7 @@ class DocReview extends React.Component {
     }
 
     
-    parseFormsWithoutCommenting(dict1, dict2, {classes}){
+    parseFormsWithoutCommenting(dict1, dict2, comments, {classes}){
         
         let finalResult = []
 
@@ -294,14 +303,18 @@ class DocReview extends React.Component {
             let commentId = "c" + i;
             let commentDiv = "commentDiv" + i;
 
+            let commentClass = classes.uncommented;
             
+            if(i in comments){
+                commentClass = classes.commented;
+            }
 
             if(typeform[1] == "String"){
                 
                 let question = this.titleCase(typeform[0]);
-                //question = 
                 
-                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon id = {commentId} onClick={() => this.comment(i)} /></div></div>);
+                
+                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>);
             }else if(typeform[1] == "options"){
 
                const listItems = typeform[2].map((label) =>
@@ -317,7 +330,7 @@ class DocReview extends React.Component {
                 {listItems}
 
               </Select>
-            </FormControl><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon id = {commentId} onClick={() => this.comment(i)} /></div></div>
+            </FormControl><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>
                 );
             }
         }
@@ -326,7 +339,6 @@ class DocReview extends React.Component {
 
   render() {
     const { classes } = this.props;
-
     if (this.props.location.aboutProps === undefined) {
       return <Redirect to="/" />;
     }
@@ -349,7 +361,9 @@ class DocReview extends React.Component {
       
       if(Object.keys(this.state.info).length != 0){
       
-      
+      let comments = JSON.parse(this.state.info['comments']);
+          
+        this.state.commented = comments;
       let typeform = JSON.parse(this.state.info['question_type']);
       let responses = JSON.parse(this.state.info['question_answer']);
         
@@ -360,9 +374,9 @@ class DocReview extends React.Component {
       }
     
         if(reviewed == 0){
-            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, {classes});
+            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, comments, {classes});
         }else{
-            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, {classes});
+            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, comments, {classes});
         }
           
           renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
@@ -395,4 +409,14 @@ DocReview.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DocReview);
+const mapDispatchToProps = dispatch => ({
+  redirect: () => dispatch(redirect()),
+  storeUser: string => dispatch(storeUser(string))
+})
+
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DocReview));

@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-//create_fake_data()
+create_fake_data()
 function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
@@ -617,7 +617,7 @@ function insert_forms () {
           const form_json = generateForm(get_form(form_type_id))
           const client_id = key
           const comments_json = generateComments(form_json)
-          conn.query('insert into Forms(client_id, form_type_id, info_json, comments_json) values(?,?,?,?)', [client_id, form_type_id, JSON.stringify(form_json), JSON.stringify(comments_json)], function (error, data) {
+          conn.query('insert into Forms(client_id, form_type_id, info_json, comments_json) values(?,?,?,?)', [client_id, form_type_id, JSON.stringify(form_json), JSON.stringify({})], function (error, data) {
             if (error) {
               console.log('EROR2')
 
