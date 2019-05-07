@@ -9,8 +9,11 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux'
 import Add from '@material-ui/icons/Add';
+import Remove from '@material-ui/icons/Remove';
 import { InputBase } from '@material-ui/core/es/index'
 import TextField from '@material-ui/core/es/TextField/TextField'
+import { storeUser } from '../actions/storeUser'
+import { redirect } from '../actions/redirect'
 
 const styles = theme => ({
   root: {
@@ -61,12 +64,29 @@ const styles = theme => ({
 
 class LawyerCard extends React.Component {
   state = {
-    organization: "",
+    network: "",
   };
 
 
   addOrganization() {
-
+    let { user } = this.props;
+    fetch('/api/network/save', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.state.network,
+        userId: user.id
+      })
+    }).then(
+      function(response){
+        console.log(response);
+      });
+    console.log(user);
+    user.networks.push(this.state.network);
+    this.props.storeUser(user);
   }
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -91,29 +111,22 @@ class LawyerCard extends React.Component {
               {user.email}
             </Typography>
           </CardContent>
-          {/*<CardActions>*/}
-          {/*<Button size="small" color="secondary" className={classes.button}>(Edit)</Button>*/}
-          {/*</CardActions>*/}
           <Divider variant="middle"/>
           <CardContent className={classes.content}>
             <Typography className={classes.topText} color="secondary">
               Your Networks
             </Typography>
 
-            <Typography className={classes.bottomText} color="secondary">
-              {user.networks[0]}
-            </Typography>
-            <button onClick={() => this.addOrganization()} className={classes.add}><Add/></button>
+              {user.networks.map((n) => (<div><Typography className={classes.bottomText} color="secondary">{n}</Typography><Remove/></div>))}
+
+           <Add onClick={() => this.addOrganization()} className={classes.add}/>
             <TextField
               id="standard-name"
               className={classes.textField}
-              value={this.state.organization}
-              onChange={this.handleChange('organization')}
+              value={this.state.network}
+              onChange={this.handleChange('network')}
               margin="normal"
             />
-            {/*<CardActions>*/}
-            {/*<Button size="small" color="secondary" className={classes.button}>(Add new Connection)</Button>*/}
-            {/*</CardActions>*/}
           </CardContent>
         </Card>
       </div>
@@ -125,5 +138,15 @@ LawyerCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapDispatchToProps = dispatch => ({
+  redirect: () => dispatch(redirect()),
+  storeUser: string => dispatch(storeUser(string))
+})
 
-export default withStyles(styles)(LawyerCard);
+
+const mapStateToProps = state => ({
+  ...state
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LawyerCard));

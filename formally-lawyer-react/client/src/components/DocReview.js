@@ -179,7 +179,6 @@ class DocReview extends React.Component {
             reviewed: done,
           })
         });
-        let index = -1;
         for (let key in client.forms) {
           if ( client.forms[key].id === parseInt(this.state.docId) ) {
             client.forms[key].reviewed = 1;
