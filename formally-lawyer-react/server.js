@@ -628,6 +628,9 @@ function insert_forms () {
             } else {
               console.log('SUCCESS')
             }
+            if(key === data.rows.length && form_type_id === 2){
+              insert_networks();
+            }
 
           })
         }
@@ -688,7 +691,6 @@ function create_fake_data () {
               }
               if (number_of_clients === j + 1 && number_users === i + 1) {
                 insert_all_forms();
-                  insert_networks()
               }
 
             })
@@ -1088,7 +1090,7 @@ function temp(network_name, user_id){
 }
 
 
-temp("new as name", 1);
+//temp("new as name", 1);
 //12
 app.post('/api/network/save', (req, res) => {
   console.log(req.body);
