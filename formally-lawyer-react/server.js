@@ -1041,8 +1041,95 @@ app.post('/api/forms/save', (req, res) => {
     const formid = req.body.id
     const comments = req.body.comments
     const reviewed = req.body.reviewed
+    const user_id = req.body.userId
 
     save_comment(formid, comments, reviewed)
+
+    //login is valid
+    console.log('SUCCESSs')
+    delete data.rows[0].password
+    const info = data.rows[0]
+    const networks = []
+    conn.query('select n.name from Networks as n, Users as u, User_Network as un where u.id = un.user_id and un.network_id = n.id and u.id = ?', [user_id], function (err, data2) {
+        if (err) {
+            console.log(err)
+            res.send({error: err})
+            conn.end()
+
+        } else {
+            console.log('ROWS ARE')
+            console.log(data2.rows)
+            Object.keys(data2.rows).forEach(function (key) {
+                networks.push(data2.rows[key].name)
+            })
+            conn.query('select * from Clients where user_id = ?', [info.id], function (er, data3) {
+                if (er) {
+                    console.log('INNER')
+                    console.log(er)
+
+                } else {
+                    console.log('GETTING CLIENTS')
+                    //conn.query("select id, name, reviewed from Forms where client_id = ?", [])
+                    info.networks = networks
+                    let curr_clients = data3.rows
+                    if (curr_clients.length === 0) {
+                        conn.end()
+                        info.clients = []
+                        res.send(info)
+                    } else {
+
+                        for (let key = 0; key < curr_clients.length; key++) {
+
+                            conn.query('select f.id, ft.name,ft.full_name, f.reviewed from Forms as f, Form_types as ft where f.form_type_id = ft.id and client_id = ?', [curr_clients[key].id], function (error, data) {
+                                if (error) {
+                                    console.log('ERROR GETTING FORMS')
+                                    console.log(error)
+                                } else {
+                                    const forms = []
+                                    for (let k in data.rows) {
+                                        forms.push(data.rows[k])
+                                    }
+                                    curr_clients[key].forms = forms
+                                    if (key === curr_clients.length - 1) {
+                                        info.clients = curr_clients
+                                        console.log('SENDING back')
+                                        console.log(info)
+                                        res.send(info)
+
+                                    }
+                                }
+
+                            })
+                            //console.log("CLIENT ",curr_clients[key])
+                        }
+                    }
+                    console.log('FINISHEDCLIENT')
+
+                    //console.log("INFO")
+                    //console.log(info)
+                }
+
+            })
+
+        }
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     res.send({message:"Received your request"})
 
 });

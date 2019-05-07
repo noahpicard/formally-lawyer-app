@@ -11,6 +11,9 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import { storeUser } from './actions/storeUser';
+import Link from 'react-router-dom/es/Link'
+
+
 
 
 const theme = createMuiTheme({
@@ -78,6 +81,10 @@ const theme = createMuiTheme({
 class App extends Component {
 
 render() {
+  const url = window.location.href;
+
+
+  console.log(url)
   return (<div>
               <MuiThemeProvider theme={theme}>
                 <BrowserRouter>
