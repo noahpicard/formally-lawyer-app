@@ -25,17 +25,18 @@ const styles = theme => ({
   },
     bigPaper:{
         marginTop: theme.spacing.unit * 6,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing.unit * 4,
+        paddingBottom: theme.spacing.unit * 4,
         backgroundColor: "lightgrey",
-        height: "800px",
+        height: "auto",
         width: "900px",
         position: "relative",
         left: "20%"
     },
     smallPaper:{
-        marginTop: theme.spacing.unit * 3,
+        
         backgroundColor: "white",
-        height: "700px",
+        height: "auto",
         width: "700px",
         position: "relative",
         top: "5%",

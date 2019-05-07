@@ -159,7 +159,18 @@ class DocReview extends React.Component {
   }
     
     submitReview(done){
-
+        fetch('/api/forms/save', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({
+            id: this.state.docId,
+            comments: this.state.commented,
+            reviewed: done,
+          })
+        });
     }
     
    test = async e => {
@@ -270,7 +281,7 @@ class DocReview extends React.Component {
     }
 
     
-    parseForms(dict1, dict2, {classes}){
+    parseFormsWithoutCommenting(dict1, dict2, {classes}){
         
         let finalResult = []
 
@@ -285,7 +296,7 @@ class DocReview extends React.Component {
 
             
 
-            if(typeform[1] == "String" || typeform[1] == "Integer" || typeform[1] == "Date"){
+            if(typeform[1] == "String"){
                 
                 let question = this.titleCase(typeform[0]);
                 //question = 
@@ -320,8 +331,21 @@ class DocReview extends React.Component {
       return <Redirect to="/" />;
     }
     const { client } = this.props.location.aboutProps;
+      
+      console.log(client);
+      
+      let reviewed = 0;
+      
+      for(let key in client.forms){
+          if (this.state.docId == client.forms[key]["id"]){
+              reviewed = client.forms[key]["reviewed"];
+          }
+      }
+      
+      
     
         let renderedOutput;
+        let formQuestions;
       
       if(Object.keys(this.state.info).length != 0){
       
@@ -334,9 +358,14 @@ class DocReview extends React.Component {
           let temp = responses[key];
           responses[key] = temp[1];
       }
-
-      let formQuestions = this.parseForms(typeform, responses, {classes});
-      renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
+    
+        if(reviewed == 0){
+            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, {classes});
+        }else{
+            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, {classes});
+        }
+          
+          renderedOutput = formQuestions.map(item => <div> {item} <hr /></div>);
       }
     
     return (
