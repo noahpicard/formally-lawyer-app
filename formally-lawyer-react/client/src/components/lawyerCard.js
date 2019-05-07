@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux'
+import Add from '@material-ui/icons/Add';
+import { InputBase } from '@material-ui/core/es/index'
+import TextField from '@material-ui/core/es/TextField/TextField'
 
 const styles = theme => ({
   root: {
@@ -45,45 +48,77 @@ const styles = theme => ({
   },
   content: {
     paddingBottom: 0
-  }
+  },
+  add: {
+
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
 });
 
-function LawyerCard(props) {
+class LawyerCard extends React.Component {
+  state = {
+    organization: "",
+  };
 
-  const { classes, user } = props;
 
-  return (
-   <div className={classes.root}>
-     <Typography className={classes.title} color="primary" >
-       Welcome {user.first_name}
-     </Typography>
-     <Card className={classes.card}>
-       <CardContent className={classes.content}>
-         <Typography className={classes.topText} color="secondary">
-           {user.first_name} {user.last_name}
-         </Typography>
-         <Typography className={classes.bottomText} color="secondary">
-           {user.email}
-         </Typography>
-       </CardContent>
-       {/*<CardActions>*/}
-         {/*<Button size="small" color="secondary" className={classes.button}>(Edit)</Button>*/}
-       {/*</CardActions>*/}
-       <Divider variant="middle" />
-       <CardContent className={classes.content}>
-         <Typography className={classes.topText} color="secondary">
-           Your Networks
-         </Typography>
-         <Typography className={classes.bottomText} color="secondary">
-           {user.networks[0]}
-         </Typography>
-         {/*<CardActions>*/}
-           {/*<Button size="small" color="secondary" className={classes.button}>(Add new Connection)</Button>*/}
-         {/*</CardActions>*/}
-       </CardContent>
-     </Card>
-   </div>
-  );
+  addOrganization() {
+
+  }
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
+
+
+
+  render () {
+    const {classes, user} = this.props;
+
+    return (
+      <div className={classes.root}>
+        <Typography className={classes.title} color="primary">
+          Welcome {user.first_name}
+        </Typography>
+        <Card className={classes.card}>
+          <CardContent className={classes.content}>
+            <Typography className={classes.topText} color="secondary">
+              {user.first_name} {user.last_name}
+            </Typography>
+            <Typography className={classes.bottomText} color="secondary">
+              {user.email}
+            </Typography>
+          </CardContent>
+          {/*<CardActions>*/}
+          {/*<Button size="small" color="secondary" className={classes.button}>(Edit)</Button>*/}
+          {/*</CardActions>*/}
+          <Divider variant="middle"/>
+          <CardContent className={classes.content}>
+            <Typography className={classes.topText} color="secondary">
+              Your Networks
+            </Typography>
+
+            <Typography className={classes.bottomText} color="secondary">
+              {user.networks[0]}
+            </Typography>
+            <button onClick={() => this.addOrganization()} className={classes.add}><Add/></button>
+            <TextField
+              id="standard-name"
+              className={classes.textField}
+              value={this.state.organization}
+              onChange={this.handleChange('organization')}
+              margin="normal"
+            />
+            {/*<CardActions>*/}
+            {/*<Button size="small" color="secondary" className={classes.button}>(Add new Connection)</Button>*/}
+            {/*</CardActions>*/}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 }
 
 LawyerCard.propTypes = {

@@ -165,9 +165,9 @@ class DocReview extends React.Component {
   }
     
     submitReview(done) {
-        const { user } = this.props.userReducer;
-        console.log("hello");
-        const response = fetch('/api/forms/save', {
+        let { user } = this.props.userReducer;
+      let { client } = this.props.location.aboutProps;
+        fetch('/api/forms/save', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -175,22 +175,19 @@ class DocReview extends React.Component {
                 },
             body: JSON.stringify({
             id: this.state.docId,
-            userId: user.id,
             comments: this.state.commented,
             reviewed: done,
           })
         });
-        console.log(response);
-//        if ("error" in body) {
-//          console.log(body);
-//          this.setState({ errorMsg: body.error})
-//        }
-//        else if ("first_name" in body) {
-//          this.props.storeUser(body);
-//        }
-//        else {
-//          console.log(body);
-//        }
+        let index = -1;
+        for (let key in client.forms) {
+          if ( client.forms[key].id === parseInt(this.state.docId) ) {
+            client.forms[key].reviewed = 1;
+          }
+        }
+        user.clients[user.clients.indexOf(client)] = client;
+        console.log(user.clients[user.clients.indexOf(client)]);
+        this.props.storeUser(user);
     };
     
    test = async e => {
@@ -302,6 +299,53 @@ class DocReview extends React.Component {
 
     
     parseFormsWithCommenting(dict1, dict2, comments, {classes}){
+        
+        let finalResult = []
+
+        for(let i = 0; i < Object.keys(dict1).length; i++){
+
+            let typeform = dict1[i]
+            let response = dict2[i]
+            
+            let divId = "q" + i;
+            let commentId = "c" + i;
+            let commentDiv = "commentDiv" + i;
+
+            let commentClass = classes.uncommented;
+            
+            if(i in comments){
+                commentClass = classes.commented;
+            }
+
+            if(typeform[1] == "String"){
+                
+                let question = this.titleCase(typeform[0]);
+                
+                
+                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>);
+            }else if(typeform[1] == "options"){
+
+               const listItems = typeform[2].map((label) =>
+                <MenuItem value={label}>{label}</MenuItem>
+                );
+
+                 finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{typeform[0]}</Typography><FormControl className = {classes.questionResponse}>
+              <Select value={response}>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+
+                {listItems}
+
+              </Select>
+            </FormControl><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>
+                );
+            }
+        }
+        return finalResult;
+    }
+    
+      parseFormsWithoutCommenting(dict1, dict2, comments, {classes}){
         
         let finalResult = []
 

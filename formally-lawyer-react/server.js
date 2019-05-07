@@ -26,6 +26,7 @@ create_tables()
 const saltRounds = 10
 
 //create_fake_data()
+
 function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
@@ -1074,23 +1075,32 @@ function temp(network_name, user_id){
 }
 
 
-temp("new nnnew name", 1);
-//1
+temp("new as name", 1);
+//12
 app.post('/api/network/save', (req, res) => {
-  const conn = db.createConnection('sqlite3://formally-lawyer.db')
-
+  console.log("OMG IT CALLED");
+  console.log(req.body);
   const network_name = req.body.name;
   const user_id = req.body.userId;
+
+  const conn = db.createConnection('sqlite3://formally-lawyer.db')
+
   conn.query("select * from Networks where name = ?", [network_name], function(error, data){
     if(error){
       console.log("ERROR: really should never print, error getting network names");
       console.log(error);
     }else{
+      console.log("ELDSE");
       if(data.rows.length === 0){
-        conn.query("insert into Networks(name) values(?)", [network_name], associate_user_network(error, data,user_id, network_name))
+        conn.query("insert into Networks(name) values(?)", [network_name], function(error, data){
+          if(error){
+            console.log(error);
+          }
+          associate_user_network(user_id, network_name);
+        });
         conn.end();
       }else{
-        associate_user_network(user_id, network_name)
+        associate_user_network(user_id, network_name);
       }
     }
   });
@@ -1106,7 +1116,6 @@ app.post('/api/forms/save', (req, res) => {
     const formid = req.body.id
     const comments = req.body.comments
     const reviewed = req.body.reviewed
-    const user_id = req.body.userId
     save_comment(formid, comments, reviewed)
     res.send({message:"Received your request"})
 
