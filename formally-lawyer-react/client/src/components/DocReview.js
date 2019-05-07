@@ -195,14 +195,19 @@ class DocReview extends React.Component {
             reviewed: done,
           })
         });
-        for (let key in client.forms) {
-          if ( client.forms[key].id === parseInt(this.state.docId) ) {
-            client.forms[key].reviewed = 1;
-          }
+        
+        
+        if(done == 1){
+            this.state.info['comments'] = JSON.stringify(this.state.commented);
+            for (let key in client.forms) {
+              if ( client.forms[key].id === parseInt(this.state.docId) ) {
+                client.forms[key].reviewed = 1;
+              }
+            }
+            user.clients[user.clients.indexOf(client)] = client;
+            console.log(user.clients[user.clients.indexOf(client)]);
+            this.props.storeUser(user);
         }
-        user.clients[user.clients.indexOf(client)] = client;
-        console.log(user.clients[user.clients.indexOf(client)]);
-        this.props.storeUser(user);
     };
     
    test = async e => {
