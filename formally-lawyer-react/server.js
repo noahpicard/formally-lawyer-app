@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-//create_fake_data()
+create_fake_data()
 function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
@@ -640,6 +640,7 @@ function insert_forms () {
 function insert_all_forms () {
   insert_form_types()
 
+
 }
 
 function create_fake_data () {
@@ -684,7 +685,8 @@ function create_fake_data () {
                 console.log(data)
               }
               if (number_of_clients === j + 1 && number_users === i + 1) {
-                insert_all_forms()
+                insert_all_forms();
+                  insert_networks()
               }
 
             })
@@ -749,9 +751,9 @@ function createClient (used) {
   return {first_name, last_name, password, email, immigration_status, arn, nationality, address}
 }
 
-function save_comment(form_id, comment){
+function save_comment(form_id, comment,reviewed){
     const conn = db.createConnection('sqlite3://formally-lawyer.db')
-    conn.query("UPDATE Forms SET comments_json = ? WHERE id = ?", [comment, form_id], function (error){
+    conn.query("UPDATE Forms SET comments_json = ? , reviewed = ? WHERE id = ?", [comment,reviewed, form_id], function (error){
       if(error){
         console.log("ERROR: something happened when inserting comment");
         console.log(error);
@@ -772,6 +774,12 @@ function associate_user_network(user_id, network_id){
         conn.end();
     });
 
+}
+
+function insert_networks() {
+    for(let network_name in networks){
+      insert_network(network_name)
+    }
 }
 
 function insert_network(network_name){
@@ -1020,6 +1028,14 @@ function ValidateEmail (email) {
   return (false)
 }
 
+app.post('/api/forms/save', (req, res) => {
+  console.log(req.body)
+    const formid = req.body.id
+    const comments = req.body.comments
+    const reviewed = req.body.reviewed
+    save_comment(formid, comments, reviewed)
+
+});
 app.post('/api/signup', (req, res) => {
   if (!ValidateEmail(req.body.email)) {
     const to_return = {error: 'You have entered an invalid email address!'}
