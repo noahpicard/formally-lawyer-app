@@ -146,7 +146,23 @@ const styles = theme => ({
         color: "#01BABB",
         textAlign: "center",
         paddingTop:"5px",
-    }
+    },
+    commentField:{
+        position:"relative",
+        width: "200px",
+        height: "auto",
+        left:"15%",
+        marginTop: "8px",
+        marginBottom: "5px"
+    },
+    questionDiv1:{
+        display: "flex",
+        flexDirection: "row",
+        height: "auto",
+        minHeight: "50px",
+        width:"100%",
+        marginRight:"0px",
+    },
 });
 
 
@@ -227,7 +243,7 @@ class DocReview extends React.Component {
         let commentBar = <div className = {classes.submitComment}><TextField id = {divId} InputProps={{
             classes: {
               input: classes.commentText,
-            },}} label="Comment" defaultValue = {currentComment} className = {classes.commentBar} multiline rowsMax="4"/><CheckIcon className = {classes.checkIcon} onClick={() => this.submitComment(i)} /><CancelIcon onClick={() => this.cancelComment(i)} className = {classes.cancelIcon}/></div>;
+            },}} label="Comment" defaultValue = {currentComment} className = {classes.commentBar} multiline rowsMax="3"/><CheckIcon className = {classes.checkIcon} onClick={() => this.submitComment(i)} /><CancelIcon onClick={() => this.cancelComment(i)} className = {classes.cancelIcon}/></div>;
         
         let h = div1.clientHeight * 2
         h = h.toString() + "px";
@@ -362,20 +378,36 @@ class DocReview extends React.Component {
             if(i in comments){
                 commentClass = classes.commented;
             }
+            
+            let element = ""
+                
+                if(i in comments){
+                    element = <TextField
+          defaultValue={comments[i]}
+            multiline
+          rowsMax="3"
+          className={classes.commentField}
+          margin="normal"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
+                }
+            
 
             if(typeform[1] == "String"){
                 
                 let question = this.titleCase(typeform[0]);
                 
-                
-                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>);
+                finalResult.push(<div id = {divId} className = {classes.questionDiv1}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/>{element}</div>);
             }else if(typeform[1] == "options"){
 
                const listItems = typeform[2].map((label) =>
                 <MenuItem value={label}>{label}</MenuItem>
                 );
 
-                 finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{typeform[0]}</Typography><FormControl className = {classes.questionResponse}>
+                 finalResult.push(<div id = {divId} className = {classes.questionDiv1}><Typography className={classes.questionName}>{typeform[0]}</Typography><FormControl className = {classes.questionResponse}>
               <Select value={response}>
                 <MenuItem value="">
                   <em>None</em>
@@ -384,7 +416,7 @@ class DocReview extends React.Component {
                 {listItems}
 
               </Select>
-            </FormControl><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>
+            </FormControl> {element}</div>
                 );
             }
         }
