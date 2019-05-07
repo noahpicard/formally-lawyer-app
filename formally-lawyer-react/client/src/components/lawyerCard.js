@@ -75,7 +75,7 @@ function LawyerCard(props) {
            Your Networks
          </Typography>
          <Typography className={classes.bottomText} color="secondary">
-           Coalition of Princes
+           {user.networks[0]}
          </Typography>
          {/*<CardActions>*/}
            {/*<Button size="small" color="secondary" className={classes.button}>(Add new Connection)</Button>*/}

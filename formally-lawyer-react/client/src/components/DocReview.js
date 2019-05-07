@@ -164,10 +164,10 @@ class DocReview extends React.Component {
         this.test();
   }
     
-    submitReview(done){
+    submitReview(done) {
         const { user } = this.props.userReducer;
-        console.log(user)
-        fetch('/api/forms/save', {
+        console.log("hello");
+        const response = fetch('/api/forms/save', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -180,7 +180,18 @@ class DocReview extends React.Component {
             reviewed: done,
           })
         });
-    }
+        console.log(response);
+//        if ("error" in body) {
+//          console.log(body);
+//          this.setState({ errorMsg: body.error})
+//        }
+//        else if ("first_name" in body) {
+//          this.props.storeUser(body);
+//        }
+//        else {
+//          console.log(body);
+//        }
+    };
     
    test = async e => {
         console.log("SENDING")
@@ -290,7 +301,7 @@ class DocReview extends React.Component {
     }
 
     
-    parseFormsWithoutCommenting(dict1, dict2, comments, {classes}){
+    parseFormsWithCommenting(dict1, dict2, comments, {classes}){
         
         let finalResult = []
 
@@ -374,7 +385,7 @@ class DocReview extends React.Component {
       }
     
         if(reviewed == 0){
-            formQuestions = this.parseFormsWithoutCommenting(typeform, responses, comments, {classes});
+            formQuestions = this.parseFormsWithCommenting(typeform, responses, comments, {classes});
         }else{
             formQuestions = this.parseFormsWithoutCommenting(typeform, responses, comments, {classes});
         }
