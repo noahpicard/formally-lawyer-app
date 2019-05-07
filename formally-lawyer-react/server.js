@@ -780,13 +780,20 @@ function associate_user_network(user_id, network_name){
         conn.end();
       }else{
         const network_id = data.rows[0].id;
-        conn.query("insert into User_Network(user_id, network_id) VALUES(?,?);", [user_id, network_id], function (error){
-          if(error){
-            console.log("ERROR: something happened when associating user_netword");
-            console.log(error);
+        conn.query("select * from User_Network where user_id = ? and network_id = ?", [user_id, network_id], function(error,data){
+          if(data.rows.length === 0){
+            conn.query("insert into User_Network(user_id, network_id) VALUES(?,?);", [user_id, network_id], function (error){
+              if(error){
+                console.log("ERROR: something happened when associating user_network");
+                console.log(error);
+              }
+              conn.end();
+            });
+          }else{
+            conn.end();
           }
-          conn.end();
-        });
+        })
+
       }
     })
 
