@@ -15,6 +15,7 @@ import { Link } from '@material-ui/core/es/index'
 import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 import Route from 'react-router-dom/es/Route'
 import { Link as RouterLink } from 'react-router-dom';
+import { storeUser } from '../actions/storeUser'
 
 const breadcrumbNameMap = {
   '/Home': 'Home',
@@ -42,17 +43,18 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "flex-end",
     width: "100%",
+    alignItems: "center",
   },
   button: {
     fontSize: "large",
     marginLeft: "5%",
     marginRight: "5%",
+    textTransform: "none",
   },
   welcome: {
     color: "white",
     fontSize: "large",
     marginLeft: "5%",
-    marginRight: "5%",
   },
   img: {
     marginLeft: "1%",
@@ -95,6 +97,11 @@ class Header extends React.Component {
   handleOpen = () => {
     this.setState({ open: true });
   };
+
+  handleSignOut = () => {
+    this.props.storeUser({});
+    console.log(this.props.userReducer)
+  }
 
   changeLogin = () => {
     this.setState({ signUpSignIn: !this.state.signUpSignIn })
@@ -156,6 +163,7 @@ class Header extends React.Component {
 
             {(user !== undefined) ? (<div className={classes.buttons}>
               <Typography className={classes.welcome}> Hello {user.first_name} {user.last_name} </Typography>
+              <Button color="secondary" onClick={this.handleSignOut} className={classes.button}>Sign Out</Button>
             </div>) : signInOptions }
 
           </Toolbar>
@@ -169,7 +177,9 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  storeUser: string => dispatch(storeUser(string)),
+})
 
 const mapStateToProps = state => ({
   ...state

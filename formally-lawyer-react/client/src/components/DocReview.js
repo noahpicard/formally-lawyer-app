@@ -182,7 +182,7 @@ class DocReview extends React.Component {
     
     submitReview(done) {
         let { user } = this.props.userReducer;
-      const { client } = this.props.location.aboutProps;
+      let { client } = this.props.location.aboutProps;
         fetch('/api/forms/save', {
             method: 'POST',
             headers: {
@@ -195,7 +195,14 @@ class DocReview extends React.Component {
             reviewed: done,
           })
         });
-        console.log(user);
+        for (let key in client.forms) {
+          if ( client.forms[key].id === parseInt(this.state.docId) ) {
+            client.forms[key].reviewed = 1;
+          }
+        }
+        user.clients[user.clients.indexOf(client)] = client;
+        console.log(user.clients[user.clients.indexOf(client)]);
+        this.props.storeUser(user);
     };
     
    test = async e => {
