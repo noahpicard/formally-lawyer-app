@@ -99,7 +99,7 @@ class Header extends React.Component {
   };
 
   handleSignOut = () => {
-    this.props.storeUser({});
+    this.props.storeUser(null);
     console.log(this.props.userReducer)
   }
 
