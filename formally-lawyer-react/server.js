@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-create_fake_data()
+// create_fake_data()
 
 function capitlize_first(string)
 {
@@ -1088,7 +1088,7 @@ function temp(network_name, user_id){
 }
 
 
-temp("new as name", 1);
+// temp("new as name", 1);
 //12
 app.post('/api/network/save', (req, res) => {
   console.log(req.body);
