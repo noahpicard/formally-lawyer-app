@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-//create_fake_data()
+create_fake_data()
 
 function capitlize_first(string)
 {
@@ -771,6 +771,12 @@ function save_comment(form_id, comment,reviewed){
 }
 
 
+function deassociate_user_network(user_id, network_id){
+  const conn = db.createConnection('sqlite3://formally-lawyer.db');
+  conn.query("DELETE FROM User_Network WHERE user_id = ? and network_id = ?;", [user_id,network_id]);
+}
+
+
 function associate_user_network(user_id, network_name){
   console.log("ASSOCIATE")
     const conn = db.createConnection('sqlite3://formally-lawyer.db');
@@ -1085,7 +1091,6 @@ function temp(network_name, user_id){
 temp("new as name", 1);
 //12
 app.post('/api/network/save', (req, res) => {
-  console.log("OMG IT CALLED");
   console.log(req.body);
   const network_name = req.body.name;
   const user_id = req.body.userId;
@@ -1108,6 +1113,30 @@ app.post('/api/network/save', (req, res) => {
         conn.end();
       }else{
         associate_user_network(user_id, network_name);
+      }
+    }
+  });
+
+
+});
+
+app.post('/api/network/remove', (req, res) => {
+  console.log("remove ");
+  console.log(req.body);
+  const network_name = req.body.name;
+  const user_id = req.body.userId;
+
+  const conn = db.createConnection('sqlite3://formally-lawyer.db')
+
+  conn.query("select * from Networks where name = ?", [network_name], function(error, data){
+    if(error){
+      console.log("ERROR: really should never print, error getting network names");
+      console.log(error);
+    }else{
+      console.log("ELDSE");
+      if(data.rows.length !== 0){
+        deassociate_user_network(user_id, data.rows[0].id);
+
       }
     }
   });
