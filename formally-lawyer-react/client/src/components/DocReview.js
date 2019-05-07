@@ -27,7 +27,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { Redirect } from 'react-router-dom'
 import { storeUser } from '../actions/storeUser'
 import { redirect } from '../actions/redirect'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -504,7 +505,9 @@ reviewAgain(){
                                            
         <h1 className={classes.title}>Document Review - {this.state.info.full_name}</h1>
         
-        <h2 className={classes.title}>Client - {client.first_name + " " + client.last_name}</h2>
+        <NavLink to={{
+                pathname:"/ClientPage/"+client.first_name+"-"+client.last_name,
+                aboutProps:{client}}}> <h2 className={classes.title}>Client - {client.first_name + " " + client.last_name}</h2></NavLink>
                                              
         {topButton}
         

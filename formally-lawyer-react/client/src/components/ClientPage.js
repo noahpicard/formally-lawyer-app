@@ -15,7 +15,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const styles = theme => ({
@@ -92,6 +93,7 @@ class ClientPage extends React.Component {
       return <Redirect to="/" />;
     }
     const { client } = this.props.location.aboutProps;
+    
     return (
     <Paper className={classes.bigPaper} elevation={1}>
       
@@ -133,7 +135,9 @@ class ClientPage extends React.Component {
               {(client.forms).map(f => (
                 <TableRow key={f.id}>
                   <TableCell component="th" scope="row">
-                    {f.full_name}
+                    <NavLink to={{
+                    pathname:"/Document/"+f.id,
+                    aboutProps:{client}}}>{f.full_name}</NavLink>
                   </TableCell>
                   <TableCell style={{color:getColor(f.reviewed)}} align="right">{f.reviewed === 0 ? "Not Reviewed" : "Reviewed"}</TableCell>
                 </TableRow>

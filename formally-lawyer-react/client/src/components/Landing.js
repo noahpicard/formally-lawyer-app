@@ -1,7 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import splash from '../splash.jpg';
+import splash from '../splash.png';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/es/styles/index'
@@ -70,7 +70,6 @@ class Landing extends React.Component {
       <div className={classes.root}>
         <div className={classes.side}></div>
         <div className={classes.img}>
-          <h2 color="white">Start Helping the ones who need it the most.</h2>
         </div>
         <div className={classes.side}></div>
       </div>
