@@ -168,8 +168,8 @@ class DocReview extends React.Component {
             body: JSON.stringify({
             id: this.state.docId,
             comments: this.state.commented,
-            reviewed: done
-          });
+            reviewed: done,
+          })
         });
     }
     
