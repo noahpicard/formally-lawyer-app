@@ -337,6 +337,53 @@ class DocReview extends React.Component {
         }
         return finalResult;
     }
+    
+      parseFormsWithoutCommenting(dict1, dict2, comments, {classes}){
+        
+        let finalResult = []
+
+        for(let i = 0; i < Object.keys(dict1).length; i++){
+
+            let typeform = dict1[i]
+            let response = dict2[i]
+            
+            let divId = "q" + i;
+            let commentId = "c" + i;
+            let commentDiv = "commentDiv" + i;
+
+            let commentClass = classes.uncommented;
+            
+            if(i in comments){
+                commentClass = classes.commented;
+            }
+
+            if(typeform[1] == "String"){
+                
+                let question = this.titleCase(typeform[0]);
+                
+                
+                finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{question}</Typography><TextField className = {classes.questionResponse} defaultValue={response} InputProps={{readOnly: true, }}/><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>);
+            }else if(typeform[1] == "options"){
+
+               const listItems = typeform[2].map((label) =>
+                <MenuItem value={label}>{label}</MenuItem>
+                );
+
+                 finalResult.push(<div id = {divId} className = {classes.questionDiv}><Typography className={classes.questionName}>{typeform[0]}</Typography><FormControl className = {classes.questionResponse}>
+              <Select value={response}>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+
+                {listItems}
+
+              </Select>
+            </FormControl><div id = {commentDiv} className={classes.commentIcon}> <CommentIcon className = {commentClass} id = {commentId} onClick={() => this.comment(i, comments)} /></div></div>
+                );
+            }
+        }
+        return finalResult;
+    }
 
   render() {
     const { classes } = this.props;
