@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-create_fake_data()
+//create_fake_data()
 
 function capitlize_first(string)
 {
