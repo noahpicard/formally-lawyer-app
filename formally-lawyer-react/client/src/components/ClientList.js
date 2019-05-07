@@ -159,8 +159,10 @@ class ClientList extends React.Component {
             <Collapse in={this.state.open[i]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {(c.forms).map((f) => (<ListItem button className={classes.nested}>
-                  <ListItemText inset primary={f.full_name} />
                   {f.reviewed === 0 ? <FiberManualRecord className={classes.notReviewed}/> : <FiberManualRecord className={classes.Reviewed}/> }
+                  <NavLink to={{
+                    pathname:"/Document/"+f.id,
+                    aboutProps:{client:c}}}> {f.full_name}</NavLink>
                 </ListItem>))}
               </List>
             </Collapse></div>))}

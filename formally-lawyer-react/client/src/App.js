@@ -77,10 +77,6 @@ const theme = createMuiTheme({
 
 class App extends Component {
 
-  sAction = (event) => {
-    this.props.storeUser({first_name:"ben"});
-  }
-
 render() {
   return (<div>
               <MuiThemeProvider theme={theme}>
@@ -109,12 +105,5 @@ const mapStateToProps = state => ({
   ...state
 })
 
-//
-{/*<button onClick={this.sAction}>Test redux action</button>*/}
-{/*<pre>*/}
-{/*{*/}
-{/*JSON.stringify(this.props)*/}
-{/*}*/}
-{/*</pre>*/}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
