@@ -180,6 +180,7 @@ class DocReview extends React.Component {
           })
         });
         console.log(user);
+        console.log(user.clients.indexOf(client))
     };
     
    test = async e => {

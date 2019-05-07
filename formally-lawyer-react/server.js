@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-create_fake_data()
+// create_fake_data()
 function capitlize_first(string)
 {
     //console.log("getting" + string + " and returning " + string.charAt(0).toUpperCase() + string.slice(1).toLowerCase())
@@ -1041,7 +1041,6 @@ app.post('/api/forms/save', (req, res) => {
     const formid = req.body.id
     const comments = req.body.comments
     const reviewed = req.body.reviewed
-    const user_id = req.body.userId
     save_comment(formid, comments, reviewed)
     res.send({message:"Received your request"})
 
