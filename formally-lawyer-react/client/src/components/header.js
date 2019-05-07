@@ -10,8 +10,19 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/es/Typography/Typography'
-import { NavLink, Redirect } from 'react-router-dom'
+import { MemoryRouter, NavLink, Redirect } from 'react-router-dom'
+import { Link } from '@material-ui/core/es/index'
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
+import Route from 'react-router-dom/es/Route'
+import { Link as RouterLink } from 'react-router-dom';
 
+const breadcrumbNameMap = {
+  '/Home': 'Home',
+  '/Document': 'Document',
+  '/trash': 'Trash',
+  '/spam': 'Spam',
+  '/drafts': 'Drafts',
+};
 
 const styles = theme => ({
   root: {
@@ -93,13 +104,17 @@ class Header extends React.Component {
     this.setState({ open: false });
   };
 
+  handleClick(event) {
+    event.preventDefault();
+    alert('You clicked a breadcrumb.'); // eslint-disable-line no-alert
+  }
+
 
   render() {
     const { classes } = this.props;
     const { signUpSignIn } = this.state;
     const { user } = this.props.userReducer;
     const { redirect } = this.props.redirectReducer;
-
 
     const signUp = (<div>
                       <SignUp />
