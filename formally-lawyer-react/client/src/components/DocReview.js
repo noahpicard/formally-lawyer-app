@@ -165,9 +165,9 @@ class DocReview extends React.Component {
   }
     
     submitReview(done) {
-        const { user } = this.props.userReducer;
-        console.log("hello");
-        const response = fetch('/api/forms/save', {
+        let { user } = this.props.userReducer;
+      const { client } = this.props.location.aboutProps;
+        fetch('/api/forms/save', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -175,22 +175,11 @@ class DocReview extends React.Component {
                 },
             body: JSON.stringify({
             id: this.state.docId,
-            userId: user.id,
             comments: this.state.commented,
             reviewed: done,
           })
         });
-        console.log(response);
-//        if ("error" in body) {
-//          console.log(body);
-//          this.setState({ errorMsg: body.error})
-//        }
-//        else if ("first_name" in body) {
-//          this.props.storeUser(body);
-//        }
-//        else {
-//          console.log(body);
-//        }
+        console.log(user);
     };
     
    test = async e => {
