@@ -43,7 +43,8 @@ const styles = theme => ({
   },
   bottomText: {
     marginLeft: theme.spacing.unit * 2,
-    fontSize: "large"
+    fontSize: "large",
+    flex: "1",
   },
   button: {
     padding: 0,
@@ -60,6 +61,14 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rowItem: {
+
+  }
 });
 
 class LawyerCard extends React.Component {
@@ -87,7 +96,31 @@ class LawyerCard extends React.Component {
     console.log(user);
     user.networks.push(this.state.network);
     this.props.storeUser(user);
+    this.setState({network: ""})
   }
+
+  removeOrganization(name) {
+    let { user } = this.props;
+    fetch('/api/network/remove', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        userId: user.id
+      })
+    }).then(
+      function(response){
+        console.log(response);
+      });
+    console.log(user);
+    user.networks.splice(user.networks.indexOf(name))
+    this.props.storeUser(user);
+  }
+
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -117,16 +150,17 @@ class LawyerCard extends React.Component {
               Your Networks
             </Typography>
 
-              {user.networks.map((n) => (<div><Typography className={classes.bottomText} color="secondary">{n}</Typography><Remove/></div>))}
+              {user.networks.map((n) => (<div className={classes.row} id={n}><Typography className={classes.bottomText} color="secondary">{n}</Typography>
+                <Remove className={classes.rowItem} onClick={() => this.removeOrganization(n)}/></div>))}
+            <div className={classes.row} > <Add onClick={() => this.addOrganization()} className={classes.rowItem}/>
+              <TextField
+                id="standard-name"
+                className={classes.textField}
+                value={this.state.network}
+                onChange={this.handleChange('network')}
+                margin="normal"
+              /></div>
 
-           <Add onClick={() => this.addOrganization()} className={classes.add}/>
-            <TextField
-              id="standard-name"
-              className={classes.textField}
-              value={this.state.network}
-              onChange={this.handleChange('network')}
-              margin="normal"
-            />
           </CardContent>
         </Card>
       </div>
