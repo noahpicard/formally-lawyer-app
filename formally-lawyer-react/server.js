@@ -25,7 +25,7 @@ const db = require('any-db')
 create_tables()
 const saltRounds = 10
 
-create_fake_data()
+//create_fake_data()
 
 
 function capitlize_first(string)
@@ -1184,8 +1184,8 @@ app.post('/api/signup', (req, res) => {
             req.body['clients'] = []
             console.log('RETURNED')
             console.log(req.body)
+            req.body.networks = [];
             res.send(req.body)
-
             conn.end()
 
           }
