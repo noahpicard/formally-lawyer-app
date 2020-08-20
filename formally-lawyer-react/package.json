@@ -9,7 +9,7 @@
   "dependencies": {
     "any-db": "^2.2.1",
     "any-db-sqlite3": "^2.1.4",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "nodemon": "^1.19.0",
